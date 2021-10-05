@@ -12,24 +12,28 @@ public class Task : Prompt
     protected override void Start()
     {
         base.Start();
+
         // ...
     }
 
     protected override void Update()
     {
         base.Update();
+
         // ...
     }
 
     private new void TurnOn()
     {
         base.TurnOn();
+
         // ...
     }
 
     private new void TurnOff()
     {
         base.TurnOff();
+
         // ...
     }
 

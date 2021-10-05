@@ -45,6 +45,8 @@ public class Prompt : Logger
 
     protected override void Awake()
     {
+        base.Awake();
+
         // make some settings in AudioSource right off the bat
         AudioSource localSource = this.gameObject.GetComponent<AudioSource>();
         localSource.playOnAwake = false;
@@ -52,6 +54,8 @@ public class Prompt : Logger
 
     protected override void Start()
     {
+        base.Start();
+
         // try to retrieve the parent level immidiately
         // other attempts will be made if unsuccessful
         this.parentLevel = this.GetParentLevel();
