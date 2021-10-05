@@ -6,6 +6,6 @@ public class Village : Level
 {
     public Village()
     {
-        // empty ...
+        // ...
     }
 }

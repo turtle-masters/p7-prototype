@@ -1,16 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
+[RequireComponent(typeof(Interactable))]
 public class Task : Prompt
 {
-    void Start()
+    [HideInInspector]
+    public bool isGlowing = true;
+
+    protected override void Start()
     {
-        // empty ...
+        base.Start();
+        // ...
     }
 
-    void Update()
+    protected override void Update()
     {
-        // empty ...
+        base.Update();
+        // ...
     }
+
+    private new void TurnOn()
+    {
+        base.TurnOn();
+        // ...
+    }
+
+    private new void TurnOff()
+    {
+        base.TurnOff();
+        // ...
+    }
+
+    // ...
 }

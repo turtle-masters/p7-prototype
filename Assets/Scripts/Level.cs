@@ -2,10 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level : LevelController
+public class Level : Logger
 {
-    public Level()
+    private static void Log(GameObject playerObject, string details)
     {
-        // empty ...
+        // TODO: unwrap Player object and hand off to base.Log
+        // ...
     }
+
+    protected override void Start()
+    {
+        base.Start();
+        // ...
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        // ...
+    }
+
+    // ...
 }

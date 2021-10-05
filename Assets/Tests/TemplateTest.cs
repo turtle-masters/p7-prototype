@@ -4,15 +4,18 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class InheritanceTest
+/**
+ * NOT AN ACTUAL TEST
+ */
+public class TemplateTest
 {
-    PromptController target;
+    Level target;
 
     [SetUp]
     public void Setup()
     {
         GameObject testObject = new GameObject("TestObject");
-        target = testObject.AddComponent<PromptController>();
+        target = testObject.AddComponent<Level>();
     }
 
     [TearDown]
@@ -26,7 +29,7 @@ public class InheritanceTest
     public void InheritanceTestSimplePasses()
     {
         // Use the Assert class to test conditions
-        Assert.AreEqual("PromptController 1", target.GetVar());
+        Assert.AreEqual(1, 1);  // this serves as a template, and we don't want to interfere with actual testing, hence the trivial conditions...
     }
 
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use

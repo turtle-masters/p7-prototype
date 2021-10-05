@@ -6,6 +6,6 @@ public class Microverse : Level
 {
     public Microverse()
     {
-        // empty ...
+        // ...
     }
 }
