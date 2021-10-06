@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class PromptTest
 {
-    Level testLevel;
-    Prompt testPrompt;
-    Prompt testPrompt2;
+    protected Level testLevel;
+    protected Prompt testPrompt;
+    protected Prompt testPrompt2;
 
     [SetUp]
-    public void Setup()
+    public virtual void Setup()
     {
         GameObject testLevelObject = new GameObject("TestLevel");
         this.testLevel = testLevelObject.AddComponent<Level>();
@@ -25,7 +25,7 @@ public class PromptTest
     }
 
     [TearDown]
-    public void Teardown()
+    public virtual void Teardown()
     {
         Prompt.ResolveAll();
         Object.DestroyImmediate(testLevel.gameObject);  // running DestroyImmediate is ok since we're testing in edit mode and >should< also destroy child objects... hopefully...

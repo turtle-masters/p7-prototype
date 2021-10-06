@@ -14,6 +14,7 @@ public class DebugPlayer : MonoBehaviour
     public static float height = 1.5f;
 
     private GameObject playerObject;
+    //private GameObject fakeHand;
 
     protected void Awake()
     {
@@ -25,7 +26,12 @@ public class DebugPlayer : MonoBehaviour
 
     protected void Start()
     {
+        // find Player object
         this.playerObject = GameObject.FindGameObjectsWithTag("Player")[0];  // there should only ever be one GameObject tagged with "Player"
+        
+        // create fake player hand
+        //this.fakeHand = new GameObject("DebugPlayerHand");
+        //this.fakeHand.transform.SetParent(this.transform);
     }
 
     protected void FixedUpdate()

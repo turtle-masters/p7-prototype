@@ -26,8 +26,7 @@ public class Prompt : Logger
     public AudioClip audioClip;
     [Tooltip("The playback volume range (0 to 1) of the audio clip to be played.")]
     public float playbackVolume = 1f;
-    [HideInInspector]
-    [Tooltip("Whether the audio clip should be played in the player's ear (omnidirectional) or coming from the associated GameObject.")]
+    [Tooltip("Whether the audio clip should be played in the player's ear (omnidirectional) or coming from the associated GameObject (spatial).")]
     public bool isOmnidirectional = false;
     [Tooltip("Whether the audio clip should start again after it has finished playing (provided the Prompt is still active at that point).")]
     public bool isLooping = true;
@@ -54,6 +53,13 @@ public class Prompt : Logger
         AudioSource localSource = this.gameObject.AddComponent<AudioSource>();
         localSource.playOnAwake = false;
         localSource.clip = this.audioClip;
+
+        // handle spatial audio
+        if (!this.isOmnidirectional)
+        {
+            localSource.maxDistance = 8f;
+            localSource.spatialBlend = 1;
+        }
     }
 
     protected override void Start()

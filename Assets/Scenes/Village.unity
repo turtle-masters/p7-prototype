@@ -801,8 +801,8 @@ MonoBehaviour:
   promptText: Hello, Player!
   animateText: 0
   audioClip: {fileID: 8300000, guid: fdcbdcd5e7d71594bb123666b2bcb779, type: 3}
-  playbackVolume: 0.1
-  isOmnidirectional: 0
+  playbackVolume: 0.2
+  isOmnidirectional: 1
   isLooping: 0
   secondsWaitAfterPlay: 1
   OnActive:
@@ -1111,9 +1111,9 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: Hello, Player!
   animateText: 0
-  audioClip: {fileID: 8300000, guid: 747254780f5d81b40b16acac3b8f9585, type: 3}
-  playbackVolume: 0.1
-  isOmnidirectional: 1
+  audioClip: {fileID: 8300000, guid: fdcbdcd5e7d71594bb123666b2bcb779, type: 3}
+  playbackVolume: 0.2
+  isOmnidirectional: 0
   isLooping: 1
   secondsWaitAfterPlay: 1
   OnActive:
