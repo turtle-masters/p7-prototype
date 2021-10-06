@@ -12,7 +12,7 @@ public class ResolveEvent : UnityEvent<Prompt> { }
 /**
  * The base class for audio/visual Player signalling and communications
  */
-[RequireComponent(typeof(AudioSource))]
+//[RequireComponent(typeof(AudioSource))]
 public class Prompt : Logger
 {
     [Tooltip("A (preferably) unqiue and descriptive name to help identify this Prompt.")]
@@ -22,8 +22,11 @@ public class Prompt : Logger
     [HideInInspector]
     public bool animateText = false;                // very hard to implement properly ...
 
+    [Tooltip("The audio clip to be played when the Prompt is activated.")]
+    public AudioClip audioClip;
     [Tooltip("The playback volume range (0 to 1) of the audio clip to be played.")]
     public float playbackVolume = 1f;
+    [HideInInspector]
     [Tooltip("Whether the audio clip should be played in the player's ear (omnidirectional) or coming from the associated GameObject.")]
     public bool isOmnidirectional = false;
     [Tooltip("Whether the audio clip should start again after it has finished playing (provided the Prompt is still active at that point).")]
@@ -48,16 +51,16 @@ public class Prompt : Logger
         base.Awake();
 
         // make some settings in AudioSource right off the bat
-        AudioSource localSource = this.gameObject.GetComponent<AudioSource>();
+        AudioSource localSource = this.gameObject.AddComponent<AudioSource>();
         localSource.playOnAwake = false;
+        localSource.clip = this.audioClip;
     }
 
     protected override void Start()
     {
         base.Start();
 
-        // try to retrieve the parent level immidiately
-        // other attempts will be made if unsuccessful
+        // try to retrieve the parent level
         this.parentLevel = this.GetParentLevel();
 
         // find the player object

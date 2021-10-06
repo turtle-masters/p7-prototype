@@ -54,6 +54,7 @@ public class DebugPlayer : MonoBehaviour
             // reset the view (direction)
             GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
             GameObject newCamera = new GameObject("DebugCamera");
+            newCamera.AddComponent<AudioListener>();
             newCamera.transform.SetParent(this.playerObject.transform);
             newCamera.AddComponent<Camera>();
             newCamera.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));

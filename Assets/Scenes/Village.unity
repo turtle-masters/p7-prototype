@@ -700,6 +700,7 @@ GameObject:
   - component: {fileID: 377847152}
   - component: {fileID: 377847151}
   - component: {fileID: 377847150}
+  - component: {fileID: 377847154}
   m_Layer: 0
   m_Name: Door Height
   m_TagString: Untagged
@@ -728,7 +729,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377847149}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -784,6 +785,44 @@ Transform:
   m_Father: {fileID: 2040989663}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &377847154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377847149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08c25a5889717f45b24e099bff5c277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptName: An Awesome Prompt
+  promptText: Hello, Player!
+  animateText: 0
+  audioClip: {fileID: 8300000, guid: fdcbdcd5e7d71594bb123666b2bcb779, type: 3}
+  playbackVolume: 0.1
+  isOmnidirectional: 0
+  isLooping: 0
+  secondsWaitAfterPlay: 1
+  OnActive:
+    m_PersistentCalls:
+      m_Calls: []
+  OnResolve:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 510901991}
+        m_TargetAssemblyTypeName: Prompt, GameAssembly
+        m_MethodName: Activate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &388099094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -972,6 +1011,7 @@ GameObject:
   - component: {fileID: 510901990}
   - component: {fileID: 510901989}
   - component: {fileID: 510901988}
+  - component: {fileID: 510901991}
   m_Layer: 0
   m_Name: Door Height (2)
   m_TagString: Untagged
@@ -1014,7 +1054,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510901986}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1056,6 +1096,32 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510901986}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &510901991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510901986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08c25a5889717f45b24e099bff5c277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptName: An Awesome Prompt
+  promptText: Hello, Player!
+  animateText: 0
+  audioClip: {fileID: 8300000, guid: 747254780f5d81b40b16acac3b8f9585, type: 3}
+  playbackVolume: 0.1
+  isOmnidirectional: 1
+  isLooping: 1
+  secondsWaitAfterPlay: 1
+  OnActive:
+    m_PersistentCalls:
+      m_Calls: []
+  OnResolve:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &650859946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5203,6 +5269,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2040989663}
+  - component: {fileID: 2040989664}
   m_Layer: 0
   m_Name: DEBUGGING for measuring with mock
   m_TagString: Untagged
@@ -5226,6 +5293,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2040989664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040989662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialPrompt: {fileID: 377847154}
 --- !u!1001 &2045313104
 PrefabInstance:
   m_ObjectHideFlags: 0

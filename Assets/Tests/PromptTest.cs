@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 public class PromptTest
 {
@@ -14,13 +11,17 @@ public class PromptTest
     public void Setup()
     {
         GameObject testLevelObject = new GameObject("TestLevel");
-        testLevel = testLevelObject.AddComponent<Level>();
+        this.testLevel = testLevelObject.AddComponent<Level>();
         GameObject testPromptObject = new GameObject("TestPrompt");
         GameObject testPromptObject2 = new GameObject("TestPrompt2");
         testPromptObject.transform.parent = testLevelObject.transform;  // set the parent before Start in Prompt is run
         testPromptObject2.transform.parent = testLevelObject.transform;
-        testPrompt = testPromptObject.AddComponent<Prompt>();
-        testPrompt2 = testPromptObject2.AddComponent<Prompt>();
+        this.testPrompt = testPromptObject.AddComponent<Prompt>();
+        this.testPrompt2 = testPromptObject2.AddComponent<Prompt>();
+
+        // audio source must be added manually in testing, even though it is done automatically when launching the game
+        testPrompt.gameObject.AddComponent<AudioSource>();
+        testPrompt2.gameObject.AddComponent<AudioSource>();
     }
 
     [TearDown]
