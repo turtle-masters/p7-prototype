@@ -9,8 +9,8 @@ using UnityEngine;
 public class DebugPlayer : MonoBehaviour
 {
     public static bool isActive = false;
-    public static float sensitivity = 4f;
-    public static float speed = 2f;
+    public static float sensitivity = 3f;
+    public static float speed = 3f;
     public static float height = 1.5f;
 
     private GameObject playerObject;
@@ -36,19 +36,19 @@ public class DebugPlayer : MonoBehaviour
             float rotateHorizontal = Input.GetAxis("Mouse X");
             float rotateVertical = Input.GetAxis("Mouse Y");
             Transform transform = this.playerObject.transform.Find("DebugCamera");
-            transform.Rotate(Vector3.up, rotateHorizontal * sensitivity, Space.World);
-            transform.Rotate(-this.playerObject.transform.right, rotateVertical * sensitivity);
+            this.playerObject.transform.Rotate(Vector3.up, rotateHorizontal * sensitivity, Space.World);
+            transform.Rotate(this.playerObject.transform.forward, rotateVertical * sensitivity, Space.World);
         }
         // keyboard input
         Vector3 movement = new Vector3(0, 0, 0);
         if (Input.GetKey(KeyCode.W))
-            movement.z += 1;
-        if (Input.GetKey(KeyCode.A))
             movement.x += 1;
+        if (Input.GetKey(KeyCode.A))
+            movement.z += 1;
         if (Input.GetKey(KeyCode.S))
-            movement.z -= 1;
-        if (Input.GetKey(KeyCode.D))
             movement.x -= 1;
+        if (Input.GetKey(KeyCode.D))
+            movement.z -= 1;
         if (!isActive && !movement.Equals(new Vector3(0, 0, 0)))
         {
             // reset the view (direction)
@@ -65,6 +65,10 @@ public class DebugPlayer : MonoBehaviour
             isActive = true;
         }
         // move the Player
-        this.playerObject.transform.Translate(movement * speed * Time.deltaTime, this.playerObject.transform.Find("DebugCamera"));
+        Vector3 newPosition = Quaternion.Euler(this.playerObject.transform.rotation.eulerAngles) * movement * speed * Time.deltaTime;
+        this.playerObject.transform.position += new Vector3(newPosition.x, 0, newPosition.z);
+        
+        // >> the following allows for "free flight" of the player <<
+        //this.playerObject.transform.Translate(movement * speed * Time.deltaTime, this.playerObject.transform.Find("DebugCamera"));
     }
 }
