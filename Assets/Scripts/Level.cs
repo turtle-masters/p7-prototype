@@ -4,38 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Level : Logger
+public class Level : MonoBehaviour
 {
     [Tooltip("The first Prompt to be activated when the level is loaded.")]
     public Prompt initialPrompt;
 
-    private static void Log(GameObject playerObject, string details)
+    protected virtual void Awake()
     {
-        // TODO: unwrap and track the Player object and hand off to base.Log
         // ...
     }
 
-    protected override void Awake()
+    protected virtual void Start()
     {
-        base.Awake();
-
-        // ...
-    }
-
-    protected override void Start()
-    {
-        base.Start();
         if (initialPrompt != null) initialPrompt.Activate();
 
         // ...
     }
 
-    protected override void Update()
+    /*protected virtual void Update()
     {
-        base.Update();
-
         // ...
-    }
+    }*/
 
     // ...
 }

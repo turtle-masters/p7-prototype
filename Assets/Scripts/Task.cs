@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR.InteractionSystem;
 
-//[RequireComponent(typeof(Interactable))]
+[RequireComponent(typeof(FriendlyInteractable))]
 public class Task : Prompt
 {
     [Tooltip("Whether this GameObject glows when activated.")]
@@ -12,30 +12,23 @@ public class Task : Prompt
     [Tooltip("Whether this GameObject can be moved by the player.")]
     public bool isMovable = false;
 
-    private Interactable localInteractable;
-
-    protected override void Awake()
+    /*protected override void Awake()
     {
         base.Awake();
-
-        // make some settings in Interactable right off the bat
-        this.localInteractable = this.gameObject.AddComponent<Interactable>();
-        this.localInteractable.highlightOnHover = false;  // we'll handle our own highlight (glowing)
-    }
+    }*/
 
     protected override void Start()
     {
         base.Start();
 
-        this.OnActive.AddListener(p => localInteractable.onAttachedToHand += Interact);
+        //this.OnActive.AddListener(p => this.gameObject.GetComponent<FriendlyInteractable>().onAttachedToHand += this.Grab);
+        //this.OnActive.AddListener(p => this.gameObject.GetComponent<FriendlyInteractable>().onDetachedFromHand += this.Drop);
     }
 
-    protected override void Update()
+    /*protected virtual void Update()
     {
-        base.Update();
-
         // ...
-    }
+    }*/
 
     public void EnterHover()
     {
@@ -48,36 +41,29 @@ public class Task : Prompt
     }
 
     /*
-     * Call when the player grabs the associated GameObject
-     * To be used by DebugPlayer
+     * Called when the player grabs the associated GameObject
      */
-    public void Interact()
+    public void Grab(Hand hand)
     {
-        // ...
+        // the player has grabbed this GameObject at this point...
     }
 
     /*
-     * Call when the player grabs the associated GameObject
-     * To be used by SteamVR
+     * Called when the player lets go of the associated GameObject
      */
-    public void Interact(Hand hand)
+    public void Drop(Hand hand)
     {
-        this.Interact(hand.gameObject);
+        // the player has released this GameObject at this point...
     }
 
-    private void Interact(GameObject gameObject)
-    {
-        // ...
-    }
 
-    private new void TurnOn()
+    protected override void TurnOn()
     {
         base.TurnOn();
-
-        // ...
+        this.gameObject.GetComponent<FriendlyInteractable>().Activate();
     }
 
-    private new void TurnOff()
+    protected override void TurnOff()
     {
         base.TurnOff();
 

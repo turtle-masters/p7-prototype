@@ -46,14 +46,6 @@ public class PromptTest
     }
 
     [Test]
-    public void ActivatesWithPrompt()
-    {
-        Assert.False(testPrompt.IsActive());
-        testPrompt.Activate(testPrompt);
-        Assert.True(testPrompt.IsActive());
-    }
-
-    [Test]
     public void Resolves()
     {
         Assert.False(testPrompt.IsActive());

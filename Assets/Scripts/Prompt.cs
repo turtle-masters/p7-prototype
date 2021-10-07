@@ -13,7 +13,7 @@ public class ResolveEvent : UnityEvent<Prompt> { }
  * The base class for audio/visual Player signalling and communications
  */
 //[RequireComponent(typeof(AudioSource))]
-public class Prompt : Logger
+public class Prompt : MonoBehaviour
 {
     [Tooltip("A (preferably) unqiue and descriptive name to help identify this Prompt.")]
     public string promptName = "An Awesome Prompt";
@@ -45,10 +45,8 @@ public class Prompt : Logger
     protected GameObject playerObject;
     private bool isActive = false;
 
-    protected override void Awake()
+    protected virtual void Awake()
     {
-        base.Awake();
-
         // make some settings in AudioSource right off the bat
         AudioSource localSource = this.gameObject.AddComponent<AudioSource>();
         localSource.playOnAwake = false;
@@ -62,10 +60,8 @@ public class Prompt : Logger
         }
     }
 
-    protected override void Start()
+    protected virtual void Start()
     {
-        base.Start();
-
         // try to retrieve the parent level
         this.parentLevel = this.GetParentLevel();
 
@@ -80,10 +76,10 @@ public class Prompt : Logger
         }
     }
 
-    protected override void Update()
+    /*protected virtual void Update()
     {
-        base.Update();
-    }
+        // ...
+    }*/
 
     public override string ToString()
     {
@@ -169,13 +165,7 @@ public class Prompt : Logger
         }
     }
 
-    protected static void Log(Prompt p, string details)
-    {
-        // TODO: unwrap Prompt object and hand off to base.Log
-        // ...
-    }
-
-    protected void TurnOn()
+    protected virtual void TurnOn()
     {
         this.isActive = true;
         activePrompts.Add(this);
@@ -207,7 +197,7 @@ public class Prompt : Logger
         }
     }
 
-    protected void TurnOff()
+    protected virtual void TurnOff()
     {
         this.isActive = false;
         activePrompts.Remove(this);
