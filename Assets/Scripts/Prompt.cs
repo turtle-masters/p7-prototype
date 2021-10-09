@@ -174,7 +174,14 @@ public class Prompt : MonoBehaviour
         PlaySound();
     }
 
-    private void PlaySound()
+    protected virtual void OnPlaybackEnd()
+    {
+        if (this.GetAudioClip() != null && this.isLooping)
+            this.PlaySound();  // keep playing sound effect recursively if there is one to be played
+        else this.TurnOff();
+    }
+
+    protected void PlaySound()
     {
         if (this.GetAudioClip() != null)
         {
@@ -182,19 +189,15 @@ public class Prompt : MonoBehaviour
             IEnumerator DelayedCallback(float time)
             {
                 yield return new WaitForSeconds(time);
-                if (this.IsActive())
-                {
-                    if (this.isLooping) PlaySound();  // keep playing sound effect recursively if set
-                    else this.TurnOff();
-                }
+                if (this.IsActive()) this.OnPlaybackEnd();
             }
             StartCoroutine(DelayedCallback(this.GetAudioClip().length + this.secondsWaitAfterPlay));
         }
-        else
+        /*else
         {
             Debug.LogWarning(this + " attempted to play audio but no clip was given", this);
-            if (!this.isLooping) this.TurnOff();
-        }
+            this.OnPlaybackEnd();
+        }*/
     }
 
     protected virtual void TurnOff()
@@ -219,7 +222,7 @@ public class Prompt : MonoBehaviour
         return this.gameObject.GetComponent<AudioSource>();
     }
 
-    private AudioClip GetAudioClip()
+    protected AudioClip GetAudioClip()
     {
         return this.gameObject.GetComponent<AudioSource>().clip;
     }

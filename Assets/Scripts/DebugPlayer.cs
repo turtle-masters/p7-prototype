@@ -12,9 +12,12 @@ public class DebugPlayer : MonoBehaviour
     public static float sensitivity = 3f;
     public static float speed = 3f;
     public static float height = 1.5f;
+    public static float reach = 2.3f;
 
     private GameObject playerObject;
-    //private GameObject fakeHand;
+    private Transform targetTransform;
+    private bool mousePressed = false;
+    private bool localIsHovering = false;
 
     protected void Awake()
     {
@@ -28,23 +31,74 @@ public class DebugPlayer : MonoBehaviour
     {
         // find Player object
         this.playerObject = GameObject.FindGameObjectsWithTag("Player")[0];  // there should only ever be one GameObject tagged with "Player"
-        
-        // create fake player hand
-        //this.fakeHand = new GameObject("DebugPlayerHand");
-        //this.fakeHand.transform.SetParent(this.transform);
+    }
+
+    protected void Update()
+    {
+        if (isActive && Input.GetKey(KeyCode.F))
+        {
+            // mouse hover
+            Transform cameraTransform = this.playerObject.transform.Find("DebugCamera");
+            RaycastHit hit;
+            Ray ray = cameraTransform.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                // if the cursor moves directly on from a different object
+                Transform hitTransform = hit.transform;
+                if (hitTransform != null && this.targetTransform != null && !this.targetTransform.Equals(hitTransform))
+                {
+                    FriendlyInteractable fi = this.targetTransform.GetComponent<FriendlyInteractable>();
+                    if (fi != null) fi.DebugExitHover();
+                    this.targetTransform = null;
+                    this.localIsHovering = false;
+                }
+
+                this.targetTransform = hitTransform;
+                FriendlyInteractable targetInteractable = hitTransform.GetComponent<FriendlyInteractable>();
+
+                // if the cursor is within reach of an object and is not currently hovering over any
+                if (targetInteractable != null && hit.distance < reach && !this.localIsHovering)
+                {
+                    targetInteractable.DebugEnterHover();
+                    this.localIsHovering = true;
+                }
+
+                // mouse clicks
+                if (targetInteractable != null && this.localIsHovering && Input.GetMouseButtonDown(0) && !this.mousePressed)
+                {
+                    // TODO add grabbing
+                    this.mousePressed = true;
+                    targetInteractable.DebugGrab();
+                }
+                else if (!Input.GetMouseButtonDown(0) && this.mousePressed) this.mousePressed = false;
+            }
+        }        
+        else if (this.localIsHovering)
+        {
+            if (this.targetTransform != null)
+            {
+                FriendlyInteractable fi = this.targetTransform.GetComponent<FriendlyInteractable>();
+                if (fi != null) fi.DebugExitHover();
+            }
+            this.targetTransform = null;
+            this.localIsHovering = false;
+        }
     }
 
     protected void FixedUpdate()
     {
-        if (isActive)
-        {
-            // mouse input
-            float rotateHorizontal = Input.GetAxis("Mouse X");
-            float rotateVertical = Input.GetAxis("Mouse Y");
-            Transform transform = this.playerObject.transform.Find("DebugCamera");
-            this.playerObject.transform.Rotate(Vector3.up, rotateHorizontal * sensitivity, Space.World);
-            transform.Rotate(this.playerObject.transform.forward, rotateVertical * sensitivity, Space.World);
-        }
+        // mouse movement
+        if (isActive && !Input.GetKey(KeyCode.F))
+            if (!Input.GetKey(KeyCode.F)) {
+                // look with the mouse
+                Transform cameraTransform = this.playerObject.transform.Find("DebugCamera");
+                float rotateHorizontal = Input.GetAxis("Mouse X");
+                float rotateVertical = Input.GetAxis("Mouse Y");
+                this.playerObject.transform.Rotate(Vector3.up, rotateHorizontal * sensitivity, Space.World);
+                cameraTransform.Rotate(this.playerObject.transform.forward, rotateVertical * sensitivity, Space.World);
+            }
+
         // keyboard input
         Vector3 movement = new Vector3(0, 0, 0);
         if (Input.GetKey(KeyCode.W))

@@ -19,7 +19,7 @@ public class PromptTest
         this.testPrompt = testPromptObject.AddComponent<Prompt>();
         this.testPrompt2 = testPromptObject2.AddComponent<Prompt>();
 
-        // audio source must be added manually in testing, even though it is done automatically when launching the game
+        // audio source must be added manually in testing, even though it is done through the editor
         testPrompt.gameObject.AddComponent<AudioSource>();
         testPrompt2.gameObject.AddComponent<AudioSource>();
     }

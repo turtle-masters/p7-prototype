@@ -4,12 +4,14 @@ using UnityEngine;
 using Valve.VR.InteractionSystem;
 
 [RequireComponent(typeof(MeshRenderer))]
-[RequireComponent(typeof(Task))]
+//[RequireComponent(typeof(Task))]
 public class FriendlyInteractable : Interactable
 {
     public Material highlightMaterial;
     public Material hoverMaterial;
     public Material grabMaterial;
+    [HideInInspector]
+    public bool isActuallyHovering;
 
     private Task parentTask;
 
@@ -31,7 +33,32 @@ public class FriendlyInteractable : Interactable
 
     public void Activate()
     {
-        this.OnHandHoverBegin(new Hand());  // fake hand don't sue me Valve
+        this.ChangeMaterial(this.highlightMaterial);
+        base.OnHandHoverBegin(new Hand());  // fake hand don't sue me Valve
+    }
+
+    public void DebugEnterHover()
+    {
+        Debug.Log("DebugEnterHover");
+        this.OnHandHoverBegin(new Hand());
+    }
+
+    public void DebugExitHover()
+    {
+        Debug.Log("DebugExitHover");
+        this.OnHandHoverEnd(new Hand());
+    }
+
+    public void DebugGrab()
+    {
+        Debug.Log("DebugGrab");
+        this.OnAttachedToHand(new Hand());
+    }
+
+    public void DebugDrop()
+    {
+        Debug.Log("DebugDrop");
+        this.OnDetachedFromHand(new Hand());
     }
 
     private void ChangeMaterial(Material m)
@@ -42,29 +69,44 @@ public class FriendlyInteractable : Interactable
 
     protected override void OnHandHoverBegin(Hand hand)
     {
-        this.gameObject.GetComponent<Task>().EnterHover();
+        if (!this.parentTask.IsActive()) return;
+
+        Debug.Log("OnHandHoverBegin was called!");
+
+        this.isActuallyHovering = true;
+        //this.gameObject.GetComponent<Task>().EnterHover();
         this.ChangeMaterial(this.hoverMaterial);
         base.OnHandHoverBegin(hand);
     }
 
     protected override void OnHandHoverEnd(Hand hand)
     {
-        this.gameObject.GetComponent<Task>().ExitHover();
+        if (!this.parentTask.IsActive()) return;
+
+        Debug.Log("OnHandHoverEnd was called!");
+
+        this.isActuallyHovering = false;
+        //this.gameObject.GetComponent<Task>().ExitHover();
         this.ChangeMaterial(this.highlightMaterial);
         base.OnHandHoverEnd(hand);
     }
 
     protected override void OnAttachedToHand(Hand hand)
     {
+        if (!this.parentTask.IsActive()) return;
         this.gameObject.GetComponent<Task>().Grab(hand);
         this.ChangeMaterial(this.grabMaterial);
-        base.OnAttachedToHand(hand);
+
+        if (this.parentTask.isMovable) base.OnAttachedToHand(hand);
+        this.parentTask.Resolve();
     }
 
     protected override void OnDetachedFromHand(Hand hand)
     {
+        if (!this.parentTask.IsActive()) return;
         this.gameObject.GetComponent<Task>().Drop(hand);
         this.ChangeMaterial(this.highlightMaterial);
-        base.OnDetachedFromHand(hand);
+
+        if (this.parentTask.isMovable) base.OnDetachedFromHand(hand);
     }
 }

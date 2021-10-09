@@ -700,6 +700,7 @@ GameObject:
   - component: {fileID: 377847152}
   - component: {fileID: 377847151}
   - component: {fileID: 377847150}
+  - component: {fileID: 377847155}
   - component: {fileID: 377847154}
   m_Layer: 0
   m_Name: Door Height
@@ -794,17 +795,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 377847149}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b08c25a5889717f45b24e099bff5c277, type: 3}
+  m_Script: {fileID: 11500000, guid: f1ba6e3d729dff548b0ed7b3b2d90e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: Hello, Player!
   animateText: 0
-  audioClip: {fileID: 8300000, guid: fdcbdcd5e7d71594bb123666b2bcb779, type: 3}
+  audioClip: {fileID: 8300000, guid: 554ae4ff7aa47c0478d95d78e6a9be6b, type: 3}
   playbackVolume: 1
   isOmnidirectional: 0
-  isLooping: 0
-  secondsWaitAfterPlay: 2
+  isLooping: 1
+  secondsWaitAfterPlay: 1.5
   OnActive:
     m_PersistentCalls:
       m_Calls: []
@@ -823,6 +824,64 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isGlowing: 1
+  isMovable: 0
+--- !u!114 &377847155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377847149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff070c5f92430a45b41ab82b395d396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activateActionSetOnAttach:
+    actionSetPath: 
+  hideHandOnAttach: 1
+  hideSkeletonOnAttach: 0
+  hideControllerOnAttach: 0
+  handAnimationOnPickup: 0
+  setRangeOfMotionOnPickup: -1
+  useHandObjectAttachmentPoint: 1
+  attachEaseIn: 0
+  snapAttachEaseInCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  snapAttachEaseInTime: 0.15
+  snapAttachEaseInCompleted: 0
+  skeletonPoser: {fileID: 0}
+  handFollowTransform: 1
+  highlightOnHover: 1
+  hideHighlight: []
+  hoverPriority: 0
+  highlightMaterial: {fileID: 2100000, guid: 3f7b904f6bd0b77429148042b0254530, type: 2}
+  hoverMaterial: {fileID: 2100000, guid: 205922f2f6cef6f4e886cbeb581b0d81, type: 2}
+  grabMaterial: {fileID: 0}
+  isActuallyHovering: 0
 --- !u!1001 &388099094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1112,7 +1171,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: Hello, Player!
   animateText: 0
-  audioClip: {fileID: 8300000, guid: 51747ad9fd4c5564e873dbae5171e257, type: 3}
+  audioClip: {fileID: 8300000, guid: ece81cacdab36d745962207a515820a1, type: 3}
   playbackVolume: 1
   isOmnidirectional: 0
   isLooping: 0
@@ -1178,8 +1237,9 @@ MonoBehaviour:
   hideHighlight: []
   hoverPriority: 0
   highlightMaterial: {fileID: 2100000, guid: 3f7b904f6bd0b77429148042b0254530, type: 2}
-  hoverMaterial: {fileID: 0}
+  hoverMaterial: {fileID: 2100000, guid: 205922f2f6cef6f4e886cbeb581b0d81, type: 2}
   grabMaterial: {fileID: 0}
+  isActuallyHovering: 0
 --- !u!1001 &650859946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2024,7 +2084,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 744206061}
-  - component: {fileID: 744206062}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -2049,19 +2108,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &744206062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744206060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialPrompt: {fileID: 2019576481}
 --- !u!1 &819004340
 GameObject:
   m_ObjectHideFlags: 0
@@ -5337,89 +5383,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b3d1cab345aaa4043b21c12138428ff5, type: 3}
   m_PrefabInstance: {fileID: 1649144776}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2019576481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2019576480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1ba6e3d729dff548b0ed7b3b2d90e5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptName: An Awesome Prompt
-  promptText: Hello, Player!
-  animateText: 0
-  audioClip: {fileID: 0}
-  playbackVolume: 1
-  isOmnidirectional: 0
-  isLooping: 1
-  secondsWaitAfterPlay: 1.5
-  OnActive:
-    m_PersistentCalls:
-      m_Calls: []
-  OnResolve:
-    m_PersistentCalls:
-      m_Calls: []
-  isGlowing: 1
-  isMovable: 0
---- !u!114 &2019576482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2019576480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ff070c5f92430a45b41ab82b395d396, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activateActionSetOnAttach:
-    actionSetPath: 
-  hideHandOnAttach: 1
-  hideSkeletonOnAttach: 0
-  hideControllerOnAttach: 0
-  handAnimationOnPickup: 0
-  setRangeOfMotionOnPickup: -1
-  useHandObjectAttachmentPoint: 1
-  attachEaseIn: 0
-  snapAttachEaseInCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  snapAttachEaseInTime: 0.15
-  snapAttachEaseInCompleted: 0
-  skeletonPoser: {fileID: 0}
-  handFollowTransform: 1
-  highlightOnHover: 1
-  hideHighlight: []
-  hoverPriority: 0
-  highlightMaterial: {fileID: 2100000, guid: 3f7b904f6bd0b77429148042b0254530, type: 2}
-  hoverMaterial: {fileID: 0}
-  grabMaterial: {fileID: 0}
 --- !u!23 &2019576483
 MeshRenderer:
   m_ObjectHideFlags: 0

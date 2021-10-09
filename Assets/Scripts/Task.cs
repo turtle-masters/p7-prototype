@@ -30,14 +30,11 @@ public class Task : Prompt
         // ...
     }*/
 
-    public void EnterHover()
+    protected override void OnPlaybackEnd()
     {
-        // ...
-    }
-
-    public void ExitHover()
-    {
-        // ...
+        if (this.GetAudioClip() != null && this.isLooping)
+            this.PlaySound();  // keep playing sound effect recursively if there is one to be played
+        //else this.TurnOff();
     }
 
     /*
