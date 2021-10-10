@@ -116,10 +116,10 @@ public class DebugPlayer : MonoBehaviour
             movement.x -= 1;
         if (Input.GetKey(KeyCode.D))
             movement.z -= 1;
+
         if (!isActive && !movement.Equals(new Vector3(0, 0, 0)))
-        {
             this.InitializePlayer();
-        }
+
         // move the Player
         Vector3 newPosition = Quaternion.Euler(this.playerObject.transform.rotation.eulerAngles) * movement * speed * Time.deltaTime;
         this.playerObject.transform.position += new Vector3(newPosition.x, 0, newPosition.z);

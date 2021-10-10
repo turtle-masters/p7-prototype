@@ -75,6 +75,7 @@ public class FriendlyInteractable : Interactable
 
         this.isActuallyHovering = true;
         //this.gameObject.GetComponent<Task>().EnterHover();
+        base.OnHandHoverEnd(hand);
         this.ChangeMaterial(this.hoverMaterial);
         base.OnHandHoverBegin(hand);
     }
@@ -87,8 +88,9 @@ public class FriendlyInteractable : Interactable
 
         this.isActuallyHovering = false;
         //this.gameObject.GetComponent<Task>().ExitHover();
-        this.ChangeMaterial(this.highlightMaterial);
         base.OnHandHoverEnd(hand);
+        this.ChangeMaterial(this.highlightMaterial);
+        base.OnHandHoverBegin(hand);
     }
 
     protected override void OnAttachedToHand(Hand hand)

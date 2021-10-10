@@ -32,15 +32,20 @@ public class TaskTest : PromptTest
     public void GlowsWhenGlowingIsEnabled()
     {
         Assert.True(testTask.isGlowing);
-        Material defaultHighlightMaterial = Resources.Load<Material>("SteamVR_HoverHighlight");  // whatever we go for as the default material must be updated here
-        Assert.AreNotEqual(defaultHighlightMaterial, testTask.GetComponent<Renderer>().material);
-        
+        Material defaultHighlightMaterial = Resources.Load<Material>("YellowHue");  // whatever we go for as the default material must be updated here
+        //Debug.Log(defaultHighlightMaterial);
+        Assert.AreNotEqual(defaultHighlightMaterial, testTask.GetComponent<MeshRenderer>().materials[0]);
+
+        testTask.OnActive.AddListener((Prompt p) =>
+        {
+            bool highlightMaterialInListOfSharedMaterials = false;
+            foreach (Material m in testTask.GetComponent<MeshRenderer>().materials)
+            {
+                if (m != null && m.Equals(defaultHighlightMaterial))
+                    highlightMaterialInListOfSharedMaterials = true;
+            }
+            Assert.True(highlightMaterialInListOfSharedMaterials);
+        });
         testTask.Activate();
-       
-        bool highlightMaterialInListOfSharedMaterials = false;
-        foreach (Material m in testTask.GetComponent<Renderer>().sharedMaterials)
-            if (m.Equals(defaultHighlightMaterial)) 
-                highlightMaterialInListOfSharedMaterials = true;
-        Assert.True(highlightMaterialInListOfSharedMaterials);
     }*/
 }
