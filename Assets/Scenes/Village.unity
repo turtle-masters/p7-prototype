@@ -5469,7 +5469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialPrompt: {fileID: 377847154}
+  entryPrompt: {fileID: 377847154}
 --- !u!1001 &2045313104
 PrefabInstance:
   m_ObjectHideFlags: 0
