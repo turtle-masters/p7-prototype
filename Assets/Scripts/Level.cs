@@ -9,6 +9,7 @@ public class Level : MonoBehaviour
 {
     [Tooltip("The first Prompt to be activated when the level is loaded.")]
     public Prompt entryPrompt;
+    private Renderer[] childRenderers;
 
     public static Level activeLevel;
     private static int totalSceneChanges = 0;
@@ -27,10 +28,13 @@ public class Level : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
+    private void Await()
+    {
+        this.SetVisibilityOfAllChildren(false);
+    }
+
     private static void OnActiveSceneChanged(Scene oldScene, Scene newScene)
     {
-        Level.totalSceneChanges++;
-
         // find all Level components in the Scene
         List<Level> levelsInScene = new List<Level>();
         IEnumerator ie = newScene.GetRootGameObjects().GetEnumerator();
@@ -45,17 +49,15 @@ public class Level : MonoBehaviour
         // use totalSceneLoads to figure out what level to load
         switch (Level.totalSceneChanges)
         {
+            case 0:
+                Level.activeLevel = levelsInScene[0];
+                break;
             case 1:
                 Level.activeLevel = levelsInScene[0];
-
-                // start loading the "Tutorial" scene in the background
-                if (Application.isPlaying) {
-                    /*SceneManager.UnloadSceneAsync("Tutorial");
-                    Level.activeLevel.StartCoroutine(Level.LoadNextLevel());*/
-                }
                 break;
             case 2:
                 Level.activeLevel = levelsInScene[0];
+                
                 break;
             case 3:
             case 4:
@@ -67,25 +69,20 @@ public class Level : MonoBehaviour
                 break;
             case 7:
                 Level.activeLevel = levelsInScene[3];
-
-                // start loading the "Microverse" scene in the background
-                if (Application.isPlaying)
-                {
-                    /*SceneManager.UnloadSceneAsync("Microverse");
-                    Level.activeLevel.StartCoroutine(Level.LoadNextLevel());*/
-                }
                 break;
-            default:
-                Level.activeLevel = levelsInScene[0];  // other scenes than "Village" and "Microverse" should only have one Level
+            default:  // case 8
+                Level.activeLevel = levelsInScene[1];
                 break;
-
         }
+
+        Level.LoadNextLevel(Level.GetNextSceneName());
         Level.activeLevel.Activate();
+        Level.totalSceneChanges++;
     }
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log(scene.name + " loaded in the background in mode " + mode);
+        Debug.Log(scene.name + " loaded in mode " + mode);
     }
 
     private static void OnSceneUnloaded(Scene scene)
@@ -102,10 +99,8 @@ public class Level : MonoBehaviour
             if (nextScene != null && nextScene.isLoaded)  // these two conditions are probably the same thing...
                 SceneManager.SetActiveScene(nextScene);
             else
-            {
                 // load next level (and scene) if async load didn't work for some reason
                 SceneManager.LoadScene(Level.GetNextSceneName());
-            }
         }
         catch (System.InvalidOperationException e)
         {
@@ -115,17 +110,15 @@ public class Level : MonoBehaviour
         }
     }
 
-    private static IEnumerator LoadNextLevel()
+    private static IEnumerator LoadNextLevel(string sceneName)
     {
         // use totalSceneLoads to figure out what scene to load
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(Level.GetNextSceneName());
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
         
         // wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
-        {
             yield return null;
-        }
     }
 
     private static string GetNextSceneName()
@@ -142,12 +135,17 @@ public class Level : MonoBehaviour
             case 3:
             case 5:
                 return "Microverse";
-            case 7:
-                return "Questionnaire";
-            default:
-                // this is just here to make the compiler happy...
-                return "A Scene That Doesn't Exist...";
+            default:  // 7
+                return "Room";
         }
+    }
+
+    public void SetVisibilityOfAllChildren(bool isVisible)
+    {
+        if (childRenderers == null)
+            this.childRenderers = this.GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in childRenderers)
+            renderer.enabled = isVisible;
     }
 
     /*
@@ -156,6 +154,7 @@ public class Level : MonoBehaviour
      */
     public void Activate()
     {
+        this.SetVisibilityOfAllChildren(true);
         if (entryPrompt != null) entryPrompt.Activate();
         else Debug.LogError(this + " was activated but no initial Prompt was given. Did you foget to reference the entry Prompt?");
     }
@@ -168,6 +167,8 @@ public class Level : MonoBehaviour
         // resolve all unresolved prompts before continuing
         foreach (Prompt ap in new List<Prompt>(Prompt.activePrompts))
             p.Resolve();
+
+        this.SetVisibilityOfAllChildren(false);
 
         // run preloaded scene
         Level.Continue();

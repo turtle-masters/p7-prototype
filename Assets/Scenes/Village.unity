@@ -812,9 +812,9 @@ MonoBehaviour:
   OnResolve:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 510901991}
-        m_TargetAssemblyTypeName: Prompt, GameAssembly
-        m_MethodName: Activate
+      - m_Target: {fileID: 2040989664}
+        m_TargetAssemblyTypeName: Level, GameAssembly
+        m_MethodName: Complete
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1078,7 +1078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &510901987
 Transform:
   m_ObjectHideFlags: 0
@@ -1181,7 +1181,19 @@ MonoBehaviour:
       m_Calls: []
   OnResolve:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2040989664}
+        m_TargetAssemblyTypeName: Level, GameAssembly
+        m_MethodName: Complete
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   isGlowing: 1
   isMovable: 0
 --- !u!114 &510901992
@@ -2106,7 +2118,7 @@ Transform:
   - {fileID: 1801506013}
   - {fileID: 819004341}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &819004340
 GameObject:
@@ -5435,7 +5447,7 @@ GameObject:
   - component: {fileID: 2040989663}
   - component: {fileID: 2040989664}
   m_Layer: 0
-  m_Name: DEBUGGING for measuring with mock
+  m_Name: Level1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5455,7 +5467,7 @@ Transform:
   - {fileID: 377847153}
   - {fileID: 510901987}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2040989664
 MonoBehaviour:

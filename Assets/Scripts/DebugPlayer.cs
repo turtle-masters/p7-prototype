@@ -35,11 +35,17 @@ public class DebugPlayer : MonoBehaviour
 
     protected void Update()
     {
+        while (isActive && this.playerObject == null)
+        {
+            Debug.LogWarning("Unable to find DebugPlayer. Retrying...");
+            this.playerObject = GameObject.FindGameObjectsWithTag("Player")[0];
+        }
         if (isActive && Input.GetKey(KeyCode.F))
         {
             // mouse hover
             Transform cameraTransform = this.playerObject.transform.Find("DebugCamera");
             RaycastHit hit;
+            if (cameraTransform == null) this.InitializePlayer();
             Ray ray = cameraTransform.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit))
@@ -96,6 +102,7 @@ public class DebugPlayer : MonoBehaviour
                 float rotateHorizontal = Input.GetAxis("Mouse X");
                 float rotateVertical = Input.GetAxis("Mouse Y");
                 this.playerObject.transform.Rotate(Vector3.up, rotateHorizontal * sensitivity, Space.World);
+                if (cameraTransform == null) this.InitializePlayer();
                 cameraTransform.Rotate(this.playerObject.transform.forward, rotateVertical * sensitivity, Space.World);
             }
 
@@ -111,19 +118,7 @@ public class DebugPlayer : MonoBehaviour
             movement.z -= 1;
         if (!isActive && !movement.Equals(new Vector3(0, 0, 0)))
         {
-            // reset the view (direction)
-            GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
-            GameObject newCamera = new GameObject("DebugCamera");
-            newCamera.AddComponent<AudioListener>();
-            newCamera.transform.SetParent(this.playerObject.transform);
-            newCamera.AddComponent<Camera>();
-            newCamera.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
-
-            // reset the view (height)
-            newCamera.transform.Translate(new Vector3(0, height, 0));
-
-            // break out after first movement input
-            isActive = true;
+            this.InitializePlayer();
         }
         // move the Player
         Vector3 newPosition = Quaternion.Euler(this.playerObject.transform.rotation.eulerAngles) * movement * speed * Time.deltaTime;
@@ -131,5 +126,22 @@ public class DebugPlayer : MonoBehaviour
         
         // >> the following allows for "free flight" of the player <<
         //this.playerObject.transform.Translate(movement * speed * Time.deltaTime, this.playerObject.transform.Find("DebugCamera"));
+    }
+
+    private void InitializePlayer()
+    {
+        // reset the view (direction)
+        GameObject.FindGameObjectWithTag("MainCamera").SetActive(false);
+        GameObject newCamera = new GameObject("DebugCamera");
+        newCamera.AddComponent<AudioListener>();
+        newCamera.transform.SetParent(this.playerObject.transform);
+        newCamera.AddComponent<Camera>();
+        newCamera.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
+
+        // reset the view (height)
+        newCamera.transform.Translate(new Vector3(0, height, 0));
+
+        // break out after first movement input
+        isActive = true;
     }
 }

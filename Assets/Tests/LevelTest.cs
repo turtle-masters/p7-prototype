@@ -77,7 +77,7 @@ public class LevelTest
         TestGetNextSceneName("Microverse");
 
         TestGetNextSceneName("Village");
-        TestGetNextSceneName("Questionnaire");
+        TestGetNextSceneName("Room");
     }
 
     [Test]
@@ -115,6 +115,8 @@ public class LevelTest
         }
 
         TestOnActiveSceneChanged(0);
+
+        TestOnActiveSceneChanged(0);
         TestOnActiveSceneChanged(0);
 
         TestOnActiveSceneChanged(1);
@@ -124,5 +126,18 @@ public class LevelTest
         TestOnActiveSceneChanged(2);
 
         TestOnActiveSceneChanged(3);
+
+        TestOnActiveSceneChanged(1);
+    }
+
+    [Test]
+    public void ManagesVisibilityOfChildRenderers()
+    {
+        Task task = this.testLevel.gameObject.GetComponentInChildren<Task>();
+        this.testLevel.SetVisibilityOfAllChildren(false);
+
+        NUnit.Framework.Assert.False(task.gameObject.GetComponent<Renderer>().enabled);
+        this.testLevel.Activate();
+        NUnit.Framework.Assert.True(task.gameObject.GetComponent<Renderer>().enabled);
     }
 }
