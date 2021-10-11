@@ -33,7 +33,6 @@ public class Task : Prompt
 
     protected virtual void Update()
     {
-        Debug.Log("Running? " + this.target != null && this.IsActive());
         // TODO: check for position in relation to target if defined and grabbed...
         if (this.target != null && this.IsActive() /*&& this.gameObject.GetComponent<FriendlyInteractable>().attachedToHand != null*/)
         {
@@ -48,12 +47,19 @@ public class Task : Prompt
 
             bool validRotation = true;  // placeholder
             // TODO: check for rotation aswell...
-
+            if (this.matchRotation && !compareRotation(selfTransform.rotation,targetTransform.rotation,0.15f))
+            {
+                validRotation = false;
+            }
             // report the product of both checks
             if (validPosition && validRotation) this.Resolve();
         }
     }
+    bool compareRotation(Quaternion r1, Quaternion r2, float precision)
+    {
+        return Mathf.Abs(Quaternion.Dot(r1, r2)) >= 1 - precision;
 
+    }
     protected override void OnPlaybackEnd()
     {
         if (this.GetAudioClip() != null && this.isLooping)

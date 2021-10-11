@@ -513,7 +513,7 @@ MonoBehaviour:
   isGlowing: 1
   target: {fileID: 975645712}
   targetPrecision: 0.2
-  matchRotation: 0
+  matchRotation: 1
   hideAfterCompletion: 1
   OnGrab:
     m_PersistentCalls:
