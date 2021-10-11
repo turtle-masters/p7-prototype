@@ -878,8 +878,8 @@ MonoBehaviour:
   highlightOnHover: 1
   hideHighlight: []
   hoverPriority: 0
-  highlightMaterial: {fileID: 2100000, guid: 3f7b904f6bd0b77429148042b0254530, type: 2}
-  hoverMaterial: {fileID: 2100000, guid: 205922f2f6cef6f4e886cbeb581b0d81, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: 959a53df283fa6547b15b631c2fa5284, type: 2}
+  hoverMaterial: {fileID: 2100000, guid: 15d14f14fd3919d4d803c3b4ad69e268, type: 2}
   grabMaterial: {fileID: 0}
   isActuallyHovering: 0
 --- !u!1001 &388099094

@@ -320,7 +320,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isGlowing: 0
+  isGlowing: 1
   isMovable: 0
 --- !u!114 &377847155
 MonoBehaviour:
