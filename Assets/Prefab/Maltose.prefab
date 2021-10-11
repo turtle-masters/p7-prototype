@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4643841562309489388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3310928778925668006}
+  m_Layer: 0
+  m_Name: Maltose
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3310928778925668006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4643841562309489388}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.11612964, y: -1.04817, z: 4.9252977}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1360426320440647873}
+  - {fileID: 2817748775903051464}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6326772023828064512
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3310928778925668006}
+    m_Modifications:
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222299, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_Name
+      value: Glucose
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+--- !u!4 &1360426320440647873 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+  m_PrefabInstance: {fileID: 6326772023828064512}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7077027141420611337
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3310928778925668006}
+    m_Modifications:
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984360147558222299, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+      propertyPath: m_Name
+      value: Glucose (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+--- !u!4 &2817748775903051464 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4984360147558222273, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+  m_PrefabInstance: {fileID: 7077027141420611337}
+  m_PrefabAsset: {fileID: 0}
