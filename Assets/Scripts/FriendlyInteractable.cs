@@ -34,6 +34,7 @@ public class FriendlyInteractable : Interactable
     public void Activate()
     {
         this.ChangeMaterial(this.highlightMaterial);
+        if (!this.gameObject.GetComponent<Task>().isGlowing) return;
         base.OnHandHoverBegin(new Hand());  // fake hand don't sue me Valve
     }
 
@@ -74,7 +75,9 @@ public class FriendlyInteractable : Interactable
         Debug.Log("OnHandHoverBegin was called!");
 
         this.isActuallyHovering = true;
-        //this.gameObject.GetComponent<Task>().EnterHover();
+        this.parentTask.EnterHover(hand);
+
+        if (!this.parentTask.isGlowing) return;
         base.OnHandHoverEnd(hand);
         this.ChangeMaterial(this.hoverMaterial);
         base.OnHandHoverBegin(hand);
@@ -87,7 +90,9 @@ public class FriendlyInteractable : Interactable
         Debug.Log("OnHandHoverEnd was called!");
 
         this.isActuallyHovering = false;
-        //this.gameObject.GetComponent<Task>().ExitHover();
+        this.parentTask.ExitHover(hand);
+
+        if (!this.parentTask.isGlowing) return;
         base.OnHandHoverEnd(hand);
         this.ChangeMaterial(this.highlightMaterial);
         base.OnHandHoverBegin(hand);
@@ -96,17 +101,19 @@ public class FriendlyInteractable : Interactable
     protected override void OnAttachedToHand(Hand hand)
     {
         if (!this.parentTask.IsActive()) return;
-        this.gameObject.GetComponent<Task>().Grab(hand);
+
+        this.parentTask.Grab(hand);
         this.ChangeMaterial(this.grabMaterial);
 
         if (this.parentTask.isMovable) base.OnAttachedToHand(hand);
-        this.parentTask.Resolve();
+        //this.parentTask.Resolve();
     }
 
     protected override void OnDetachedFromHand(Hand hand)
     {
         if (!this.parentTask.IsActive()) return;
-        this.gameObject.GetComponent<Task>().Drop(hand);
+
+        this.parentTask.Drop(hand);
         this.ChangeMaterial(this.highlightMaterial);
 
         if (this.parentTask.isMovable) base.OnDetachedFromHand(hand);

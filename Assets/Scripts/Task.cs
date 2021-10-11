@@ -8,7 +8,6 @@ public class Task : Prompt
 {
     [Tooltip("Whether this GameObject glows when activated.")]
     public bool isGlowing = true;
-    [HideInInspector]
     [Tooltip("Whether this GameObject can be moved by the player.")]
     public bool isMovable = false;
 
@@ -37,12 +36,23 @@ public class Task : Prompt
         //else this.TurnOff();
     }
 
+    public void EnterHover(Hand hand)
+    {
+
+    }
+
+    public void ExitHover(Hand hand)
+    {
+
+    }
+
     /*
      * Called when the player grabs the associated GameObject
      */
     public void Grab(Hand hand)
     {
         // the player has grabbed this GameObject at this point...
+        this.Resolve();  // TODO: add more logic to this...
     }
 
     /*
