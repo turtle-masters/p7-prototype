@@ -15,6 +15,7 @@ public class ResolveEvent : UnityEvent<Prompt> { }
 //[RequireComponent(typeof(AudioSource))]
 public class Prompt : MonoBehaviour
 {
+    [HideInInspector]
     [Tooltip("A (preferably) unqiue and descriptive name to help identify this Prompt.")]
     public string promptName = "An Awesome Prompt";
     [HideInInspector]
@@ -25,7 +26,7 @@ public class Prompt : MonoBehaviour
     [Tooltip("The audio clip to be played when the Prompt is activated.")]
     public AudioClip audioClip;
     [Tooltip("The playback volume range (0 to 1) of the audio clip to be played.")]
-    public float playbackVolume = 1f;
+    public float playbackVolume = 0.2f;
     [Tooltip("Whether the audio clip should be played in the player's ear (omnidirectional) or coming from the associated GameObject (spatial).")]
     public bool isOmnidirectional = false;
     [Tooltip("Whether the audio clip should start again after it has finished playing (provided the Prompt is still active at that point).")]
@@ -33,16 +34,15 @@ public class Prompt : MonoBehaviour
     [Tooltip("The amount of seconds (as a float) to wait after playback has ended before continuing.")]
     public float secondsWaitAfterPlay = 1.5f;
 
-    [Tooltip("Subscribe a method here to have it invoked whenever this Prompt is activated. This could be if you want something to happen simultanuously with this Prompt!")]
+    [Tooltip("Invoked whenever this Prompt is activated. This could be if you want something to happen simultanuously with this Prompt!")]
     public ActiveEvent OnActive = new ActiveEvent();
-    [Tooltip("Subscribe a method here to have it invoked whenever this Prompt is resolved. This could be if you want another Prompt to fire after this one is done!")]
+    [Tooltip("Invoked whenever this Prompt is resolved. This could be if you want another Prompt to fire after this one is done!")]
     public ResolveEvent OnResolve = new ResolveEvent();
 
     [HideInInspector]
     public static List<Prompt> activePrompts = new List<Prompt>();  // enumerating the raw List is discouraged, as asynchronous modification can occur
 
     protected Level parentLevel;
-    protected GameObject playerObject;
     private bool isActive = false;
 
     protected virtual void Awake()
@@ -64,16 +64,6 @@ public class Prompt : MonoBehaviour
     {
         // try to retrieve the parent level
         this.parentLevel = this.GetParentLevel();
-
-        // find the player object
-        try
-        {
-            this.playerObject = GameObject.FindGameObjectsWithTag("Player")[0];  // there should only ever be one GameObject tagged with "Player"
-        }
-        catch (IndexOutOfRangeException e)
-        {
-            Debug.LogError(this + " was unable to locate \"Player\"-tagged object. Is the Player object tagged with \"Player\"?" + e, this);
-        }
     }
 
     /*protected virtual void Update()
@@ -83,7 +73,7 @@ public class Prompt : MonoBehaviour
 
     public override string ToString()
     {
-        return "<" + this.promptName + "> " + base.ToString();
+        return $"<\"{this.name}\"> " + base.ToString();
     }
 
     /*
@@ -155,6 +145,20 @@ public class Prompt : MonoBehaviour
         return this.parentLevel;
     }
 
+    private GameObject GetPlayerObject()
+    {
+        // find the player object
+        try
+        {
+            return GameObject.FindGameObjectsWithTag("Player")[0];  // there should only ever be one GameObject tagged with "Player"
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            Debug.LogError(this + " was unable to locate \"Player\"-tagged object. Is the Player object tagged with \"Player\"? The game will continue running but omniderectional sound will error: " + e, this);
+        }
+        return null;
+    }
+
     private void SetActive(bool newState)
     {
         // make sure to not invoke events unless the state has actually changed
@@ -213,9 +217,9 @@ public class Prompt : MonoBehaviour
 
     private AudioSource GetAudioSource()
     {
-        if (this.isOmnidirectional && this.playerObject != null)
+        if (this.isOmnidirectional && this.GetPlayerObject() != null)
         {
-            AudioSource source = playerObject.GetComponentInChildren<AudioSource>();
+            AudioSource source = GetPlayerObject().GetComponentInChildren<AudioSource>();
             if (source != null) return source;
             else Debug.LogError(this + " was unable to locate audio source on \"Player\"-tagged object in Prompt. Does the Player object have an AudioSource component?", this);
         }

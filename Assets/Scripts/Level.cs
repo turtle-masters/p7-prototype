@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
+    public static GameObject globalPlayerObject;
+
     [Tooltip("The first Prompt to be activated when the level is loaded.")]
     public Prompt entryPrompt;
     private Renderer[] childRenderers;
@@ -31,6 +33,25 @@ public class Level : MonoBehaviour
     private void Await()
     {
         this.SetVisibilityOfAllChildren(false);
+    }
+
+    private void Start()
+    {
+        IEnumerator rootEnumerator = this.gameObject.scene.GetRootGameObjects().GetEnumerator();
+        rootEnumerator.Reset();
+        GameObject playerGameObject = null;
+        while (rootEnumerator.MoveNext())
+        {
+            GameObject current = (GameObject)rootEnumerator.Current;
+            if (current.tag == "Player")
+            {
+                playerGameObject = current;
+                break;
+            }
+        }
+        if (Level.globalPlayerObject == null) Level.globalPlayerObject = playerGameObject;
+        if (DebugPlayer.isActive || Level.totalSceneChanges < 2) playerGameObject.SetActive(true);
+        else playerGameObject.SetActive(false);
     }
 
     private static void OnActiveSceneChanged(Scene oldScene, Scene newScene)
@@ -92,7 +113,6 @@ public class Level : MonoBehaviour
 
     private static void Continue()
     {
-        // the following code will error during unit testing
         try
         {
             Scene nextScene = SceneManager.GetSceneByName(Level.GetNextSceneName());
@@ -150,7 +170,6 @@ public class Level : MonoBehaviour
 
     /*
      * Activates this Level
-     * Should only be done from inside the static Level instance
      */
     public void Activate()
     {

@@ -10,6 +10,7 @@ public class TaskTest : PromptTest
     Task testTask;
     Task testTask2;
 
+    [SetUp]
     public override void Setup()
     {
         base.Setup();

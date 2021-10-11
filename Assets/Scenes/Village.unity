@@ -186,7 +186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 475244, guid: 7a135b1a2cb9c8f488d4dd00c55ab283, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 475244, guid: 7a135b1a2cb9c8f488d4dd00c55ab283, type: 3}
       propertyPath: m_LocalPosition.x
@@ -825,7 +825,11 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   isGlowing: 1
-  isMovable: 0
+  target: {fileID: 0}
+  targetPrecision: 0
+  OnGrab:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &377847155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1269,7 +1273,11 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   isGlowing: 1
-  isMovable: 0
+  target: {fileID: 0}
+  targetPrecision: 0
+  OnGrab:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &510901992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4278,12 +4286,16 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.x

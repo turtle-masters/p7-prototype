@@ -53,13 +53,13 @@ public class FriendlyInteractable : Interactable
     public void DebugGrab()
     {
         Debug.Log("DebugGrab");
-        this.OnAttachedToHand(new Hand());
+        this.parentTask.Grab(new Hand(), true);
     }
 
     public void DebugDrop()
     {
         Debug.Log("DebugDrop");
-        this.OnDetachedFromHand(new Hand());
+        this.parentTask.Drop(new Hand(), true);
     }
 
     private void ChangeMaterial(Material m)
@@ -105,7 +105,7 @@ public class FriendlyInteractable : Interactable
         this.parentTask.Grab(hand);
         this.ChangeMaterial(this.grabMaterial);
 
-        if (this.parentTask.isMovable) base.OnAttachedToHand(hand);
+        if (this.parentTask.IsMovable()) base.OnAttachedToHand(hand);
         //this.parentTask.Resolve();
     }
 
@@ -116,6 +116,6 @@ public class FriendlyInteractable : Interactable
         this.parentTask.Drop(hand);
         this.ChangeMaterial(this.highlightMaterial);
 
-        if (this.parentTask.isMovable) base.OnDetachedFromHand(hand);
+        if (this.parentTask.IsMovable()) base.OnDetachedFromHand(hand);
     }
 }
