@@ -8,10 +8,11 @@ using UnityEngine.SceneManagement;
 public class Level : MonoBehaviour
 {
     public static GameObject globalPlayerObject;
+    //[HideInInspector]
+    public bool isActive;
 
     [Tooltip("The first Prompt to be activated when the level is loaded.")]
     public Prompt entryPrompt;
-    private Renderer[] childRenderers;
 
     public static Level activeLevel;
     private static int totalSceneChanges = 0;
@@ -30,7 +31,12 @@ public class Level : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    private void Await()
+    /*private void Await()
+    {
+        this.SetVisibilityOfAllChildren(false);
+    }*/
+
+    private void OnEnable()
     {
         this.SetVisibilityOfAllChildren(false);
     }
@@ -71,14 +77,9 @@ public class Level : MonoBehaviour
         switch (Level.totalSceneChanges)
         {
             case 0:
-                Level.activeLevel = levelsInScene[0];
-                break;
             case 1:
-                Level.activeLevel = levelsInScene[0];
-                break;
             case 2:
                 Level.activeLevel = levelsInScene[0];
-                
                 break;
             case 3:
             case 4:
@@ -146,14 +147,14 @@ public class Level : MonoBehaviour
         switch (Level.totalSceneChanges)
         {
             // first scene (tutorial) will be loaded automatically
-            case 0:
-            case 2:
-            case 4:
-            case 6:
-                return "Village";
             case 1:
             case 3:
             case 5:
+            case 7:
+                return "Village";
+            case 2:
+            case 4:
+            case 6:
                 return "Microverse";
             default:  // 7
                 return "Room";
@@ -162,10 +163,17 @@ public class Level : MonoBehaviour
 
     public void SetVisibilityOfAllChildren(bool isVisible)
     {
-        if (childRenderers == null)
-            this.childRenderers = this.GetComponentsInChildren<Renderer>();
-        foreach (Renderer renderer in childRenderers)
-            renderer.enabled = isVisible;
+        Debug.Log(this.name + "->SetVisibilityOfAllChildren->" + isVisible);
+        this.isActive = isVisible;
+
+        foreach (Transform childTransform in this.transform)
+        {
+            if (isVisible) childTransform.gameObject.layer = 0;
+            else childTransform.gameObject.layer = 1;
+            if (childTransform.GetComponent<Renderer>() != null)
+                if (childTransform.GetComponent<InteractionTarget>() == null || !isVisible)
+                    childTransform.GetComponent<Renderer>().enabled = isVisible;
+        }
     }
 
     /*
@@ -173,6 +181,7 @@ public class Level : MonoBehaviour
      */
     public void Activate()
     {
+        Debug.Log(this.name + "->Activate");
         this.SetVisibilityOfAllChildren(true);
         if (entryPrompt != null) entryPrompt.Activate();
         else Debug.LogError(this + " was activated but no initial Prompt was given. Did you foget to reference the entry Prompt?");
