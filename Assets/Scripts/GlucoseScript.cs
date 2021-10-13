@@ -27,7 +27,7 @@ public class GlucoseScript : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         ChemData data = other.gameObject.GetComponent<ChemData>();
         if(data!=null) {
-            if(data.Name == "NAD⁺") {
+            if(data.Name == "NAD+") {
                 data.Name="NADH";
                 Die();
             }
