@@ -17,6 +17,11 @@ public class FriendlyInteractable : Interactable
 
     protected override void Start()
     {
+        if (this.highlightMaterial == null)
+            this.highlightMaterial =    Resources.Load<Material>("YellowHue");
+        if (this.hoverMaterial == null)
+            this.hoverMaterial =        Resources.Load<Material>("GreenHue");
+
         base.Start();
 
         this.parentTask = this.gameObject.GetComponent<Task>();

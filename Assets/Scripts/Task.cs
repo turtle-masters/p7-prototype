@@ -13,6 +13,8 @@ public class Task : Prompt
 {
     [Tooltip("Make GameObject glow when activated.")]
     public bool isGlowing = true;
+    [Tooltip("Hide GameObject until activated.")]
+    public bool hideUntilActive = false;
     [Tooltip("If set, the Task will only resolve when the associated GameObject is moved to the same location as the target transform. Setting this also makes the Task movable by the Player.")]
     public InteractionTarget target;
     [Tooltip("The amount of diviation on all axis (in Unity units) allowed from the target transform before it is considered hit.")]
@@ -121,8 +123,19 @@ public class Task : Prompt
         base.Resolve();
     }
 
+    private void TurnOnChildRenderersRecursively(GameObject node)
+    {
+        for (int i = 0; i < node.transform.childCount; i++)
+            this.TurnOnChildRenderersRecursively(node.transform.GetChild(i).gameObject);
+
+        if (node.GetComponent<Renderer>() != null) 
+            node.GetComponent<Renderer>().enabled = true;
+    }
+
     protected override void TurnOn()
     {
+        if (this.hideUntilActive) 
+            this.TurnOnChildRenderersRecursively(this.gameObject);
         base.TurnOn();
         this.gameObject.GetComponent<FriendlyInteractable>().Activate();
     }
