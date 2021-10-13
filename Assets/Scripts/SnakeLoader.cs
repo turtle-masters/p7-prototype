@@ -19,20 +19,22 @@ public class SnakeLoader : MonoBehaviour
             tempObject.transform.SetParent(transform);
             maltoseChildArray[i]=tempObject;
         }
-        for(int i=0;i<prefabLength;i++) {
-            maltoseChildArray[i].transform.localPosition=new Vector3(-prefabDist*i,Mathf.Sin(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth,Mathf.Cos(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth);
-            if(i>0) {
-                maltoseChildArray[i].transform.localRotation=Quaternion.LookRotation(maltoseChildArray[i-1].transform.position-maltoseChildArray[i].transform.position);
-            }
-        }
-        if(this.name=="Starch Snake Head") {
+        
+        /*if(this.name=="Starch Snake Head") {
             BreakSnakeAtJoint(7);
-        }
+        }*/
     }
 
     // Update is called once per frame
     void Update()
     {
+        for(int i=0;i<prefabLength;i++) {
+            maltoseChildArray[i].transform.localPosition=new Vector3(-prefabDist*i,Mathf.Sin(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth,Mathf.Cos(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth);
+            if(i>0) {
+                maltoseChildArray[i].transform.localRotation=Quaternion.LookRotation(maltoseChildArray[i-1].transform.localPosition-maltoseChildArray[i].transform.localPosition);
+            }
+        }
+        maltoseChildArray[0].transform.localRotation=Quaternion.LookRotation(maltoseChildArray[0].transform.localPosition-maltoseChildArray[1].transform.localPosition);
     }
 
     public GameObject[] GetMaltoseChildArray() {
@@ -64,8 +66,12 @@ public class SnakeLoader : MonoBehaviour
         GameObject newParent1, newParent2; //Use prefab?
         GameObject[] newParent1TempArray, newParent2TempArray;
 
-        newParent1 = Instantiate(new GameObject(),transform.position,transform.rotation);
-        newParent2 = Instantiate(new GameObject(),GetJointPosition(jointIndex),transform.rotation);
+        newParent1 = new GameObject();
+        newParent1.transform.position = transform.position;
+        newParent1.transform.rotation = transform.rotation;
+        newParent2 = new GameObject();
+        newParent2.transform.position = GetJointPosition(jointIndex);
+        newParent2.transform.rotation = transform.rotation;
 
         SnakeLoader newParent1SnakeLoader = newParent1.AddComponent<SnakeLoader>();
         SnakeLoader newParent2SnakeLoader = newParent2.AddComponent<SnakeLoader>();
@@ -93,5 +99,6 @@ public class SnakeLoader : MonoBehaviour
         rb2.drag=5;
         rb1.AddForce(newParent1.transform.position-GetJointPosition(jointIndex));
         rb2.AddForce(newParent2.transform.position-GetJointPosition(jointIndex));
+        Destroy(this.gameObject);
     }
 }
