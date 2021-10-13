@@ -161,19 +161,28 @@ public class Level : MonoBehaviour
         }
     }
 
+    private void SetVisibilityRecursively(GameObject node, bool isVisible, bool interactionTargetAsParent = false)
+    {
+        if (node.GetComponent<InteractionTarget>() != null && !interactionTargetAsParent) 
+            interactionTargetAsParent = true;
+
+        if (isVisible) node.layer = 0;
+        else node.layer = 1;
+
+        if (node.GetComponent<Renderer>() != null)
+            if (!interactionTargetAsParent || node.GetComponent<InteractionTarget>() == null || !isVisible)
+                node.GetComponent<Renderer>().enabled = isVisible;
+
+        for (int i = 0; i < node.transform.childCount; i++)
+            this.SetVisibilityRecursively(node.transform.GetChild(i).gameObject, isVisible, interactionTargetAsParent);
+    }
+
     public void SetVisibilityOfAllChildren(bool isVisible)
     {
         Debug.Log(this.name + "->SetVisibilityOfAllChildren->" + isVisible);
         this.isActive = isVisible;
 
-        foreach (Transform childTransform in this.transform)
-        {
-            if (isVisible) childTransform.gameObject.layer = 0;
-            else childTransform.gameObject.layer = 1;
-            if (childTransform.GetComponent<Renderer>() != null)
-                if (childTransform.GetComponent<InteractionTarget>() == null || !isVisible)
-                    childTransform.GetComponent<Renderer>().enabled = isVisible;
-        }
+        this.SetVisibilityRecursively(this.gameObject, isVisible);
     }
 
     /*

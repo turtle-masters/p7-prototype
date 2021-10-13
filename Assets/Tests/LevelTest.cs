@@ -140,11 +140,38 @@ public class LevelTest
     [Test]
     public void ManagesVisibilityOfChildRenderers()
     {
-        Task task = this.testLevel.gameObject.GetComponentInChildren<Task>();
-        this.testLevel.SetVisibilityOfAllChildren(false);
+        void TestGameObjectRecursively(GameObject node, bool expectedState)
+        {
+            //Debug.Log(node.name);
+            if (node.GetComponent<InteractionTarget>() != null)
+                NUnit.Framework.Assert.False(node.GetComponent<Renderer>().enabled);
+            else if (node.GetComponent<Renderer>() != null)
+                NUnit.Framework.Assert.AreEqual(expectedState, node.GetComponent<Renderer>().enabled);
+            for (int i = 0; i < node.transform.childCount; i++)
+                TestGameObjectRecursively(node.transform.GetChild(i).gameObject, expectedState);
+        }
 
-        NUnit.Framework.Assert.False(task.gameObject.GetComponent<Renderer>().enabled);
-        this.testLevel.Activate();
-        NUnit.Framework.Assert.True(task.gameObject.GetComponent<Renderer>().enabled);
+        // test level 1
+        this.testLevel.SetVisibilityOfAllChildren(false);
+        TestGameObjectRecursively(this.testLevel.gameObject, false);
+
+        this.testLevel.SetVisibilityOfAllChildren(true);
+        TestGameObjectRecursively(this.testLevel.gameObject, true);
+
+        this.testLevel.SetVisibilityOfAllChildren(false);
+        TestGameObjectRecursively(this.testLevel.gameObject, false);
+
+        // test level 2
+        GameObject level2GameObject = (GameObject) this.testScene.GetRootGameObjects().GetValue(3);
+        Level level2 = level2GameObject.GetComponent<Level>();
+
+        level2.SetVisibilityOfAllChildren(false);
+        TestGameObjectRecursively(level2GameObject, false);
+
+        level2.Activate();
+        TestGameObjectRecursively(level2GameObject, true);
+
+        level2.SetVisibilityOfAllChildren(false);
+        TestGameObjectRecursively(level2GameObject, false);
     }
 }
