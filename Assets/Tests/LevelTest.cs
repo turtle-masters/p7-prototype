@@ -8,6 +8,7 @@ using UnityEditor.SceneTemplate;
 using System;
 using UnityEngine.SceneManagement;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 public class LevelTest
 {
@@ -51,8 +52,9 @@ public class LevelTest
     [Test]
     public void GetsNextSceneName()
     {
+        this.privateTypeLevel.SetStaticField("totalSceneChanges", 1);
         int totalSceneChanges = (int) this.privateTypeLevel.GetStaticField("totalSceneChanges");
-        NUnit.Framework.Assert.AreEqual(0, totalSceneChanges);
+        NUnit.Framework.Assert.AreEqual(1, totalSceneChanges);
 
         void TestGetNextSceneName(string expectedOutcome)
         {
@@ -95,13 +97,11 @@ public class LevelTest
     {
         void TestOnActiveSceneChanged(int expectedIndexOfActiveLevel)
         {
-            GameObject[] rootGameObjects = this.testScene.GetRootGameObjects();
+            List<GameObject> rootGameObjects = new List<GameObject>(this.testScene.GetRootGameObjects());
             Level expectedLevel = rootGameObjects[expectedIndexOfActiveLevel + 2].GetComponent<Level>();
+            rootGameObjects.RemoveAt(expectedIndexOfActiveLevel + 2);
+            List<GameObject> onlyRootLevels = rootGameObjects.Skip(2).ToList();
             this.privateTypeLevel.SetStaticField("activeLevel", null);
-            /*NUnit.Framework.Assert.AreNotEqual(
-                expectedLevel, 
-                (Level) this.privateTypeLevel.GetStaticField("activeLevel")
-            );*/
 
             // activate next Level
             Scene oldScene = new Scene();
@@ -112,6 +112,13 @@ public class LevelTest
                 expectedLevel,
                 (Level)this.privateTypeLevel.GetStaticField("activeLevel")
             );
+
+            // make sure none of the other Level objects are active
+            foreach (GameObject go in onlyRootLevels)
+                if (go != null)
+                    NUnit.Framework.Assert.False(go.GetComponent<Level>().isActive);
+
+            expectedLevel.SetVisibilityOfAllChildren(false);
         }
 
         TestOnActiveSceneChanged(0);
@@ -133,11 +140,38 @@ public class LevelTest
     [Test]
     public void ManagesVisibilityOfChildRenderers()
     {
-        Task task = this.testLevel.gameObject.GetComponentInChildren<Task>();
-        this.testLevel.SetVisibilityOfAllChildren(false);
+        void TestGameObjectRecursively(GameObject node, bool expectedState)
+        {
+            //Debug.Log(node.name);
+            if (node.GetComponent<InteractionTarget>() != null)
+                NUnit.Framework.Assert.False(node.GetComponent<Renderer>().enabled);
+            else if (node.GetComponent<Renderer>() != null)
+                NUnit.Framework.Assert.AreEqual(expectedState, node.GetComponent<Renderer>().enabled);
+            for (int i = 0; i < node.transform.childCount; i++)
+                TestGameObjectRecursively(node.transform.GetChild(i).gameObject, expectedState);
+        }
 
-        NUnit.Framework.Assert.False(task.gameObject.GetComponent<Renderer>().enabled);
-        this.testLevel.Activate();
-        NUnit.Framework.Assert.True(task.gameObject.GetComponent<Renderer>().enabled);
+        // test level 1
+        this.testLevel.SetVisibilityOfAllChildren(false);
+        TestGameObjectRecursively(this.testLevel.gameObject, false);
+
+        this.testLevel.SetVisibilityOfAllChildren(true);
+        TestGameObjectRecursively(this.testLevel.gameObject, true);
+
+        this.testLevel.SetVisibilityOfAllChildren(false);
+        TestGameObjectRecursively(this.testLevel.gameObject, false);
+
+        // test level 2
+        GameObject level2GameObject = (GameObject) this.testScene.GetRootGameObjects().GetValue(3);
+        Level level2 = level2GameObject.GetComponent<Level>();
+
+        level2.SetVisibilityOfAllChildren(false);
+        TestGameObjectRecursively(level2GameObject, false);
+
+        level2.Activate();
+        TestGameObjectRecursively(level2GameObject, true);
+
+        level2.SetVisibilityOfAllChildren(false);
+        TestGameObjectRecursively(level2GameObject, false);
     }
 }

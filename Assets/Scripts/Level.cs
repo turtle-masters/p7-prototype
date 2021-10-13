@@ -8,10 +8,11 @@ using UnityEngine.SceneManagement;
 public class Level : MonoBehaviour
 {
     public static GameObject globalPlayerObject;
+    //[HideInInspector]
+    public bool isActive;
 
     [Tooltip("The first Prompt to be activated when the level is loaded.")]
     public Prompt entryPrompt;
-    private Renderer[] childRenderers;
 
     public static Level activeLevel;
     private static int totalSceneChanges = 0;
@@ -30,7 +31,12 @@ public class Level : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    private void Await()
+    /*private void Await()
+    {
+        this.SetVisibilityOfAllChildren(false);
+    }*/
+
+    private void OnEnable()
     {
         this.SetVisibilityOfAllChildren(false);
     }
@@ -71,14 +77,9 @@ public class Level : MonoBehaviour
         switch (Level.totalSceneChanges)
         {
             case 0:
-                Level.activeLevel = levelsInScene[0];
-                break;
             case 1:
-                Level.activeLevel = levelsInScene[0];
-                break;
             case 2:
                 Level.activeLevel = levelsInScene[0];
-                
                 break;
             case 3:
             case 4:
@@ -146,26 +147,51 @@ public class Level : MonoBehaviour
         switch (Level.totalSceneChanges)
         {
             // first scene (tutorial) will be loaded automatically
-            case 0:
-            case 2:
-            case 4:
-            case 6:
-                return "Village";
             case 1:
             case 3:
             case 5:
+            case 7:
+                return "Village";
+            case 2:
+            case 4:
+            case 6:
                 return "Microverse";
-            default:  // 7
+            default:  // 8
                 return "Room";
         }
     }
 
+    private void SetVisibilityRecursively(GameObject node, bool isVisible, bool interactionTargetAsParent = false)
+    {
+        if (node.GetComponent<InteractionTarget>() != null && !interactionTargetAsParent) 
+            interactionTargetAsParent = true;
+
+        // disable gravity immidiately if necesarry
+       /* Rigidbody nodeRigidbody = node.GetComponent<Rigidbody>();
+        if (nodeRigidbody != null && !isVisible)
+            nodeRigidbody.useGravity = false;*/
+
+        if (isVisible) node.layer = 0;
+        else node.layer = 1;
+
+        if (node.GetComponent<Renderer>() != null)
+            if (!interactionTargetAsParent || node.GetComponent<InteractionTarget>() == null || !isVisible)
+                node.GetComponent<Renderer>().enabled = isVisible;
+
+        for (int i = 0; i < node.transform.childCount; i++)
+            this.SetVisibilityRecursively(node.transform.GetChild(i).gameObject, isVisible, interactionTargetAsParent);
+
+        // after all the nodes have been enabled, we enable gravity if necesarry
+        /*if (nodeRigidbody != null && isVisible)
+            nodeRigidbody.useGravity = true;*/
+    }
+
     public void SetVisibilityOfAllChildren(bool isVisible)
     {
-        if (childRenderers == null)
-            this.childRenderers = this.GetComponentsInChildren<Renderer>();
-        foreach (Renderer renderer in childRenderers)
-            renderer.enabled = isVisible;
+        Debug.Log(this.name + "->SetVisibilityOfAllChildren->" + isVisible);
+        this.isActive = isVisible;
+
+        this.SetVisibilityRecursively(this.gameObject, isVisible);
     }
 
     /*
@@ -173,6 +199,7 @@ public class Level : MonoBehaviour
      */
     public void Activate()
     {
+        Debug.Log(this.name + "->Activate");
         this.SetVisibilityOfAllChildren(true);
         if (entryPrompt != null) entryPrompt.Activate();
         else Debug.LogError(this + " was activated but no initial Prompt was given. Did you foget to reference the entry Prompt?");

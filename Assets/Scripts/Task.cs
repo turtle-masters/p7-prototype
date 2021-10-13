@@ -45,9 +45,9 @@ public class Task : Prompt
             for (int i = 0; i < 3; i++)
                 if (Mathf.Abs(positionDifference[i]) > this.targetPrecision) validPosition = false;
 
-            bool validRotation = true;  // placeholder
-            // TODO: check for rotation aswell...
-            if (this.matchRotation && !compareRotation(selfTransform.rotation,targetTransform.rotation,0.15f))
+            bool validRotation = true;
+            // check rotation if set
+            if (this.matchRotation && !CompareRotation(selfTransform.rotation,targetTransform.rotation,0.15f))
             {
                 validRotation = false;
             }
@@ -55,7 +55,7 @@ public class Task : Prompt
             if (validPosition && validRotation) this.Resolve();
         }
     }
-    bool compareRotation(Quaternion r1, Quaternion r2, float precision)
+    private bool CompareRotation(Quaternion r1, Quaternion r2, float precision)
     {
         return Mathf.Abs(Quaternion.Dot(r1, r2)) >= 1 - precision;
 
