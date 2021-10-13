@@ -156,7 +156,7 @@ public class Level : MonoBehaviour
             case 4:
             case 6:
                 return "Microverse";
-            default:  // 7
+            default:  // 8
                 return "Room";
         }
     }
@@ -165,6 +165,11 @@ public class Level : MonoBehaviour
     {
         if (node.GetComponent<InteractionTarget>() != null && !interactionTargetAsParent) 
             interactionTargetAsParent = true;
+
+        // disable gravity immidiately if necesarry
+       /* Rigidbody nodeRigidbody = node.GetComponent<Rigidbody>();
+        if (nodeRigidbody != null && !isVisible)
+            nodeRigidbody.useGravity = false;*/
 
         if (isVisible) node.layer = 0;
         else node.layer = 1;
@@ -175,6 +180,10 @@ public class Level : MonoBehaviour
 
         for (int i = 0; i < node.transform.childCount; i++)
             this.SetVisibilityRecursively(node.transform.GetChild(i).gameObject, isVisible, interactionTargetAsParent);
+
+        // after all the nodes have been enabled, we enable gravity if necesarry
+        /*if (nodeRigidbody != null && isVisible)
+            nodeRigidbody.useGravity = true;*/
     }
 
     public void SetVisibilityOfAllChildren(bool isVisible)
