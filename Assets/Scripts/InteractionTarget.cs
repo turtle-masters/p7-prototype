@@ -28,7 +28,7 @@ public class InteractionTarget : Prompt
 
     public new void Resolve()
     {
-        this.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
         base.Resolve();
     }
 }
