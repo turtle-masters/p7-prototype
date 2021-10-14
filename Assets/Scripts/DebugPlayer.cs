@@ -143,5 +143,6 @@ public class DebugPlayer : MonoBehaviour
 
         // break out after first movement input
         isActive = true;
+        PlayerVisor.FindPlayerCamera();
     }
 }

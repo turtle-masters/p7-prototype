@@ -18,10 +18,8 @@ public class Prompt : MonoBehaviour
     [HideInInspector]
     [Tooltip("A (preferably) unqiue and descriptive name to help identify this Prompt.")]
     public string promptName = "An Awesome Prompt";
-    [HideInInspector]
-    public string promptText = "Hello, Player!";    // I suspect the prompt text will be
-    [HideInInspector]
-    public bool animateText = false;                // very hard to implement properly ...
+    [Tooltip("The UI text to be shown when this Prompt becomes active")]
+    public string promptText = "";
 
     [Tooltip("The audio clip to be played when the Prompt is activated.")]
     public AudioClip audioClip;
@@ -64,12 +62,11 @@ public class Prompt : MonoBehaviour
     {
         // try to retrieve the parent level
         this.parentLevel = this.GetParentLevel();
-    }
 
-    /*protected virtual void Update()
-    {
-        // ...
-    }*/
+        /*if (this.promptText == "")
+            this.promptText = this.promptName;*/
+        PlayerVisor.AddMyText(this);
+    }
 
     public override string ToString()
     {
