@@ -33,18 +33,20 @@ public class PlayerVisor : MonoBehaviour
         //Debug.Log(cam.WorldToScreenPoint(target.transform.position));
         foreach (Prompt targetObject in texts.Keys)
         {
-            Text TextReticle = texts[targetObject];
+            Text textReticle = texts[targetObject];
 
             // hide/show text depending on the state of the associated Prompt
-            if (!targetObject.IsActive())
-                TextReticle.font = null;
+            if (targetObject.IsActive()) textReticle.enabled = true;
             else
-                TextReticle.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
-            
-            float minX = TextReticle.GetPixelAdjustedRect().width / 2;
+            {
+                textReticle.enabled = false;
+                continue;
+            }
+
+            float minX = textReticle.GetPixelAdjustedRect().width / 2;
             float maxX = Screen.width - minX;
 
-            float minY = TextReticle.GetPixelAdjustedRect().height / 2;
+            float minY = textReticle.GetPixelAdjustedRect().height / 2;
             float maxY = Screen.height - minX;
 
             Vector2 pos = playerCamera.WorldToScreenPoint(targetObject.transform.position);
@@ -58,11 +60,11 @@ public class PlayerVisor : MonoBehaviour
                     pos.x = minX;
             }
             else
-                TextReticle.color = new Color(0, 0, 0, 1);
+                textReticle.color = new Color(0, 0, 0, 1);
 
             pos.x = Mathf.Clamp(pos.x, minX, maxX);
             pos.y = Mathf.Clamp(pos.y, minY, maxY);
-            TextReticle.transform.position = pos;
+            textReticle.transform.position = pos;
         }
     }
 
@@ -81,13 +83,13 @@ public class PlayerVisor : MonoBehaviour
         Text text = newTextObject.GetComponent<Text>();
         text.text = prompt.promptText;
         text.fontSize = 16;
+        text.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
         text.fontStyle = FontStyle.Bold;
 
         // make text available for display
         newTextObject.transform.parent = PlayerVisor.activeVisor.transform;
         PlayerVisor.texts.Add(prompt, newTextObject.GetComponent<Text>());
-
-        //Debug.Log("Added text from Prompt " + prompt.name);
+        text.enabled = false;
     }
 
     public static void FindPlayerCamera()
