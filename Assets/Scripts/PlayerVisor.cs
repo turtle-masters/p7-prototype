@@ -20,11 +20,16 @@ public class PlayerVisor : MonoBehaviour
 
     private static void OnActiveSceneChanged(Scene oldScene, Scene newScene)
     {
-        Debug.Log("ActiveVisorSet");
+        //Debug.Log("ActiveVisorSet");
         
         texts.Clear();
-        GameObject newPlayerObject = GameObject.FindGameObjectWithTag("Player");
-        PlayerVisor.activeVisor = GameObject.FindGameObjectWithTag("HUD").GetComponent<PlayerVisor>();
+
+        GameObject[] visorObjects = GameObject.FindGameObjectsWithTag("HUD");
+        foreach (GameObject vo in visorObjects)
+            if (vo.scene == newScene) 
+                PlayerVisor.activeVisor = vo.GetComponent<PlayerVisor>();
+
+        Debug.Log("Found PlayerVisor in Scene " + PlayerVisor.activeVisor.gameObject.scene.name);
         PlayerVisor.FindPlayerCamera();
     }
 
@@ -94,7 +99,9 @@ public class PlayerVisor : MonoBehaviour
 
     public static void FindPlayerCamera()
     {
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        PlayerVisor.playerCamera = playerObject.GetComponentInChildren<Camera>();
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject po in playerObjects)
+            if (po.scene == SceneManager.GetActiveScene())
+                PlayerVisor.playerCamera = po.GetComponentInChildren<Camera>();
     }
 }
