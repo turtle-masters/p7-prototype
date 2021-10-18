@@ -31,11 +31,6 @@ public class Level : MonoBehaviour
         SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
-    /*private void Await()
-    {
-        this.SetVisibilityOfAllChildren(false);
-    }*/
-
     private void OnEnable()
     {
         this.SetVisibilityOfAllChildren(false);
@@ -170,12 +165,16 @@ public class Level : MonoBehaviour
         else if (node.GetComponent<Task>() != null && node.GetComponent<Task>().hideUntilActive)
             keepDisabled = true;
 
-        if (isVisible) node.layer = 0;
-        else node.layer = 1;
+        /*if (isVisible) node.layer = 0;
+        else node.layer = 1;*/
 
-        if (node.GetComponent<Renderer>() != null)
-            if (!keepDisabled || node.GetComponent<InteractionTarget>() == null || !isVisible)
+        if (!keepDisabled || node.GetComponent<InteractionTarget>() == null || !isVisible)
+        {
+            if (node.GetComponent<Renderer>() != null)
                 node.GetComponent<Renderer>().enabled = isVisible;
+            if (node.GetComponent<Collider>() != null)
+                node.GetComponent<Collider>().enabled = isVisible;
+        }
 
         for (int i = 0; i < node.transform.childCount; i++)
             this.SetVisibilityRecursively(node.transform.GetChild(i).gameObject, isVisible, keepDisabled);
