@@ -512,8 +512,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
   entryPrompt: {fileID: 1851000}
+  isActive: 0
 --- !u!23 &395083491
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1339,7 +1339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 107946, guid: 5b08f57b22877094899dc0c7811f82fc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 107946, guid: 5b08f57b22877094899dc0c7811f82fc, type: 3}
       propertyPath: m_TagString

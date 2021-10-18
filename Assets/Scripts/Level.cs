@@ -7,15 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
-    public static GameObject globalPlayerObject;
-    //[HideInInspector]
-    public bool isActive;
-
     [Tooltip("The first Prompt to be activated when the level is loaded.")]
     public Prompt entryPrompt;
-
+    
+    [HideInInspector]
+    public static GameObject globalPlayerObject;
+    [HideInInspector]
+    public bool isActive;
+    [HideInInspector]
     public static Level activeLevel;
-    private static int totalSceneChanges = 0;
+    [HideInInspector]
+    public static int totalSceneChanges = 0;
 
     /*public delegate void ActiveSceneChangedEvent();
     public static event ActiveSceneChangedEvent OnActiveSceneChanged;

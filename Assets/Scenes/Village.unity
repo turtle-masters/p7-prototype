@@ -173,8 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
   entryPrompt: {fileID: 810692838}
+  isActive: 0
 --- !u!1001 &76778328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -601,8 +601,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
   entryPrompt: {fileID: 397928019}
+  isActive: 0
 --- !u!4 &218983453
 Transform:
   m_ObjectHideFlags: 0
@@ -8588,8 +8588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
   entryPrompt: {fileID: 108012792}
+  isActive: 0
 --- !u!1001 &1559828353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8766,7 +8766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_TagString
@@ -11342,8 +11342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
   entryPrompt: {fileID: 1201995920}
+  isActive: 0
 --- !u!1001 &2045313104
 PrefabInstance:
   m_ObjectHideFlags: 0
