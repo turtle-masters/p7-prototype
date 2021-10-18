@@ -151,9 +151,9 @@ Transform:
   m_LocalPosition: {x: -5.0359654, y: 0.5589951, z: -5.5403166}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1903637542}
   - {fileID: 810692836}
   - {fileID: 404239066}
-  - {fileID: 1903637542}
   - {fileID: 1776343123}
   - {fileID: 949157189}
   - {fileID: 579622467}
@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  entryPrompt: {fileID: 0}
+  entryPrompt: {fileID: 397928019}
 --- !u!4 &218983453
 Transform:
   m_ObjectHideFlags: 0
@@ -2700,8 +2700,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 218983452}
         m_TargetAssemblyTypeName: Level, GameAssembly
-        m_MethodName: 
-        m_Mode: 1
+        m_MethodName: Complete
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10538,7 +10538,7 @@ Transform:
   m_LocalScale: {x: 0.19585288, y: 0.19585288, z: 0.19585288}
   m_Children: []
   m_Father: {fileID: 70889835}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1903637543
 MonoBehaviour:
