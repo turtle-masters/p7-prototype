@@ -87,7 +87,7 @@ public class Level : MonoBehaviour
                 break;
         }
 
-        Debug.Log("Active Level is now " + Level.activeLevel.name + " in Scene " + SceneManager.GetActiveScene().name);
+        //Debug.Log("Active Level is now " + Level.activeLevel.name + " in Scene " + SceneManager.GetActiveScene().name);
 
         Level.LoadNextLevel(Level.GetNextSceneName());
         Level.activeLevel.Activate();
@@ -96,7 +96,7 @@ public class Level : MonoBehaviour
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log(scene.name + " loaded in mode " + mode);
+        //Debug.Log(scene.name + " loaded in mode " + mode);
     }
 
     private static void OnSceneUnloaded(Scene scene)
@@ -183,7 +183,8 @@ public class Level : MonoBehaviour
      */
     public void SetVisibilityOfAllChildren(bool isVisible)
     {
-        Debug.Log(this.name + "->SetVisibilityOfAllChildren->" + isVisible);
+        //Debug.Log(this.name + "->SetVisibilityOfAllChildren->" + isVisible);
+
         this.isActive = isVisible;
 
         this.SetVisibilityRecursively(this.gameObject, isVisible);
@@ -194,7 +195,8 @@ public class Level : MonoBehaviour
      */
     public void Activate()
     {
-        Debug.Log(this.name + "->Activate");
+        //Debug.Log(this.name + "->Activate");
+
         this.SetVisibilityOfAllChildren(true);
         if (entryPrompt != null) entryPrompt.Activate();
         else Debug.LogError(this + " was activated but no initial Prompt was given. Did you foget to reference the entry Prompt?");

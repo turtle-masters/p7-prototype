@@ -10,7 +10,7 @@ public class FriendlyThrowable : Throwable
 
     protected void Start()
     {
-        Task parentTask = this.GetComponent<Task>();
+        this.parentTask = this.GetComponent<Task>();
         parentTask.OnResolve.AddListener(
             (Prompt p) => this.OnDetachedFromHand()
         );
@@ -18,8 +18,11 @@ public class FriendlyThrowable : Throwable
 
     protected override void HandHoverUpdate(Hand hand)
     {
+        Debug.Log(this.gameObject.name + "->HandHoverUpdate->" + hand.name);
+
         GrabTypes gt = hand.GetGrabStarting();
 
+        Debug.Log(this.parentTask);
         if (gt != GrabTypes.None && this.parentTask.IsActive())
         {
             this.attachedHand = hand;
@@ -31,6 +34,8 @@ public class FriendlyThrowable : Throwable
 
     protected void OnDetachedFromHand()
     {
+        Debug.Log(this.gameObject.name + "->OnDetachedFromHand");
+
         if (this.parentTask != null && this.parentTask.target != null)
         {
             this.attachedHand.DetachObject(this.gameObject, this.restoreOriginalParent);
@@ -41,6 +46,8 @@ public class FriendlyThrowable : Throwable
 
     protected override void HandAttachedUpdate(Hand hand)
     {
+        Debug.Log(this.gameObject.name + "->HandAttachedUpdate" + hand.name);
+
         //base.HandAttachedUpdate(hand);
 
         if (this.onHeldUpdate != null)

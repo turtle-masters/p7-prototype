@@ -78,7 +78,7 @@ public class FriendlyInteractable : Interactable
     {
         if (!this.parentTask.IsActive()) return;
 
-        Debug.Log("OnHandHoverBegin was called!");
+        Debug.Log(this.gameObject.name + "->OnHandHoverBegin");
 
         this.isActuallyHovering = true;
         this.parentTask.EnterHover(hand);
@@ -93,7 +93,7 @@ public class FriendlyInteractable : Interactable
     {
         if (!this.parentTask.IsActive()) return;
 
-        Debug.Log("OnHandHoverEnd was called!");
+        Debug.Log(this.gameObject.name + "->OnHandHoverEnd");
 
         this.isActuallyHovering = false;
         this.parentTask.ExitHover(hand);
@@ -108,6 +108,8 @@ public class FriendlyInteractable : Interactable
     {
         if (!this.parentTask.IsActive()) return;
 
+        Debug.Log(this.gameObject.name + "->OnAttachedToHand");
+
         this.parentTask.Grab(hand);
         this.ChangeMaterial(this.grabMaterial);
 
@@ -118,6 +120,8 @@ public class FriendlyInteractable : Interactable
     protected override void OnDetachedFromHand(Hand hand)
     {
         if (!this.parentTask.IsActive()) return;
+
+        Debug.Log(this.gameObject.name + "->OnDetachedFromHand");
 
         this.parentTask.Drop(hand);
         this.ChangeMaterial(this.highlightMaterial);

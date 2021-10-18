@@ -29,12 +29,14 @@ public class PlayerVisor : MonoBehaviour
             if (vo.scene == newScene) 
                 PlayerVisor.activeVisor = vo.GetComponent<PlayerVisor>();
 
-        Debug.Log("Found PlayerVisor in Scene " + PlayerVisor.activeVisor.gameObject.scene.name);
+        //Debug.Log("Found PlayerVisor in Scene " + PlayerVisor.activeVisor.gameObject.scene.name);
         PlayerVisor.FindPlayerCamera();
     }
 
     private void Update()
     {
+        if (playerCamera == null) return;  // TODO: fix PlayerVisor for VR...
+
         //Debug.Log(cam.WorldToScreenPoint(target.transform.position));
         foreach (Prompt targetObject in texts.Keys)
         {
@@ -99,6 +101,7 @@ public class PlayerVisor : MonoBehaviour
 
     public static void FindPlayerCamera()
     {
+        // CURRENTLY DOESN'T WORK FOR VR, ONLY DEBUGPLAYER
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject po in playerObjects)
             if (po.scene == SceneManager.GetActiveScene())
