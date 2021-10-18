@@ -19,13 +19,6 @@ public class Level : MonoBehaviour
     [HideInInspector]
     public static int totalSceneChanges = 0;
 
-    /*public delegate void ActiveSceneChangedEvent();
-    public static event ActiveSceneChangedEvent OnActiveSceneChanged;
-    public delegate void SceneLoadedEvent();
-    public static event SceneLoadedEvent OnSceneLoaded;
-    public delegate void SceneUnloadedEvent();
-    public static event SceneUnloadedEvent OnSceneUnloaded;*/
-
     static Level()
     {
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
@@ -185,6 +178,9 @@ public class Level : MonoBehaviour
             node.GetComponent<Renderer>().enabled = false;
     }
 
+    /*
+     * Toggles Renderer- and Collider components in all children of this Level
+     */
     public void SetVisibilityOfAllChildren(bool isVisible)
     {
         Debug.Log(this.name + "->SetVisibilityOfAllChildren->" + isVisible);

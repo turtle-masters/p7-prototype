@@ -641,8 +641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
   entryPrompt: {fileID: 2129268944}
+  isActive: 0
 --- !u!4 &395083492
 Transform:
   m_ObjectHideFlags: 0
@@ -1545,8 +1545,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
   entryPrompt: {fileID: 1225472987}
+  isActive: 0
 --- !u!4 &1037895915
 Transform:
   m_ObjectHideFlags: 0
@@ -3824,7 +3824,19 @@ MonoBehaviour:
   secondsWaitAfterPlay: 3.5
   OnActive:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 395083490}
+        m_TargetAssemblyTypeName: Level, GameAssembly
+        m_MethodName: Complete
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnResolve:
     m_PersistentCalls:
       m_Calls:
