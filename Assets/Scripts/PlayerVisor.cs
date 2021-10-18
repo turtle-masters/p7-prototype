@@ -65,7 +65,7 @@ public class PlayerVisor : MonoBehaviour
                     pos.x = minX;
             }
             else
-                textReticle.color = new Color(0, 0, 0, 1);
+                textReticle.color = new Color(255, 255, 255, 1);
 
             pos.x = Mathf.Clamp(pos.x, minX, maxX);
             pos.y = Mathf.Clamp(pos.y, minY, maxY);

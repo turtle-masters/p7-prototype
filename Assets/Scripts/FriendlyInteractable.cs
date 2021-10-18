@@ -78,7 +78,7 @@ public class FriendlyInteractable : Interactable
     {
         if (!this.parentTask.IsActive()) return;
 
-        //Debug.Log("OnHandHoverBegin was called!");
+        Debug.Log("OnHandHoverBegin was called!");
 
         this.isActuallyHovering = true;
         this.parentTask.EnterHover(hand);
@@ -93,7 +93,7 @@ public class FriendlyInteractable : Interactable
     {
         if (!this.parentTask.IsActive()) return;
 
-        //Debug.Log("OnHandHoverEnd was called!");
+        Debug.Log("OnHandHoverEnd was called!");
 
         this.isActuallyHovering = false;
         this.parentTask.ExitHover(hand);
