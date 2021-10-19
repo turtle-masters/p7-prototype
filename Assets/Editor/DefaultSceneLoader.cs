@@ -24,8 +24,8 @@ public static class DefaultSceneLoader
         {
             if (EditorSceneManager.GetActiveScene().buildIndex == 0) return;
 
-            Level.totalSceneChanges = 0;
             EditorSceneManager.LoadScene(0);
+            Level.totalSceneChanges = 0;
         }
     }
 }

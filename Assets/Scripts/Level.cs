@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Level : MonoBehaviour
 {
@@ -19,11 +20,23 @@ public class Level : MonoBehaviour
     [HideInInspector]
     public static int totalSceneChanges = 0;
 
+    private static bool playerInitiated = false;
+    private static List<int> culledScenes = new List<int>();
+
     static Level()
     {
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
+
+        /*GameObject[] objects = SceneManager.GetSceneByBuildIndex(0).GetRootGameObjects();
+        foreach (GameObject gameObject in objects)
+        {
+            Debug.Log(gameObject.name);
+            if (gameObject.tag == "Player")
+                globalPlayerObject = gameObject;
+        }
+        Debug.Log(globalPlayerObject);*/
     }
 
     private void OnEnable()
@@ -33,25 +46,52 @@ public class Level : MonoBehaviour
 
     private void Start()
     {
-        IEnumerator rootEnumerator = this.gameObject.scene.GetRootGameObjects().GetEnumerator();
-        rootEnumerator.Reset();
-        GameObject playerGameObject = null;
-        while (rootEnumerator.MoveNext())
+        // ...
+    }
+
+    private static void CullPlayerObjects()
+    {
+        //Debug.Log(SceneManager.sceneCount);
+        Debug.Log(!playerInitiated && SceneManager.GetActiveScene().buildIndex != 0);
+        if (!playerInitiated && SceneManager.GetActiveScene().buildIndex == 0)
+            return;
+
+        for (int i = 0; i < SceneManager.sceneCount; i++)
         {
-            GameObject current = (GameObject)rootEnumerator.Current;
-            if (current.tag == "Player")
+            Scene scene = SceneManager.GetSceneAt(i);
+            //Debug.Log("Looking at Scene " + scene.name);
+
+            /*if (Level.culledScenes.Contains(scene.buildIndex))
+                continue;*/
+
+            IEnumerator rootEnumerator = scene.GetRootGameObjects().GetEnumerator();
+            rootEnumerator.Reset();
+            //GameObject playerGameObject = Level.globalPlayerObject;
+
+            while (rootEnumerator.MoveNext())
             {
-                playerGameObject = current;
-                break;
+                GameObject current = (GameObject)rootEnumerator.Current;
+                if (current.tag == "Player")
+                {
+                    Debug.Log("Found Player in Scene " + scene.name);
+                    if (!DebugPlayer.isActive)
+                    {
+                        current.SetActive(false);
+                        //culledScenes.Add(scene.buildIndex);
+                    }
+                    break;
+                }
             }
+            //Debug.Log("Number of culled Scenes: " + Level.culledScenes.Count);
         }
-        if (Level.globalPlayerObject == null) Level.globalPlayerObject = playerGameObject;
-        if (DebugPlayer.isActive || Level.totalSceneChanges < 2) playerGameObject.SetActive(true);
-        else playerGameObject.SetActive(false);
+
+        playerInitiated = true;
     }
 
     private static void OnActiveSceneChanged(Scene oldScene, Scene newScene)
     {
+        Level.CullPlayerObjects();
+
         // find all Level components in the Scene
         List<Level> levelsInScene = new List<Level>();
         IEnumerator ie = newScene.GetRootGameObjects().GetEnumerator();
@@ -88,10 +128,12 @@ public class Level : MonoBehaviour
         }
 
         //Debug.Log("Active Level is now " + Level.activeLevel.name + " in Scene " + SceneManager.GetActiveScene().name);
+        //Debug.Log(Level.totalSceneChanges);
 
         Level.LoadNextLevel(Level.GetNextSceneName());
         Level.activeLevel.Activate();
-        Level.totalSceneChanges++;
+        if (SceneManager.GetActiveScene().buildIndex == 0 || Level.totalSceneChanges > 0) 
+            Level.totalSceneChanges++;
     }
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
