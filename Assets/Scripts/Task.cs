@@ -128,8 +128,9 @@ public class Task : Prompt
 
     private void SetChildRenderersRecursively(GameObject node, bool state = true)
     {
+        Debug.Log(this.name + "->SetChildRenderersRecursively->" + node.name + "->" + state);
         for (int i = 0; i < node.transform.childCount; i++)
-            this.SetChildRenderersRecursively(node.transform.GetChild(i).gameObject);
+            this.SetChildRenderersRecursively(node.transform.GetChild(i).gameObject, state);
 
         if (node.GetComponent<Renderer>() != null) 
             node.GetComponent<Renderer>().enabled = state;
