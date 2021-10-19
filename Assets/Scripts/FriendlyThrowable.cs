@@ -14,6 +14,10 @@ public class FriendlyThrowable : Throwable
         parentTask.OnResolve.AddListener(
             (Prompt p) => this.OnDetachedFromHand()
         );
+
+        // impose constraints
+        Rigidbody localRigidbody = this.GetComponent<Rigidbody>();
+        localRigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     protected override void HandHoverUpdate(Hand hand)
@@ -22,13 +26,18 @@ public class FriendlyThrowable : Throwable
 
         GrabTypes gt = hand.GetGrabStarting();
 
-        Debug.Log(this.parentTask);
         if (gt != GrabTypes.None && this.parentTask.IsActive())
         {
             this.attachedHand = hand;
             this.parentTask.Grab(hand);
             if (this.parentTask.target != null)
+            {
+                // lift constraints
+                Rigidbody localRigidbody = this.GetComponent<Rigidbody>();
+                localRigidbody.constraints = RigidbodyConstraints.None;
+
                 base.HandHoverUpdate(hand);
+            }
         }
     }
 
