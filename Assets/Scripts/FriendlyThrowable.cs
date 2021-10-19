@@ -11,8 +11,8 @@ public class FriendlyThrowable : Throwable
     protected void Start()
     {
         this.parentTask = this.GetComponent<Task>();
-        parentTask.OnResolve.AddListener(
-            (Prompt p) => this.OnDetachedFromHand()
+        this.parentTask.OnResolve.AddListener(
+            (Prompt p) => this.attachedHand.DetachObject(this.gameObject, this.restoreOriginalParent)
         );
 
         // impose constraints
@@ -47,7 +47,7 @@ public class FriendlyThrowable : Throwable
 
         if (this.parentTask != null && this.parentTask.target != null)
         {
-            this.attachedHand.DetachObject(this.gameObject, this.restoreOriginalParent);
+            //this.attachedHand.DetachObject(this.gameObject, this.restoreOriginalParent);
             base.OnDetachedFromHand(this.attachedHand);
         }
         this.attachedHand = null;
@@ -56,7 +56,6 @@ public class FriendlyThrowable : Throwable
     protected override void HandAttachedUpdate(Hand hand)
     {
         Debug.Log(this.gameObject.name + "->HandAttachedUpdate" + hand.name);
-
         //base.HandAttachedUpdate(hand);
 
         if (this.onHeldUpdate != null)

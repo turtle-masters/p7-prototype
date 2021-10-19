@@ -52,7 +52,7 @@ public class Level : MonoBehaviour
     private static void CullPlayerObjects()
     {
         //Debug.Log(SceneManager.sceneCount);
-        Debug.Log(!playerInitiated && SceneManager.GetActiveScene().buildIndex != 0);
+        //Debug.Log(!playerInitiated && SceneManager.GetActiveScene().buildIndex != 0);
         if (!playerInitiated && SceneManager.GetActiveScene().buildIndex == 0)
             return;
 

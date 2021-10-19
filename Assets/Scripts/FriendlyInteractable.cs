@@ -10,6 +10,7 @@ public class FriendlyInteractable : Interactable
     public Material highlightMaterial;
     public Material hoverMaterial;
     public Material grabMaterial;
+
     [HideInInspector]
     public bool isActuallyHovering;
 

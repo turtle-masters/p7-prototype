@@ -76,12 +76,12 @@ public class Task : Prompt
 
     public void EnterHover(Hand hand)
     {
-
+        // ...
     }
 
     public void ExitHover(Hand hand)
     {
-
+        // ...
     }
 
     /*
@@ -114,28 +114,31 @@ public class Task : Prompt
         {
             this.target.Resolve();
             this.GetComponent<Rigidbody>().isKinematic = false;
-            if (hideAfterCompletion)
+            if (this.hideAfterCompletion)
             {
                 this.GetComponent<FriendlyInteractable>().enabled = false;
-                this.GetComponent<Renderer>().enabled = false;
+                this.SetChildRenderersRecursively(this.gameObject, false);
             }
+            // impose constraints
+            Rigidbody localRigidbody = this.GetComponent<Rigidbody>();
+            localRigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
         base.Resolve();
     }
 
-    private void TurnOnChildRenderersRecursively(GameObject node)
+    private void SetChildRenderersRecursively(GameObject node, bool state = true)
     {
         for (int i = 0; i < node.transform.childCount; i++)
-            this.TurnOnChildRenderersRecursively(node.transform.GetChild(i).gameObject);
+            this.SetChildRenderersRecursively(node.transform.GetChild(i).gameObject);
 
         if (node.GetComponent<Renderer>() != null) 
-            node.GetComponent<Renderer>().enabled = true;
+            node.GetComponent<Renderer>().enabled = state;
     }
 
     protected override void TurnOn()
     {
         if (this.hideUntilActive) 
-            this.TurnOnChildRenderersRecursively(this.gameObject);
+            this.SetChildRenderersRecursively(this.gameObject);
         base.TurnOn();
         this.gameObject.GetComponent<FriendlyInteractable>().Activate();
     }
