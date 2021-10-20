@@ -27,6 +27,8 @@ public class Task : Prompt
     [Tooltip("Invoked whenever this Task is grabbed. Use this to activate narrative Prompts!")]
     public ActiveEvent OnGrab = new ActiveEvent();
 
+    private bool isVisible = false;
+
     protected override void Start()
     {
         if (this.target != null) this.gameObject.AddComponent<Rigidbody>();
@@ -126,6 +128,16 @@ public class Task : Prompt
         base.Resolve();
     }
 
+    public void Show()
+    {
+        this.SetChildRenderersRecursively(this.gameObject);
+    }
+
+    public void Show(Prompt p)
+    {
+        this.Show();
+    }
+
     private void SetChildRenderersRecursively(GameObject node, bool state = true)
     {
         Debug.Log(this.name + "->SetChildRenderersRecursively->" + node.name + "->" + state);
@@ -134,11 +146,13 @@ public class Task : Prompt
 
         if (node.GetComponent<Renderer>() != null) 
             node.GetComponent<Renderer>().enabled = state;
+
+        if (this.gameObject == node) isVisible = state;
     }
 
     protected override void TurnOn()
     {
-        if (this.hideUntilActive) 
+        if (this.hideUntilActive && !isVisible) 
             this.SetChildRenderersRecursively(this.gameObject);
         base.TurnOn();
         this.gameObject.GetComponent<FriendlyInteractable>().Activate();

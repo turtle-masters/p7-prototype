@@ -132,7 +132,7 @@ public class Level : MonoBehaviour
 
         Level.LoadNextLevel(Level.GetNextSceneName());
         Level.activeLevel.Activate();
-        if (SceneManager.GetActiveScene().buildIndex == 0 || Level.totalSceneChanges > 0) 
+        //if (SceneManager.GetActiveScene().buildIndex == 0 || Level.totalSceneChanges > 0) 
             Level.totalSceneChanges++;
     }
 
