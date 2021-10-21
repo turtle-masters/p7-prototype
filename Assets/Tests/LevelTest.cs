@@ -147,6 +147,8 @@ public class LevelTest
                 NUnit.Framework.Assert.False(node.GetComponent<Renderer>().enabled);
             else if (node.GetComponent<Renderer>() != null)
                 NUnit.Framework.Assert.AreEqual(expectedState, node.GetComponent<Renderer>().enabled);
+            if (node.GetComponent<Collider>() != null)
+                NUnit.Framework.Assert.AreEqual(expectedState, node.GetComponent<Collider>().enabled);
             for (int i = 0; i < node.transform.childCount; i++)
                 TestGameObjectRecursively(node.transform.GetChild(i).gameObject, expectedState);
         }

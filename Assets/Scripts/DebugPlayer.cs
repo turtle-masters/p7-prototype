@@ -22,14 +22,7 @@ public class DebugPlayer : MonoBehaviour
     private bool mousePressed = false;
     private bool localIsHovering = false;
 
-    protected void Awake()
-    {
-        // kill self if the game is not running from the editor, preventing any more of the code in this file from executing (including Start)
-        #if !UNITY_EDITOR
-        this.gameObject.GetComponent<DebugPlayer>().enabled = false;
-        #endif
-    }
-
+#if UNITY_EDITOR
     protected void Start()
     {
         // find Player object
@@ -76,7 +69,6 @@ public class DebugPlayer : MonoBehaviour
                 // mouse clicks
                 if (targetInteractable != null && this.localIsHovering && Input.GetMouseButtonDown(0) && !this.mousePressed)
                 {
-                    // TODO add grabbing
                     this.mousePressed = true;
                     targetInteractable.DebugGrab();
                 }
@@ -153,4 +145,5 @@ public class DebugPlayer : MonoBehaviour
         isActive = true;
         PlayerVisor.FindPlayerCamera();
     }
+#endif
 }

@@ -27,6 +27,8 @@ public class Task : Prompt
     [Tooltip("Invoked whenever this Task is grabbed. Use this to activate narrative Prompts!")]
     public ActiveEvent OnGrab = new ActiveEvent();
 
+    private bool isVisible = false;
+
     protected override void Start()
     {
         if (this.target != null) this.gameObject.AddComponent<Rigidbody>();
@@ -76,12 +78,12 @@ public class Task : Prompt
 
     public void EnterHover(Hand hand)
     {
-
+        // ...
     }
 
     public void ExitHover(Hand hand)
     {
-
+        // ...
     }
 
     /*
@@ -114,28 +116,44 @@ public class Task : Prompt
         {
             this.target.Resolve();
             this.GetComponent<Rigidbody>().isKinematic = false;
-            if (hideAfterCompletion)
+            if (this.hideAfterCompletion)
             {
                 this.GetComponent<FriendlyInteractable>().enabled = false;
-                this.GetComponent<Renderer>().enabled = false;
+                this.SetChildRenderersRecursively(this.gameObject, false);
             }
+            // impose constraints
+            Rigidbody localRigidbody = this.GetComponent<Rigidbody>();
+            localRigidbody.constraints = RigidbodyConstraints.FreezeAll;
         }
         base.Resolve();
     }
 
-    private void TurnOnChildRenderersRecursively(GameObject node)
+    public void Show()
     {
+        this.SetChildRenderersRecursively(this.gameObject);
+    }
+
+    public void Show(Prompt p)
+    {
+        this.Show();
+    }
+
+    private void SetChildRenderersRecursively(GameObject node, bool state = true)
+    {
+        Debug.Log(this.name + "->SetChildRenderersRecursively->" + node.name + "->" + state);
         for (int i = 0; i < node.transform.childCount; i++)
-            this.TurnOnChildRenderersRecursively(node.transform.GetChild(i).gameObject);
+            this.SetChildRenderersRecursively(node.transform.GetChild(i).gameObject, state);
 
         if (node.GetComponent<Renderer>() != null) 
-            node.GetComponent<Renderer>().enabled = true;
+            node.GetComponent<Renderer>().enabled = state;
+
+        if (this.gameObject == node) isVisible = state;
     }
 
     protected override void TurnOn()
     {
-        if (this.hideUntilActive) 
-            this.TurnOnChildRenderersRecursively(this.gameObject);
+        if (this.hideUntilActive && !isVisible) 
+            this.SetChildRenderersRecursively(this.gameObject);
         base.TurnOn();
         this.gameObject.GetComponent<FriendlyInteractable>().Activate();
     }

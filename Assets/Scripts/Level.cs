@@ -4,37 +4,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Level : MonoBehaviour
 {
-    public static GameObject globalPlayerObject;
-    //[HideInInspector]
-    public bool isActive;
-
     [Tooltip("The first Prompt to be activated when the level is loaded.")]
     public Prompt entryPrompt;
-
+    
+    [HideInInspector]
+    public static GameObject globalPlayerObject;
+    [HideInInspector]
+    public bool isActive;
+    [HideInInspector]
     public static Level activeLevel;
-    private static int totalSceneChanges = 0;
+    [HideInInspector]
+    public static int totalSceneChanges = 0;
 
-    /*public delegate void ActiveSceneChangedEvent();
-    public static event ActiveSceneChangedEvent OnActiveSceneChanged;
-    public delegate void SceneLoadedEvent();
-    public static event SceneLoadedEvent OnSceneLoaded;
-    public delegate void SceneUnloadedEvent();
-    public static event SceneUnloadedEvent OnSceneUnloaded;*/
+    private static bool playerInitiated = false;
+    private static List<int> culledScenes = new List<int>();
 
     static Level()
     {
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
-    }
 
-    /*private void Await()
-    {
-        this.SetVisibilityOfAllChildren(false);
-    }*/
+        /*GameObject[] objects = SceneManager.GetSceneByBuildIndex(0).GetRootGameObjects();
+        foreach (GameObject gameObject in objects)
+        {
+            Debug.Log(gameObject.name);
+            if (gameObject.tag == "Player")
+                globalPlayerObject = gameObject;
+        }
+        Debug.Log(globalPlayerObject);*/
+    }
 
     private void OnEnable()
     {
@@ -43,25 +46,52 @@ public class Level : MonoBehaviour
 
     private void Start()
     {
-        IEnumerator rootEnumerator = this.gameObject.scene.GetRootGameObjects().GetEnumerator();
-        rootEnumerator.Reset();
-        GameObject playerGameObject = null;
-        while (rootEnumerator.MoveNext())
+        // ...
+    }
+
+    private static void CullPlayerObjects()
+    {
+        //Debug.Log(SceneManager.sceneCount);
+        //Debug.Log(!playerInitiated && SceneManager.GetActiveScene().buildIndex != 0);
+        if (!playerInitiated && SceneManager.GetActiveScene().buildIndex == 0)
+            return;
+
+        for (int i = 0; i < SceneManager.sceneCount; i++)
         {
-            GameObject current = (GameObject)rootEnumerator.Current;
-            if (current.tag == "Player")
+            Scene scene = SceneManager.GetSceneAt(i);
+            //Debug.Log("Looking at Scene " + scene.name);
+
+            /*if (Level.culledScenes.Contains(scene.buildIndex))
+                continue;*/
+
+            IEnumerator rootEnumerator = scene.GetRootGameObjects().GetEnumerator();
+            rootEnumerator.Reset();
+            //GameObject playerGameObject = Level.globalPlayerObject;
+
+            while (rootEnumerator.MoveNext())
             {
-                playerGameObject = current;
-                break;
+                GameObject current = (GameObject)rootEnumerator.Current;
+                if (current.tag == "Player")
+                {
+                    Debug.Log("Found Player in Scene " + scene.name);
+                    if (!DebugPlayer.isActive)
+                    {
+                        current.SetActive(false);
+                        //culledScenes.Add(scene.buildIndex);
+                    }
+                    break;
+                }
             }
+            //Debug.Log("Number of culled Scenes: " + Level.culledScenes.Count);
         }
-        if (Level.globalPlayerObject == null) Level.globalPlayerObject = playerGameObject;
-        if (DebugPlayer.isActive || Level.totalSceneChanges < 2) playerGameObject.SetActive(true);
-        else playerGameObject.SetActive(false);
+
+        playerInitiated = true;
     }
 
     private static void OnActiveSceneChanged(Scene oldScene, Scene newScene)
     {
+        Level.CullPlayerObjects();
+
         // find all Level components in the Scene
         List<Level> levelsInScene = new List<Level>();
         IEnumerator ie = newScene.GetRootGameObjects().GetEnumerator();
@@ -97,16 +127,18 @@ public class Level : MonoBehaviour
                 break;
         }
 
-        Debug.Log("Active Level is now " + Level.activeLevel.name + " in Scene " + SceneManager.GetActiveScene().name);
+        //Debug.Log("Active Level is now " + Level.activeLevel.name + " in Scene " + SceneManager.GetActiveScene().name);
+        //Debug.Log(Level.totalSceneChanges);
 
         Level.LoadNextLevel(Level.GetNextSceneName());
         Level.activeLevel.Activate();
-        Level.totalSceneChanges++;
+        //if (SceneManager.GetActiveScene().buildIndex == 0 || Level.totalSceneChanges > 0) 
+            Level.totalSceneChanges++;
     }
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log(scene.name + " loaded in mode " + mode);
+        //Debug.Log(scene.name + " loaded in mode " + mode);
     }
 
     private static void OnSceneUnloaded(Scene scene)
@@ -170,12 +202,16 @@ public class Level : MonoBehaviour
         else if (node.GetComponent<Task>() != null && node.GetComponent<Task>().hideUntilActive)
             keepDisabled = true;
 
-        if (isVisible) node.layer = 0;
-        else node.layer = 1;
+        /*if (isVisible) node.layer = 0;
+        else node.layer = 1;*/
 
-        if (node.GetComponent<Renderer>() != null)
-            if (!keepDisabled || node.GetComponent<InteractionTarget>() == null || !isVisible)
+        if (!keepDisabled || node.GetComponent<InteractionTarget>() == null || !isVisible)
+        {
+            if (node.GetComponent<Renderer>() != null)
                 node.GetComponent<Renderer>().enabled = isVisible;
+            if (node.GetComponent<Collider>() != null)
+                node.GetComponent<Collider>().enabled = isVisible;
+        }
 
         for (int i = 0; i < node.transform.childCount; i++)
             this.SetVisibilityRecursively(node.transform.GetChild(i).gameObject, isVisible, keepDisabled);
@@ -184,9 +220,13 @@ public class Level : MonoBehaviour
             node.GetComponent<Renderer>().enabled = false;
     }
 
+    /*
+     * Toggles Renderer- and Collider components in all children of this Level
+     */
     public void SetVisibilityOfAllChildren(bool isVisible)
     {
-        Debug.Log(this.name + "->SetVisibilityOfAllChildren->" + isVisible);
+        //Debug.Log(this.name + "->SetVisibilityOfAllChildren->" + isVisible);
+
         this.isActive = isVisible;
 
         this.SetVisibilityRecursively(this.gameObject, isVisible);
@@ -197,7 +237,8 @@ public class Level : MonoBehaviour
      */
     public void Activate()
     {
-        Debug.Log(this.name + "->Activate");
+        //Debug.Log(this.name + "->Activate");
+
         this.SetVisibilityOfAllChildren(true);
         if (entryPrompt != null) entryPrompt.Activate();
         else Debug.LogError(this + " was activated but no initial Prompt was given. Did you foget to reference the entry Prompt?");
