@@ -14,6 +14,9 @@ public class DebugPlayer : MonoBehaviour
     public static float height = 1.5f;
     public static float reach = 2.3f;
 
+    public GameObject cameraChildObject = null;
+    public Vector3 cameraChildOffset = Vector3.zero;
+
     private GameObject playerObject;
     private Transform targetTransform;
     private bool mousePressed = false;
@@ -137,6 +140,11 @@ public class DebugPlayer : MonoBehaviour
         newCamera.transform.SetParent(this.playerObject.transform);
         newCamera.AddComponent<Camera>();
         newCamera.transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
+
+        if(cameraChildObject!=null) {
+            cameraChildObject.transform.SetParent(newCamera.transform);
+            cameraChildObject.transform.localPosition = cameraChildOffset;
+        }
 
         // reset the view (height)
         newCamera.transform.Translate(new Vector3(0, height, 0));

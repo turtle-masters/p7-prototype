@@ -7,33 +7,32 @@ using UnityEngine.UI;
 public class RaycastReaderScript : MonoBehaviour
 {
     public Text displayText;
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log("this is working");
-    }
+    public bool displayGoals = false;
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(!displayGoals) {
+            RaycastHit hit;
 
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit))
-        {
-            ChemData data = hit.collider.gameObject.GetComponent<ChemData>();
-            if(data!=null) {
-                if(data.Formula == "") {
-                    displayText.text = data.Name;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit))
+            {
+                ChemData data = hit.collider.gameObject.GetComponent<ChemData>();
+                if(data!=null) {
+                    if(data.Formula == "") {
+                        displayText.text = data.Name;
+                    } else {
+                        displayText.text = data.Name+"\n"+data.Formula;
+                    }
+                    
                 } else {
-                    displayText.text = data.Name+"\n"+data.Formula;
+                    displayText.text="No Data";
                 }
                 
-            } else {
-                displayText.text="No Data";
             }
-            
+        } else {
+            displayText.text = MinigameManagerScript.instance.GetGoalString();
         }
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 10000f, Color.yellow);
+        //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 10000f, Color.yellow);
     }
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 public class ReactionScript : MonoBehaviour
 {
     public GameObject[] reactionSpawnObjects;
-    public string triggerName;
+    public string triggerName = "";
+    public string triggerNewName = "";
 
     void React() {
         foreach(GameObject reactionObject in reactionSpawnObjects)
@@ -19,9 +20,13 @@ public class ReactionScript : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         ChemData data = other.gameObject.GetComponent<ChemData>();
         if(data!=null) {
-            if(other.gameObject.name==triggerName) {
+            if(data.Name==triggerName) {
                 React();
+                if(triggerNewName!="") {
+                    data.SetName(triggerNewName);
+                }
             }
+            
         }
     }
 }

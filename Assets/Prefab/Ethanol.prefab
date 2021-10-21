@@ -14,9 +14,8 @@ GameObject:
   - component: {fileID: 8925902014748771357}
   - component: {fileID: 8925902014748771356}
   - component: {fileID: -7283275523223729238}
-  - component: {fileID: 5370651670031722312}
   m_Layer: 0
-  m_Name: Acetaldehyde
+  m_Name: Ethanol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,21 +127,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chemTextPrefab: {fileID: 882115378835460211, guid: 7d8dbd38e74fca64380ebb7297f65126, type: 3}
   textYOffset: 1
-  Name: Acetaldehyde
-  Formula: CH3CHO
---- !u!114 &5370651670031722312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8925902014748771359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b40d0345a4312fa41abc6698f8d30eb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reactionSpawnObjects:
-  - {fileID: 8925902014748771359, guid: 5e26c3c72eeaeb44b826e5696ee96211, type: 3}
-  triggerName: NADH
-  triggerNewName: NAD+
+  Name: Ethanol
+  Formula: C2H5OH

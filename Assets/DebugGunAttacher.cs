@@ -15,11 +15,11 @@ public class DebugGunAttacher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DebugCam = GameObject.Find("DebugCamera");
-        if(DebugCam!=null) {
-            transform.parent.transform.SetParent(DebugCam.transform);
+        //DebugCam = GameObject.Find("DebugCamera");
+        //if(DebugCam!=null && DebugCam.name=="DebugCamera") {
+            transform.parent.SetParent(Camera.main.transform);
             transform.parent.transform.localPosition = posOffset;
             Destroy(this);
-        }
+        //}
     }
 }
