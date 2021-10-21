@@ -22,10 +22,10 @@ public static class DefaultSceneLoader
 
         if (state == PlayModeStateChange.EnteredPlayMode)
         {
-            if (EditorSceneManager.GetActiveScene().buildIndex == 0) return;
+            /*if (EditorSceneManager.GetActiveScene().buildIndex == 0) return;
 
             EditorSceneManager.LoadScene(0);
-            Level.totalSceneChanges = 0;
+            Level.totalSceneChanges = 0;*/
         }
     }
 }

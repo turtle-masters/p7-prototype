@@ -4,7 +4,6 @@ using UnityEngine;
 using Valve.VR.InteractionSystem;
 
 [RequireComponent(typeof(MeshRenderer))]
-//[RequireComponent(typeof(Task))]
 public class FriendlyInteractable : Interactable
 {
     public Material highlightMaterial;
@@ -78,6 +77,7 @@ public class FriendlyInteractable : Interactable
     protected override void OnHandHoverBegin(Hand hand)
     {
         if (!this.parentTask.IsActive()) return;
+        if (hand != null) hand.ShowGrabHint();
 
         Debug.Log(this.gameObject.name + "->OnHandHoverBegin");
 
