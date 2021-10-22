@@ -20,8 +20,14 @@ public class InteractionTarget : Prompt
         //this.OnResolve.AddListener((Prompt p) => this.gameObject.GetComponent<MeshRenderer>().enabled = true);
     }
 
+    public new void Activate(Prompt p)
+    {
+        this.Activate();
+    }
+
     public new void Activate()
     {
+        Debug.Log(this.gameObject.name);
         this.gameObject.GetComponent<MeshRenderer>().enabled = true;
         base.Activate();
     }
