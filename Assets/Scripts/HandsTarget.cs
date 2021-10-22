@@ -15,6 +15,12 @@ public class HandsTarget : FriendlyInteractable
         base.Start();
 
         this.localPrompt = this.GetComponent<Prompt>();
+        this.localPrompt.OnActive.AddListener((Prompt p) =>
+        {
+            // immidiately skip the HandsTarget if playing in debug mode
+            if (DebugPlayer.isActive) this.localPrompt.Resolve();
+        });
+
         this.GetComponent<Collider>().enabled = true;
     }
 
