@@ -21,13 +21,13 @@ public class SnakeLoader : MonoBehaviour
         }
 
         for(int i=0;i<prefabLength;i++) {
-            maltoseChildArray[i].transform.localPosition=new Vector3(-prefabDist*i,Mathf.Sin(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth,Mathf.Cos(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth);
+            maltoseChildArray[i].transform.localPosition=transform.forward*-prefabDist*i + transform.up*Mathf.Sin(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth+transform.right*Mathf.Cos(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth;
             if(i>0) {
                 maltoseChildArray[i].transform.localRotation=Quaternion.LookRotation(maltoseChildArray[i-1].transform.localPosition-maltoseChildArray[i].transform.localPosition);
             }
         }
         maltoseChildArray[0].transform.localRotation=Quaternion.LookRotation(maltoseChildArray[0].transform.localPosition-maltoseChildArray[1].transform.localPosition);
-        
+        GameObject.FindGameObjectWithTag("Player").SetActive(true);
         /*if(this.name=="Starch Snake Head") {
             BreakSnakeAtJoint(7);
         }*/

@@ -15,5 +15,10 @@ public class SnakeMovement : MonoBehaviour
     void Update()
     {
         rb.velocity=transform.forward*moveSpeed;
+        rb.angularVelocity = -transform.forward*moveSpeed/5f;
+    }
+
+    public void SetSpeed(float _moveSpeed) {
+        moveSpeed = _moveSpeed;
     }
 }

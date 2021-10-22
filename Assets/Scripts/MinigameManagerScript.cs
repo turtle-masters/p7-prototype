@@ -8,6 +8,9 @@ public class MinigameManagerScript : MonoBehaviour
     public static int maxLevelNumber = 3;
     public int currentLevel = 1;
 
+    public static GameObject playerGameObject = null;
+    public static float chemTextDisableDistance = 8f;
+
     public GameObject[] levelPrefabArray = new GameObject[maxLevelNumber];
 
     public static int[] goalCounter = new int[maxLevelNumber];
@@ -19,6 +22,9 @@ public class MinigameManagerScript : MonoBehaviour
         }else{
             instance = this;
         }
+        playerGameObject=GameObject.FindGameObjectWithTag("Player");
+        if(playerGameObject==null)
+            Debug.Log("No Player Found");
     }
 
     private void Start() {
@@ -29,11 +35,6 @@ public class MinigameManagerScript : MonoBehaviour
                 levelPrefabArray[i].SetActive(false);
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void GoalUpdate(GameObject updateSourceObject) {
@@ -51,6 +52,8 @@ public class MinigameManagerScript : MonoBehaviour
     public string GetGoalString() {
         if(currentLevel==1) {
             return "ADP's charged: " + goalCounter[0] + "/"+goalMax[0];
+        } else if(currentLevel==2) {
+            return "Glucose hydrolised: " + goalCounter[1] + " /" + goalMax[1];
         }
         return "Error";
     }
