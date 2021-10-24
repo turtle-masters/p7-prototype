@@ -4358,9 +4358,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2075293006585716186, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075293006585716186, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075293006585716187, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075293006585716187, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075293006585716187, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2075293006585716190, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
       propertyPath: m_Name
       value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075293006585716190, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2075293006585716191, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
       propertyPath: m_Pivot.x
@@ -4503,6 +4527,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: sorghummaltbag
       objectReference: {fileID: 0}
+    - target: {fileID: 4253280567622488715, guid: 2cdb43cf0e4177e47868ba3526c84576, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b8e0507f3ef1bc04ca12f3e27a60f07e, type: 2}
+    - target: {fileID: 4253280567622488715, guid: 2cdb43cf0e4177e47868ba3526c84576, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: cc10c7eee4dfbf24a8fa4fb62ba684c9, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cdb43cf0e4177e47868ba3526c84576, type: 3}
 --- !u!1 &730951736 stripped
@@ -6283,6 +6315,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: maizemealbag
       objectReference: {fileID: 0}
+    - target: {fileID: 4253280567622488715, guid: 48850378830ddf24db6a92fb97c95d43, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b8e0507f3ef1bc04ca12f3e27a60f07e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48850378830ddf24db6a92fb97c95d43, type: 3}
 --- !u!1 &1017655234 stripped
