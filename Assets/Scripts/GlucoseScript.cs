@@ -28,7 +28,7 @@ public class GlucoseScript : MonoBehaviour
         ChemData data = other.gameObject.GetComponent<ChemData>();
         if(data!=null) {
             if(data.Name == "NAD+") {
-                data.Name="NADH";
+                data.SetName("NADH");
                 Die();
             }
             if(data.Name == "ADP") {

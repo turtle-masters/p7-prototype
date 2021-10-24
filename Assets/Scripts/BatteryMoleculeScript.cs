@@ -19,7 +19,8 @@ public class BatteryMoleculeScript : MonoBehaviour
     }
 
     public void Energize() {
-        gameObject.tag="ATP";
+        GetComponent<ChemData>().SetName("ATP");
         myMaterial.color=Color.blue;
+        MinigameManagerScript.instance.GoalUpdate(this.gameObject);
     }
 }

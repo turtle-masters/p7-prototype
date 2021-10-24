@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6480541072766858889}
   - component: {fileID: 6480541072766858901}
   - component: {fileID: 6480541072766858900}
+  - component: {fileID: 6335149323891153674}
   m_Layer: 0
   m_Name: ADP
   m_TagString: Untagged
@@ -107,7 +108,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 30
   m_Drag: 30
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -125,3 +126,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce27991b732f02645aa361ce065bd915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6335149323891153674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6480541072766858890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377f96ea12199114ca844d1376e6fc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chemTextPrefab: {fileID: 882115378835460211, guid: 7d8dbd38e74fca64380ebb7297f65126, type: 3}
+  textYOffset: 1
+  Name: ADP
+  Formula: 

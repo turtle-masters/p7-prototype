@@ -19,7 +19,15 @@ public class SnakeLoader : MonoBehaviour
             tempObject.transform.SetParent(transform);
             maltoseChildArray[i]=tempObject;
         }
-        
+
+        for(int i=0;i<prefabLength;i++) {
+            maltoseChildArray[i].transform.localPosition=transform.forward*-prefabDist*i + transform.up*Mathf.Sin(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth+transform.right*Mathf.Cos(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth;
+            if(i>0) {
+                maltoseChildArray[i].transform.localRotation=Quaternion.LookRotation(maltoseChildArray[i-1].transform.localPosition-maltoseChildArray[i].transform.localPosition);
+            }
+        }
+        maltoseChildArray[0].transform.localRotation=Quaternion.LookRotation(maltoseChildArray[0].transform.localPosition-maltoseChildArray[1].transform.localPosition);
+        GameObject.FindGameObjectWithTag("Player").SetActive(true);
         /*if(this.name=="Starch Snake Head") {
             BreakSnakeAtJoint(7);
         }*/
@@ -28,13 +36,7 @@ public class SnakeLoader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for(int i=0;i<prefabLength;i++) {
-            maltoseChildArray[i].transform.localPosition=new Vector3(-prefabDist*i,Mathf.Sin(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth,Mathf.Cos(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth);
-            if(i>0) {
-                maltoseChildArray[i].transform.localRotation=Quaternion.LookRotation(maltoseChildArray[i-1].transform.localPosition-maltoseChildArray[i].transform.localPosition);
-            }
-        }
-        maltoseChildArray[0].transform.localRotation=Quaternion.LookRotation(maltoseChildArray[0].transform.localPosition-maltoseChildArray[1].transform.localPosition);
+        
     }
 
     public GameObject[] GetMaltoseChildArray() {
@@ -93,8 +95,8 @@ public class SnakeLoader : MonoBehaviour
 
         Rigidbody rb1 = newParent1.AddComponent<Rigidbody>();
         Rigidbody rb2 = newParent2.AddComponent<Rigidbody>();
-        rb1.isKinematic=true;
-        rb2.isKinematic=true;
+        rb1.useGravity=false;
+        rb2.useGravity=false;
         rb1.drag=5;
         rb2.drag=5;
         rb1.AddForce(newParent1.transform.position-GetJointPosition(jointIndex));
