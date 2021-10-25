@@ -89,11 +89,49 @@ public static class Logger
         // ...
     }
 
+    // ========================================================================
+    public static void Log(Classifier.Metadata category, string data)
+    {
+        // ...
+    }
+
+    public static void Log(Classifier.Console category, string message)
+    {
+        // ...
+    }
+
+    public static void Log(Classifier.Answer category, string data)
+    {
+        // ...
+    }
+
+    public static void Log(Classifier.Player category, GameObject data)
+    {
+        // ...
+    }
+
+    public static void Log(Classifier.Prompt category, Prompt prompt)
+    {
+        // ...
+    }
+
+    public static void Log(Classifier.Task category, Task task)
+    {
+        // ...
+    }
+
+    public static void Log(Classifier.Level category, Level level)
+    {
+        // ...
+    }
+
+    // ========================================================================
     private static void Log(string classifier, string data)
     {
         // ...
     }
 
+    // ========================================================================
     private static void LogConsoleMessage(string logString, string stackTrace, LogType type)
     {
         // ...
@@ -118,4 +156,7 @@ public static class Logger
     {
         // ...
     }
+
+    // ========================================================================
+    // TODO: add methods for file system management (and maybe LoIP)
 }
