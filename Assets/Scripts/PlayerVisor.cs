@@ -9,10 +9,13 @@ using UnityEngine.UI;
 [RequireComponent(typeof(GraphicRaycaster))]
 public class PlayerVisor : MonoBehaviour
 {
+    
     public static PlayerVisor activeVisor;
     public static Camera playerCamera;
     public static Dictionary<Prompt, Text> texts = new Dictionary<Prompt, Text>();
-
+    public Text rightSideIndicator;
+    public Text leftSideIndicator;
+    public Canvas canvas;
     static PlayerVisor()
     {
         SceneManager.activeSceneChanged += OnActiveSceneChanged;
@@ -29,7 +32,7 @@ public class PlayerVisor : MonoBehaviour
             if (vo.scene == newScene) 
                 PlayerVisor.activeVisor = vo.GetComponent<PlayerVisor>();
 
-        //Debug.Log("Found PlayerVisor in Scene " + PlayerVisor.activeVisor.gameObject.scene.name);
+        Debug.Log("Found PlayerVisor in Scene " + PlayerVisor.activeVisor.gameObject.scene.name);
         PlayerVisor.FindPlayerCamera();
     }
 
@@ -50,28 +53,34 @@ public class PlayerVisor : MonoBehaviour
                 continue;
             }
 
-            float minX = textReticle.GetPixelAdjustedRect().width / 2;
-            float maxX = Screen.width - minX;
 
-            float minY = textReticle.GetPixelAdjustedRect().height / 2;
-            float maxY = Screen.height - minX;
-
-            Vector2 pos = playerCamera.WorldToScreenPoint(targetObject.transform.position);
+            Vector3 pos = playerCamera.WorldToViewportPoint(targetObject.transform.position);
+            bool onScreen = pos.z > 0 && pos.x > 0 && pos.x < 1 && pos.y > 0 && pos.y < 1;
+            Vector3 dir = (targetObject.transform.position - playerCamera.transform.position).normalized;
 
             // TODO: refine corners of screen for VR (possible use a circle instead of square)
-            if (Vector3.Dot((targetObject.transform.position - playerCamera.transform.position), playerCamera.transform.forward) < 0)
+            if (!onScreen)
             {
-                if (pos.x < Screen.width / 2)
-                    pos.x = maxX;
+
+
+                if (Vector3.SignedAngle(playerCamera.transform.forward, dir, Vector3.up) > 0)
+                {
+                    //right side
+                    rightSideIndicator.color = Color.white;
+                }
                 else
-                    pos.x = minX;
+                {
+                    // left side
+                    leftSideIndicator.color = Color.white;
+                }
             }
             else
-                textReticle.color = new Color(255, 255, 255, 1);
+            {
+                rightSideIndicator.color = Color.clear;
+                leftSideIndicator.color = Color.clear;
+            }
 
-            pos.x = Mathf.Clamp(pos.x, minX, maxX);
-            pos.y = Mathf.Clamp(pos.y, minY, maxY);
-            textReticle.transform.position = pos;
+            textReticle.transform.position = new Vector3(targetObject.transform.position.x, targetObject.transform.position.y + 0.5f, targetObject.transform.position.z);
         }
     }
 
@@ -89,7 +98,7 @@ public class PlayerVisor : MonoBehaviour
         // style text
         Text text = newTextObject.GetComponent<Text>();
         text.text = prompt.promptText;
-        text.fontSize = 16;
+        text.fontSize = 24;
         text.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
         text.fontStyle = FontStyle.Bold;
 
@@ -103,8 +112,11 @@ public class PlayerVisor : MonoBehaviour
     {
         // CURRENTLY DOESN'T WORK FOR VR, ONLY DEBUGPLAYER
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject po in playerObjects)
-            if (po.scene == SceneManager.GetActiveScene())
+        foreach (GameObject po in playerObjects) {
+            Debug.Log(po.name);
+            if (po.scene == SceneManager.GetActiveScene() || po.activeSelf) { 
                 PlayerVisor.playerCamera = po.GetComponentInChildren<Camera>();
+                GameObject.FindGameObjectWithTag("HUD").GetComponent<Canvas>().worldCamera = playerCamera;
+            } }
     }
 }

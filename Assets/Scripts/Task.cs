@@ -116,9 +116,9 @@ public class Task : Prompt
         {
             this.target.Resolve();
             this.GetComponent<Rigidbody>().isKinematic = false;
+            this.GetComponent<FriendlyInteractable>().enabled = false;
             if (this.hideAfterCompletion)
             {
-                this.GetComponent<FriendlyInteractable>().enabled = false;
                 this.SetChildRenderersRecursively(this.gameObject, false);
             }
             // impose constraints
