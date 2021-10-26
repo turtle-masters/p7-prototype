@@ -13,8 +13,8 @@ public class PlayerVisor : MonoBehaviour
     public static PlayerVisor activeVisor;
     public static Camera playerCamera;
     public static Dictionary<Prompt, Text> texts = new Dictionary<Prompt, Text>();
-    public Text rightSideIndicator;
-    public Text leftSideIndicator;
+    public RawImage rightSideIndicator;
+    public RawImage leftSideIndicator;
     public Canvas canvas;
     static PlayerVisor()
     {
@@ -66,12 +66,12 @@ public class PlayerVisor : MonoBehaviour
                 if (Vector3.SignedAngle(playerCamera.transform.forward, dir, Vector3.up) > 0)
                 {
                     //right side
-                    rightSideIndicator.color = Color.white;
+                    rightSideIndicator.color = new Color(1,1,1,0.3f);
                 }
                 else
                 {
                     // left side
-                    leftSideIndicator.color = Color.white;
+                    leftSideIndicator.color = new Color(1, 1, 1, 0.3f); ;
                 }
             }
             else
@@ -79,8 +79,8 @@ public class PlayerVisor : MonoBehaviour
                 rightSideIndicator.color = Color.clear;
                 leftSideIndicator.color = Color.clear;
             }
-
-            textReticle.transform.position = new Vector3(targetObject.transform.position.x, targetObject.transform.position.y + 0.5f, targetObject.transform.position.z);
+            textReticle.transform.position = new Vector3((targetObject.transform.position.x + playerCamera.transform.position.x) * 0.5f,( targetObject.transform.position.y + playerCamera.transform.position.y) * 0.8f, (targetObject.transform.position.z + playerCamera.transform.position.z) * 0.5f);
+            Debug.Log(new Vector3(targetObject.transform.position.x - playerCamera.transform.position.x * 2, targetObject.transform.position.y + 0.2f, targetObject.transform.position.z - playerCamera.transform.position.z * 2));
         }
     }
 
@@ -104,6 +104,7 @@ public class PlayerVisor : MonoBehaviour
 
         // make text available for display
         newTextObject.transform.parent = PlayerVisor.activeVisor.transform;
+        newTextObject.GetComponent<RectTransform>().localScale = Vector3.one;
         PlayerVisor.texts.Add(prompt, newTextObject.GetComponent<Text>());
         text.enabled = false;
     }
