@@ -3728,7 +3728,7 @@ MonoBehaviour:
   promptText: 
   audioClip: {fileID: 8300000, guid: ede8592093849e94d9162e7c12bfe83f, type: 3}
   playbackVolume: 0
-  isOmnidirectional: 1
+  isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 4
   OnActive:
