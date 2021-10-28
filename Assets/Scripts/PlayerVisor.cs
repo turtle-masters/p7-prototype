@@ -80,7 +80,7 @@ public class PlayerVisor : MonoBehaviour
                 leftSideIndicator.color = Color.clear;
             }
             textReticle.transform.position = new Vector3((targetObject.transform.position.x + playerCamera.transform.position.x) * 0.5f,( targetObject.transform.position.y + playerCamera.transform.position.y) * 0.8f, (targetObject.transform.position.z + playerCamera.transform.position.z) * 0.5f);
-            Debug.Log(new Vector3(targetObject.transform.position.x - playerCamera.transform.position.x * 2, targetObject.transform.position.y + 0.2f, targetObject.transform.position.z - playerCamera.transform.position.z * 2));
+            //Debug.Log(new Vector3(targetObject.transform.position.x - playerCamera.transform.position.x * 2, targetObject.transform.position.y + 0.2f, targetObject.transform.position.z - playerCamera.transform.position.z * 2));
         }
     }
 
