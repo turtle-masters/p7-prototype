@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab673c63760af4e4a8b5b805f3c3e95b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maltosePrefab: {fileID: 4643841562309489388, guid: 035c0af30d5a63e40b7698147ac6cadb, type: 3}
-  prefabLength: 10
-  bodyWidth: 4
-  prefabDist: 2.6
+  segmentPrefab: {fileID: 4984360147558222299, guid: d87c9f98703dc27488882da8c4aa0029, type: 3}
+  prefabLength: 20
+  bodyWidth: 2.6
+  prefabDist: 1.1
   rotationDegreePerPrefab: 30
 --- !u!114 &6138334960015960794
 MonoBehaviour:

@@ -7,14 +7,16 @@ public class MinigameManagerScript : MonoBehaviour
     public static MinigameManagerScript instance;
     public static int maxLevelNumber = 3;
     public int currentLevel = 1;
+    public GameObject gunObject = null;
 
     public static GameObject playerGameObject = null;
-    public static float chemTextDisableDistance = 8f;
+    public static float chemTextDisableDistance = 20f;
 
     public GameObject[] levelPrefabArray = new GameObject[maxLevelNumber];
 
     public static int[] goalCounter = new int[maxLevelNumber];
-    public static int[] goalMax = {0,0,10};
+    public static int[] goalMax = {10,10,10};
+    public static int[] levelGunMode = {1,2,4};
  
     private void Awake() {
         if (instance != null) {
@@ -28,6 +30,10 @@ public class MinigameManagerScript : MonoBehaviour
     }
 
     private void Start() {
+        LevelSetup(currentLevel);
+    }
+
+    public void LevelSetup(int _level) {
         for(int i=0;i<maxLevelNumber;i++) {
             if(i==currentLevel-1) {
                 levelPrefabArray[i].SetActive(true);
@@ -35,6 +41,7 @@ public class MinigameManagerScript : MonoBehaviour
                 levelPrefabArray[i].SetActive(false);
             }
         }
+        gunObject.GetComponent<ShootingScript>().gunMode=levelGunMode[currentLevel-1];
     }
 
     public void GoalUpdate(GameObject updateSourceObject) {
@@ -46,7 +53,20 @@ public class MinigameManagerScript : MonoBehaviour
                     goalCounter[currentLevel-1]++;
                 }
             }
+        } else if(currentLevel==2 && updateSourceObject.GetComponent<ChemData>().Name=="Glucose") {
+            goalCounter[currentLevel-1]++;
+        } else if(currentLevel==3 && updateSourceObject.GetComponent<ChemData>().Name=="Acetaldehyde") {
+            goalCounter[currentLevel-1]++;
         }
+
+        /*if(goalCounter[currentLevel-1]>=goalMax[currentLevel-1]) {
+            //Finish 
+            if(currentLevel<levelPrefabArray.Length) {
+                SetCurrentLevel(GetCurrentLevel()+1);
+            } else {
+                Debug.LogError("You Won!");
+            }
+        }*/
     }
 
     public string GetGoalString() {
@@ -54,6 +74,8 @@ public class MinigameManagerScript : MonoBehaviour
             return "ADP's charged: " + goalCounter[0] + "/"+goalMax[0];
         } else if(currentLevel==2) {
             return "Glucose hydrolised: " + goalCounter[1] + " /" + goalMax[1];
+        } else if(currentLevel==3) {
+            return "Ethanol created: " + goalCounter[2] + " /" + goalMax[2];
         }
         return "Error";
     }
@@ -64,12 +86,6 @@ public class MinigameManagerScript : MonoBehaviour
 
     public void SetCurrentLevel(int _currentLevel) {
         currentLevel = _currentLevel;
-        for(int i=0;i<maxLevelNumber;i++) {
-            if(i==currentLevel-1) {
-                levelPrefabArray[i].SetActive(true);
-            } else {
-                levelPrefabArray[i].SetActive(false);
-            }
-        }
+        LevelSetup(currentLevel);
     }
 }

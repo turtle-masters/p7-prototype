@@ -14,6 +14,7 @@ public class PlayerFacingFollowScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        mainCamera = Camera.main.gameObject;
         transform.LookAt(mainCamera.transform,Vector3.up);
     }
 }

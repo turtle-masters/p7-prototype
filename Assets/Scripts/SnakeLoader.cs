@@ -4,103 +4,120 @@ using UnityEngine;
 
 public class SnakeLoader : MonoBehaviour
 {
-    public GameObject maltosePrefab;
+    public static float jointBreakForce=100f;
+    public GameObject segmentPrefab;
     public int prefabLength;
     public float bodyWidth, prefabDist, rotationDegreePerPrefab;
 
-    private GameObject[] maltoseChildArray;
+    private List<GameObject> segmentArray = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
-        maltoseChildArray=new GameObject[prefabLength];
+        //Instantiate Segment
         for(int i=0;i<prefabLength;i++) {
-            GameObject tempObject = Instantiate(maltosePrefab,transform.position,transform.rotation);
+            GameObject tempObject = Instantiate(segmentPrefab,transform.position,Quaternion.identity);
             tempObject.transform.SetParent(transform);
-            maltoseChildArray[i]=tempObject;
+            segmentArray.Add(tempObject);
         }
-
+        SetupSegmentPositions();
         for(int i=0;i<prefabLength;i++) {
-            maltoseChildArray[i].transform.localPosition=transform.forward*-prefabDist*i + transform.up*Mathf.Sin(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth+transform.right*Mathf.Cos(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth;
-            if(i>0) {
-                maltoseChildArray[i].transform.localRotation=Quaternion.LookRotation(maltoseChildArray[i-1].transform.localPosition-maltoseChildArray[i].transform.localPosition);
-            }
+            segmentArray[i].transform.SetParent(transform);
         }
-        maltoseChildArray[0].transform.localRotation=Quaternion.LookRotation(maltoseChildArray[0].transform.localPosition-maltoseChildArray[1].transform.localPosition);
-        GameObject.FindGameObjectWithTag("Player").SetActive(true);
-        /*if(this.name=="Starch Snake Head") {
-            BreakSnakeAtJoint(7);
-        }*/
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.B)) {
+            BreakSnakeAtJoint(0);
+        }
+
+    }
+    public void SetupSegmentPositions() {
+        for(int i=0;i<segmentArray.Count;i++) {
+            segmentArray[i].transform.localPosition=this.transform.forward*-prefabDist*i + this.transform.up*Mathf.Sin(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth+this.transform.right*Mathf.Cos(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth;
+        }
+     }
+
+    public List<GameObject> GetSegmentChildArray() {
+        return segmentArray;
     }
 
-    public GameObject[] GetMaltoseChildArray() {
-        return maltoseChildArray;
-    }
-
-    public void SetMaltoseChildArray(GameObject[] _maltoseChildArray) {
-        maltoseChildArray=_maltoseChildArray;
+    public void SetSegmentChildArray(List<GameObject> _segmentArray) {
+        segmentArray=_segmentArray;
+        foreach (GameObject segment in segmentArray)
+        {
+            segment.transform.SetParent(this.transform);
+        }
     }
 
     public int GetPrefabLength() {
         return prefabLength;
     }
 
+    public int GetJointLength() {
+        return Mathf.Max(segmentArray.Count-1,0);
+    }
+
     public Vector3 GetJointPosition(int jointIndex) {
-        if(0<=jointIndex && jointIndex<prefabLength) {
-            return (maltoseChildArray[jointIndex].transform.position + maltoseChildArray[jointIndex+1].transform.position)/2;
+        if(0<=jointIndex && jointIndex<GetJointLength()) {
+            return (segmentArray[jointIndex].transform.position + segmentArray[jointIndex+1].transform.position)/2;
         } else {
-            Debug.Log("Incorrect Joint Index");
+            Debug.LogError("Incorrect Joint Index");
             return Vector3.zero;
         }
     }
 
+    public Vector3[] GetAllJointPositions() {
+        Vector3[] tempJointPositions= new Vector3[GetJointLength()];
+        for(int i=0;i<GetJointLength();i++) {
+            tempJointPositions[i] = GetJointPosition(i);
+        }
+        return tempJointPositions;
+    }
+
     public void BreakSnakeAtJoint(int jointIndex) {
-        //create new parents 
-        //redistribute children
-        //reindex children
-        //add molecule component with dextrin
-        GameObject newParent1, newParent2; //Use prefab?
-        GameObject[] newParent1TempArray, newParent2TempArray;
+        
+        /*if(!(jointIndex==GetJointLength() || jointIndex==0)) {
+            GameObject newParent1, newParent2;
 
-        newParent1 = new GameObject();
-        newParent1.transform.position = transform.position;
-        newParent1.transform.rotation = transform.rotation;
-        newParent2 = new GameObject();
-        newParent2.transform.position = GetJointPosition(jointIndex);
-        newParent2.transform.rotation = transform.rotation;
+            newParent1 = Instantiate(emptySnakePrefab,transform.position,transform.rotation);
+            //newParent1.transform.position = transform.position;
+            //newParent1.transform.rotation = transform.rotation;
+            //newParent2 = Instantiate(emptySnakePrefab,GetJointPosition(jointIndex),transform.rotation);
 
-        SnakeLoader newParent1SnakeLoader = newParent1.AddComponent<SnakeLoader>();
-        SnakeLoader newParent2SnakeLoader = newParent2.AddComponent<SnakeLoader>();
+            SnakeLoader parent1SnakeLoader = newParent1.GetComponent<SnakeLoader>();
+            //SnakeLoader parent2SnakeLoader = newParent2.GetComponent<SnakeLoader>();
+            parent1SnakeLoader.SetSegmentChildArray(this.segmentArray.GetRange(0,jointIndex+1));
+            segmentArray.RemoveRange(0,jointIndex+1);
+            //parent2SnakeLoader.SetSegmentChildArray(this.segmentArray.GetRange(jointIndex,this.segmentArray.Count-(jointIndex+1)));
+            segmentArray.RemoveRange(jointIndex,this.segmentArray.Count-(jointIndex+1));
 
-        newParent1TempArray = new GameObject[jointIndex+1];
-        newParent2TempArray = new GameObject[prefabLength-jointIndex-1];
-        for(int i=0;i<prefabLength;i++) {
-            if(i<=jointIndex) {
-                maltoseChildArray[i].transform.SetParent(newParent1.transform);
-                newParent1TempArray[i]=maltoseChildArray[i];
-            } else {
-                maltoseChildArray[i].transform.SetParent(newParent2.transform);
-                newParent2TempArray[i-jointIndex]=maltoseChildArray[i];
+            Rigidbody rb1 = newParent1.GetComponent<Rigidbody>();
+            //Rigidbody rb2 = newParent2.GetComponent<Rigidbody>();
+            newParent1.GetComponent<Rigidbody>().AddForce((newParent1.transform.position-GetJointPosition(jointIndex))*jointBreakForce);
+            //newParent2.GetComponent<Rigidbody>().AddForce((GetJointPosition(jointIndex)-newParent1.transform.position)*jointBreakForce);
+            
+            newParent1.GetComponent<SnakeMovement>().SetSpeed(gameObject.GetComponent<SnakeMovement>().moveSpeed);
+            //newParent2.GetComponent<SnakeMovement>().SetSpeed(gameObject.GetComponent<SnakeMovement>().moveSpeed);
+            Destroy(this.gameObject);
+        } else {*/
+            //When an endpiece is hit, unparent, unarray, and give force
+            segmentArray[jointIndex].transform.SetParent(null);
+            Rigidbody segmentRb=segmentArray[jointIndex].GetComponent<Rigidbody>();
+            segmentRb.isKinematic=false;
+            segmentRb.AddForce(Random.onUnitSphere*jointBreakForce);
+            MinigameManagerScript.instance.GoalUpdate(segmentArray[jointIndex]);
+            segmentArray.RemoveAt(jointIndex);
+            
+        //}
+        
+    }
+
+    public void BreakAtSegmentPosition(Vector3 hitSegmentPosition,Vector3 projectilePosition) {
+        for(int i=0;i<=GetJointLength();i++) {
+            if(segmentArray[i].transform.position==hitSegmentPosition) {
+                BreakSnakeAtJoint(i);
             }
         }
-
-        newParent1SnakeLoader.SetMaltoseChildArray(newParent1TempArray);
-        newParent2SnakeLoader.SetMaltoseChildArray(newParent2TempArray);
-
-        Rigidbody rb1 = newParent1.AddComponent<Rigidbody>();
-        Rigidbody rb2 = newParent2.AddComponent<Rigidbody>();
-        rb1.useGravity=false;
-        rb2.useGravity=false;
-        rb1.drag=5;
-        rb2.drag=5;
-        rb1.AddForce(newParent1.transform.position-GetJointPosition(jointIndex));
-        rb2.AddForce(newParent2.transform.position-GetJointPosition(jointIndex));
-        Destroy(this.gameObject);
     }
 }

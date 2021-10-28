@@ -34,6 +34,11 @@ public class GlucoseScript : MonoBehaviour
             if(data.Name == "ADP") {
                 nearbyADPs.Add(other.gameObject);
             }
+            if(data.Name == "Amylase" && this.transform.parent!=null) {
+                if(transform.parent.GetComponent<SnakeLoader>()) {
+                    transform.parent.GetComponent<SnakeLoader>().BreakAtSegmentPosition(transform.position,other.transform.position);
+                }
+            }
         }
     }
 

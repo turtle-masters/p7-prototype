@@ -21,6 +21,9 @@ public class ReactionScript : MonoBehaviour
         ChemData data = other.gameObject.GetComponent<ChemData>();
         if(data!=null) {
             if(data.Name==triggerName) {
+                if(this.GetComponent<ChemData>().Name=="Acetaldehyde") {
+                    MinigameManagerScript.instance.GoalUpdate(this.gameObject);
+                }
                 React();
                 if(triggerNewName!="") {
                     data.SetName(triggerNewName);

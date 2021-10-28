@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class ChemData : MonoBehaviour
@@ -23,6 +24,7 @@ public class ChemData : MonoBehaviour
     private void Update() {
         if(Vector3.Distance(transform.position,MinigameManagerScript.playerGameObject.transform.position)<MinigameManagerScript.chemTextDisableDistance) {
             textMesh.text=Name;
+            chemText.transform.LookAt(MinigameManagerScript.playerGameObject.transform.position);
         } else {
             textMesh.text = "";
         }

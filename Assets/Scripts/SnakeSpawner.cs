@@ -7,22 +7,12 @@ public class SnakeSpawner : MonoBehaviour
     public GameObject snakePrefab;
     public GameObject targetObject;
     public float verticalSpread,horizontalSpread,spawnTime,snakeSpeed;
-    public int snakeAmount = 10;
     private float spawnTimeCounter = 0f;
-    private int activeSnakeIndex = 0;
-    private GameObject[] prefabArray;
+    public float snakeDuration = 0f;
     
     // Start is called before the first frame update
     void Start()
     {
-        prefabArray = new GameObject[snakeAmount];
-        for(int i=0;i<prefabArray.Length;i++) {
-            prefabArray[i]=Instantiate(snakePrefab,transform.position,Quaternion.identity);
-        }
-        foreach (var snake in prefabArray)
-        {
-            snake.GetComponent<SnakeMovement>().SetSpeed(snakeSpeed);
-        }
         spawnTimeCounter=spawnTime;
     }
 
@@ -38,14 +28,57 @@ public class SnakeSpawner : MonoBehaviour
 
     void SpawnSnake() {
         Vector3 targetHorizontal,targetVertical;
-        targetHorizontal = transform.forward * Random.Range(-horizontalSpread,horizontalSpread);
+        targetHorizontal = transform.right * Random.Range(-horizontalSpread,horizontalSpread);
         targetVertical = transform.up * Random.Range(-verticalSpread,verticalSpread);
         Vector3 tempTargetPosition = targetObject.transform.position+targetHorizontal+targetVertical;
-        prefabArray[activeSnakeIndex].transform.position=transform.position;
-        prefabArray[activeSnakeIndex].transform.LookAt(tempTargetPosition);
-        activeSnakeIndex++;
-        if(activeSnakeIndex>=prefabArray.Length) {
-            activeSnakeIndex=0;
-        }
+        GameObject newSnake = Instantiate(snakePrefab);
+        newSnake.transform.position = transform.position;
+        newSnake.transform.LookAt(tempTargetPosition);
+        newSnake.GetComponent<SnakeMovement>().SetSpeed(snakeSpeed);
+        newSnake.AddComponent<DecayScript>().decayTime=snakeDuration;
+        newSnake.GetComponent<SnakeLoader>().SetupSegmentPositions();
     }
+
+    /*GameObject[] GetJointsWithinCone(Transform coneSource, float coneSpreadAngle) {
+        GameObject[] joints = GetAllSnakesJoints();
+        GameObject[] targetedJoints;
+        int returnArrLen = 0;
+        for(int i=0;i<joints.Length;i++) {
+            if(Vector3.Angle(joints[i].transform.position-coneSource.position,coneSource.transform.forward)>coneSpreadAngle) {
+                joints[i]=null;
+            } else {
+                returnArrLen++;
+            }
+        }
+        targetedJoints = new GameObject[returnArrLen];
+        int indexCounter=0;
+        foreach (GameObject joint in joints)
+        {
+            if(joint!=null) {
+                targetedJoints[indexCounter] = joint;
+                indexCounter++;
+            }
+        }
+        return targetedJoints;
+    }
+
+    public GameObject[] GetAllSnakesJoints() {
+        GameObject[] tempJointArray;
+        int tempJointArrLen = 0;
+        int[] tempPerSnakeJointArrLen = new int[snakeAmount];
+        //Count number of joints for instatiating the return array
+        for(int i=0;i<snakeAmount;i++) {
+            tempPerSnakeJointArrLen[i]=snakeArray[i].GetComponent<SnakeLoader>().GetJointLength();
+            tempJointArrLen+=tempPerSnakeJointArrLen[i];
+        }
+        tempJointArray = new GameObject[tempJointArrLen];
+        int indexCounter = 0;
+        for(int i=0;i<snakeAmount;i++) {
+            for(int j=0;j<snakeArray[i].GetComponent<SnakeLoader>().GetJointLength();j++) {
+                tempJointArray[indexCounter] = snakeArray[i].GetComponent<SnakeLoader>().GetJoint(j);
+                indexCounter++;
+            }
+        }
+        return tempJointArray;
+    }*/
 }
