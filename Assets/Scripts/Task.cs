@@ -138,6 +138,16 @@ public class Task : Prompt
         this.Show();
     }
 
+    public void Hide()
+    {
+        this.SetChildRenderersRecursively(this.gameObject, false);
+    }
+
+    public void Hide(Prompt p)
+    {
+        this.Hide();
+    }
+
     private void SetChildRenderersRecursively(GameObject node, bool state = true)
     {
         Debug.Log(this.name + "->SetChildRenderersRecursively->" + node.name + "->" + state);
