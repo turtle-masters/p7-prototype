@@ -274,7 +274,6 @@ GameObject:
   - component: {fileID: 7963505201696564052}
   - component: {fileID: 7963505201696564055}
   - component: {fileID: 7963505201696564048}
-  - component: {fileID: 7963505201696564051}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -389,17 +388,3 @@ MonoBehaviour:
   automaticProjectileDecayTime: 2
   automaticFireRate: 10
   firingTightness: 0.5
---- !u!114 &7963505201696564051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7963505201696564057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17ba15a11bc1bd64181593b67d29749e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayText: {fileID: 7963505200375249859}
-  displayGoals: 1

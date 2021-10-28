@@ -32,6 +32,7 @@ public class ChemData : MonoBehaviour
 
     public void SetName(string _Name) {
         Name = _Name;
-        chemText.GetComponent<TextMesh>().text=Name;
+        if(chemText.GetComponent<TextMesh>())
+            chemText.GetComponent<TextMesh>().text=Name;
     }
 }
