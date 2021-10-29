@@ -127,7 +127,7 @@ public class Level : MonoBehaviour
                 break;
         }
 
-        //Debug.Log("Active Level is now " + Level.activeLevel.name + " in Scene " + SceneManager.GetActiveScene().name);
+        Debug.Log("Active Level is now " + Level.activeLevel.name + " in Scene " + SceneManager.GetActiveScene().name);
         //Debug.Log(Level.totalSceneChanges);
 
         Level.LoadNextLevel(Level.GetNextSceneName());
@@ -247,15 +247,20 @@ public class Level : MonoBehaviour
     /*
      * Call when the Level is considered complete and the player is ready to move on to the next
      */
-    public void Complete(Prompt p)
+    public void Complete()
     {
         // resolve all unresolved prompts before continuing
         foreach (Prompt ap in new List<Prompt>(Prompt.activePrompts))
-            p.Resolve();
+            ap.Resolve();
 
         this.SetVisibilityOfAllChildren(false);
 
         // run preloaded scene
         Level.Continue();
+    }
+
+    public void Complete(Prompt p)
+    {
+        this.Complete();
     }
 }

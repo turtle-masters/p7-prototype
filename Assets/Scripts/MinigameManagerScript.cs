@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MinigameManagerScript : MonoBehaviour
 {
@@ -59,14 +60,9 @@ public class MinigameManagerScript : MonoBehaviour
             goalCounter[currentLevel-1]++;
         }
 
-        /*if(goalCounter[currentLevel-1]>=goalMax[currentLevel-1]) {
-            //Finish 
-            if(currentLevel<levelPrefabArray.Length) {
-                SetCurrentLevel(GetCurrentLevel()+1);
-            } else {
-                Debug.LogError("You Won!");
-            }
-        }*/
+        if(goalCounter[currentLevel-1]>=goalMax[currentLevel-1]) {
+            this.completeGame();
+        }
     }
 
     public string GetGoalString() {
@@ -87,5 +83,19 @@ public class MinigameManagerScript : MonoBehaviour
     public void SetCurrentLevel(int _currentLevel) {
         currentLevel = _currentLevel;
         LevelSetup(currentLevel);
+    }
+
+    private void completeGame()
+    {
+        Debug.Log("Minigame completed!");
+
+        Scene activeScene = SceneManager.GetActiveScene();
+        GameObject[] objectsInScene = activeScene.GetRootGameObjects();
+        foreach (GameObject go in objectsInScene)
+        {
+            Level level = go.GetComponent<Level>();
+            if (level != null && level.isActive)
+                level.Complete();
+        }
     }
 }
