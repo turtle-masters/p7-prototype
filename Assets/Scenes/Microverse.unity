@@ -306,7 +306,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 116987063}
-  - component: {fileID: 116987061}
   - component: {fileID: 116987062}
   m_Layer: 0
   m_Name: prompt
@@ -315,31 +314,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &116987061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 116987060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b08c25a5889717f45b24e099bff5c277, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptName: An Awesome Prompt
-  promptText: 
-  audioClip: {fileID: 0}
-  playbackVolume: 0.2
-  isOmnidirectional: 0
-  isLooping: 0
-  secondsWaitAfterPlay: 1.5
-  OnActive:
-    m_PersistentCalls:
-      m_Calls: []
-  OnResolve:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &116987062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +326,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f81f234de7d7d8d47a4c0d17e8e2206f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 2
+  promptName: An Awesome Prompt
+  promptText: 
+  audioClip: {fileID: 0}
+  playbackVolume: 0.2
+  isOmnidirectional: 0
+  isLooping: 1
+  secondsWaitAfterPlay: 1.5
+  OnActive:
+    m_PersistentCalls:
+      m_Calls: []
+  OnResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  levelIndex: 3
 --- !u!4 &116987063
 Transform:
   m_ObjectHideFlags: 0
@@ -1235,7 +1222,7 @@ MonoBehaviour:
   OnActive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 116987061}
+      - m_Target: {fileID: 116987062}
         m_TargetAssemblyTypeName: Prompt, GameAssembly
         m_MethodName: Activate
         m_Mode: 0
@@ -1279,7 +1266,6 @@ GameObject:
   m_Component:
   - component: {fileID: 972508708}
   - component: {fileID: 972508706}
-  - component: {fileID: 972508707}
   m_Layer: 0
   m_Name: prompt
   m_TagString: Untagged
@@ -1296,7 +1282,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 972508705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b08c25a5889717f45b24e099bff5c277, type: 3}
+  m_Script: {fileID: 11500000, guid: f81f234de7d7d8d47a4c0d17e8e2206f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
@@ -1304,7 +1290,7 @@ MonoBehaviour:
   audioClip: {fileID: 0}
   playbackVolume: 0.2
   isOmnidirectional: 0
-  isLooping: 0
+  isLooping: 1
   secondsWaitAfterPlay: 1.5
   OnActive:
     m_PersistentCalls:
@@ -1312,19 +1298,7 @@ MonoBehaviour:
   OnResolve:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &972508707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 972508705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f81f234de7d7d8d47a4c0d17e8e2206f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelIndex: 0
+  levelIndex: 1
 --- !u!4 &972508708
 Transform:
   m_ObjectHideFlags: 0
@@ -2015,7 +1989,7 @@ MonoBehaviour:
   OnActive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1853493632}
+      - m_Target: {fileID: 1853493633}
         m_TargetAssemblyTypeName: Prompt, GameAssembly
         m_MethodName: Activate
         m_Mode: 0
@@ -2149,7 +2123,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1853493634}
-  - component: {fileID: 1853493632}
   - component: {fileID: 1853493633}
   m_Layer: 0
   m_Name: prompt
@@ -2158,31 +2131,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1853493632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1853493631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b08c25a5889717f45b24e099bff5c277, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptName: An Awesome Prompt
-  promptText: 
-  audioClip: {fileID: 0}
-  playbackVolume: 0.2
-  isOmnidirectional: 0
-  isLooping: 0
-  secondsWaitAfterPlay: 1.5
-  OnActive:
-    m_PersistentCalls:
-      m_Calls: []
-  OnResolve:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1853493633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2195,7 +2143,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f81f234de7d7d8d47a4c0d17e8e2206f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelIndex: 1
+  promptName: An Awesome Prompt
+  promptText: 
+  audioClip: {fileID: 0}
+  playbackVolume: 0.2
+  isOmnidirectional: 0
+  isLooping: 1
+  secondsWaitAfterPlay: 1.5
+  OnActive:
+    m_PersistentCalls:
+      m_Calls: []
+  OnResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  levelIndex: 2
 --- !u!4 &1853493634
 Transform:
   m_ObjectHideFlags: 0

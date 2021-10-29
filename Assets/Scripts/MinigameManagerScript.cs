@@ -81,6 +81,7 @@ public class MinigameManagerScript : MonoBehaviour
     }
 
     public void SetCurrentLevel(int _currentLevel) {
+        Debug.Log("Current Level was set to " + _currentLevel);
         currentLevel = _currentLevel;
         LevelSetup(currentLevel);
     }
