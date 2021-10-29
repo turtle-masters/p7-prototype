@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class BatteryMoleculeScript : MonoBehaviour
 {
-    Material myMaterial;
+    //Material myMaterial;
+    public GameObject emptyBatteryObj, chargedBatteryObj;
 
     // Start is called before the first frame update
     void Start()
     {
-        myMaterial=GetComponent<MeshRenderer>().material;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        emptyBatteryObj.SetActive(true);
+        chargedBatteryObj.SetActive(false);
+        //myMaterial=GetComponent<MeshRenderer>().material;
     }
 
     public void Energize() {
         GetComponent<ChemData>().SetName("ATP");
-        myMaterial.color=Color.blue;
+        //myMaterial.color=Color.blue;
+        emptyBatteryObj.SetActive(false);
+        chargedBatteryObj.SetActive(true);
         MinigameManagerScript.instance.GoalUpdate(this.gameObject);
     }
 }
