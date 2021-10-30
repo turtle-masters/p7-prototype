@@ -128,15 +128,16 @@ public class LogableEvent
     }
 }
 
-public static class Logger
+public class Logger : MonoBehaviour  // class is almost entirely static
 {
-    private static bool logConsoleMessages = true;
+    private static bool logConsoleMessages = false;
     private static bool doLoggingOverIP = false;
     
     private static List<LogableEvent> logQueue = new List<LogableEvent>();
     private static bool fileSystemOperationInProgress = false;
+    private static string logFileName = $"/LOG_MOVE_ME_{System.DateTime.Now.ToString("HH:mm:ss.ffff")}.csv";
 
-    static Logger()
+    protected void Start()
     {
         Application.logMessageReceived  += LogConsoleMessage;
         Application.focusChanged        += LogFocusChanged;
@@ -144,7 +145,9 @@ public static class Logger
         Application.unloading           += LogUnloading;
         Application.quitting            += OnApplicationQuit;
 
-        // ...
+        //Debug.Log("Wrote data to file path " + Logger.GetFilePath() + Logger.logFileName);
+
+        //_ = Logger.WriteLineToFile("timestamp,classifier,event,scene,level,source,data\n");
     }
 
     // ===== THE DIFFERENT CLASSIFIERS- AND SUB-CLASSIFIERS =====
@@ -190,10 +193,11 @@ public static class Logger
 
         if (!Logger.fileSystemOperationInProgress)
         {
-            Logger.WriteToFile(new List<LogableEvent>(Logger.logQueue));
-            // TODO: add LoIP call here...
-
+            List<LogableEvent> logQueueCopy = new List<LogableEvent>(Logger.logQueue);
             Logger.logQueue.Clear();
+
+            Logger.WriteLogableEventsToFile(new List<LogableEvent>(logQueueCopy));
+            // TODO: add LoIP call here...
         }
     }
 
@@ -232,21 +236,14 @@ public static class Logger
         // ...
     }
 
-    // ===== HANDLE THE LOWER-LEVEL FILE SYSTEM AND NETWORKING OPERATIONS =====
-    private static async void WriteToFile(List<LogableEvent> eventQueue)
+    // ===== THE LOWER-LEVEL FILE SYSTEM AND NETWORKING OPERATIONS =====
+    private static bool WriteLogableEventsToFile(List<LogableEvent> eventQueue)
     {
-        Logger.fileSystemOperationInProgress = true;
-
-        if (!Logger.LogFileExists())
-            await Logger.CreateLogFile();
-
-        // TODO: write new data to existing file...
+        List<string> LogableStrings = new List<string>();
         foreach (LogableEvent le in eventQueue)
-        {
-            // ...
-        }
+            LogableStrings.Add(le.ToString());
 
-        Logger.fileSystemOperationInProgress = false;
+        return Logger.WriteLinesToFile(LogableStrings);
     }
 
     private static string GetFilePath()
@@ -256,13 +253,54 @@ public static class Logger
 
     private static bool LogFileExists()
     {
-        return File.Exists(Logger.GetFilePath());
+        return File.Exists(Logger.GetFullFilePath());
     }
 
-    private static async Task<bool> CreateLogFile()
+    private static string GetFullFilePath()
     {
-        // placeholder...
-        //await new System.Threading.Tasks.Task(() => { });
+        return Path.Combine(Logger.GetFilePath() + Logger.logFileName);
+    }
+
+    private static bool WriteLinesToFile(List<string> lines)
+    {
+        Logger.fileSystemOperationInProgress = true;
+
+        try
+        {
+            if (!Logger.LogFileExists()) { }
+                File.Create(Logger.GetFullFilePath());
+
+            /*using (StreamWriter file = File.AppendText(Logger.GetFullFilePath()))
+            //using (var file = new StreamWriter(Logger.GetFullFilePath(), true))
+            {
+                foreach (string line in lines)
+                    file.WriteLine(line);
+            }*/
+
+            Logger.fileSystemOperationInProgress = false;
+            return true;
+        }
+        catch (InvalidDataException e)
+        {
+            Debug.LogError("Target log path exists but is read-only\n" + e);
+        }
+        catch (PathTooLongException e)
+        {
+            Debug.LogError("Target log path name may be too long\n" + e);
+        }
+        catch (IOException e)
+        {
+            Debug.LogError("The disk may be full\n" + e);
+        }
+
+        // TODO: revert log file if write operations fail...
+
+        Logger.fileSystemOperationInProgress = false;
         return false;
+    }
+
+    private static bool WriteLineToFile(string line)
+    {
+        return Logger.WriteLinesToFile(new List<string>() { line });
     }
 }
