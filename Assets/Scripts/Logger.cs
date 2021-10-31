@@ -130,15 +130,32 @@ public class LogableEvent
 
 public class Logger : MonoBehaviour  // class is almost entirely static
 {
-    private static bool logConsoleMessages = true;
-    private static bool doLoggingOverIP = false;
-    
+    private static bool DO_LOGGING = false;
+    private static bool LOG_CONSOLE = true;
+    private static bool DO_LOIP = false;
+
+    // this is essentially a copy of the above, in case you'd like to set the settings in the Unity Inspector instead of in the code
+    [Tooltip("Enable application logging to a .csv file in the user's Documents folder.")]
+    [SerializeField]
+    private bool doLogging = false;
+    [Tooltip("Log console output.")]
+    [SerializeField]
+    private bool logConsole = true;
+    [HideInInspector]
+    [Tooltip("Enable Logging over IP for automatic upload of logging data to a remote server.")]
+    [SerializeField]
+    private bool doLoIP = true;
+
     private static List<LogableEvent> logQueue = new List<LogableEvent>();
     private static bool fileSystemOperationInProgress = false;
     private static string logFileName = $"/LOG_MOVE_ME_{System.DateTime.Now.ToString("HHmmss-ffff")}.csv";
 
     protected void OnEnable()
     {
+        Logger.DO_LOGGING = doLogging;
+        Logger.LOG_CONSOLE = logConsole;
+        Logger.DO_LOIP = doLoIP;
+
         Application.logMessageReceived  += LogConsoleMessage;
         Application.focusChanged        += LogFocusChanged;
         Application.lowMemory           += LogLowMemory;
@@ -147,7 +164,8 @@ public class Logger : MonoBehaviour  // class is almost entirely static
 
         //Debug.Log("Wrote data to file path " + Logger.GetFilePath() + Logger.logFileName);
 
-        _ = Logger.WriteLineToFile("data,classifier,event,scene,level,source,timestamp");
+        if (Logger.DO_LOGGING)
+            Logger.WriteLineToFile("data,classifier,event,scene,level,source,timestamp");
     }
 
     // ===== THE DIFFERENT CLASSIFIERS- AND SUB-CLASSIFIERS =====
@@ -202,6 +220,8 @@ public class Logger : MonoBehaviour  // class is almost entirely static
     // ===== THE BOTTLENECK LOG METHOD =====
     private static void Log(LogableEvent le)
     {
+        if (!Logger.DO_LOGGING) return;
+
         Logger.logQueue.Add(le);
 
         if (!Logger.fileSystemOperationInProgress)
@@ -217,14 +237,14 @@ public class Logger : MonoBehaviour  // class is almost entirely static
     // ===== THE SUBSCRIBED LOG EVENTS =====
     private static void LogConsoleMessage(string logString, string stackTrace, LogType type)
     {
-        if (!Logger.logConsoleMessages) return;
+        if (!Logger.LOG_CONSOLE) return;
 
         string messageData = $"\"{logString.Replace(',', ' ')}\" in {stackTrace.Replace(',', ' ')}";
         Logger.Log(new LogableEvent(
             "Console",
             type.ToString(),
             "null",
-            Level.activeLevel.name,
+            Level.activeLevel != null ? Level.activeLevel.name : "null",
             SceneManager.GetActiveScene().name,
             messageData.Substring(0, messageData.Length - 1)
         ));
@@ -281,10 +301,6 @@ public class Logger : MonoBehaviour  // class is almost entirely static
 
         try
         {
-            /*if (!Logger.LogFileExists()) { }
-                File.Create(Logger.GetFullFilePath());*/
-
-            //using (var file = new StreamWriter(Logger.GetFullFilePath(), true))
             using (StreamWriter file = File.AppendText(Logger.GetFullFilePath()))
             {
                 foreach (string line in lines)
