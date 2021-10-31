@@ -171,6 +171,7 @@ public class Prompt : MonoBehaviour
         this.isActive = true;
         activePrompts.Add(this);
         if (this.OnActive != null) this.OnActive.Invoke(this);
+        Logger.Log(Classifier.Prompt.Activated, this);
 
         PlaySound();
     }
@@ -205,6 +206,7 @@ public class Prompt : MonoBehaviour
     {
         this.isActive = false;
         activePrompts.Remove(this);
+        Logger.Log(Classifier.Prompt.Resolved, this);
         
         this.GetAudioSource().Stop();
 

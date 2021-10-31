@@ -172,5 +172,6 @@ public class Task : Prompt
     {
         base.TurnOff();
         this.gameObject.GetComponent<FriendlyInteractable>().DebugExitHover();
+        this.gameObject.GetComponent<Collider>().enabled = false;
     }
 }

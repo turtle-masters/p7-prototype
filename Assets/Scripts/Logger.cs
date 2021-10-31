@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class Classifier
 {
@@ -76,20 +79,97 @@ public static class Classifier
     }
 }
 
-public static class Logger
+public class LogableEvent
 {
-    static Logger()
+    public string classifier;
+    public string name;
+    public string source;
+    public string sourceLevel;
+    public string sourceScene;
+    public string data;
+
+    public string timestamp;  // this field is populated automatically when the object is initialized
+
+    public LogableEvent(string _classifier, string _name, string _source, string _sourceLevel, string _sourceScene, string _data)
     {
+        this.classifier =   _classifier;
+        this.name =         _name;
+        this.source =       _source;
+        this.sourceLevel =  _sourceLevel;
+        this.sourceScene =  _sourceScene;
+        this.data =         _data;
+
+        this.timestamp =    System.DateTime.Now
+                                .ToString("yyyy-MM-dd HH:mm:ss.ffff")
+                                .Replace('/', '-')
+                                .Replace(":", "-");
+    }
+
+    public bool Equals(LogableEvent le)
+    {
+        return this.classifier == le.classifier
+            && this.name == le.name
+            && this.source == le.source
+            && this.sourceLevel == le.sourceLevel
+            && this.sourceScene == le.sourceScene
+            && this.data == le.data;
+            // timestamp should not be compared
+    }
+
+    public string ToStringPretty()
+    {
+        return $"{this.timestamp}: <({this.classifier}) {this.name}> in {this.sourceScene}->{this.sourceLevel} by {this.source}"
+            + this.data != null ? $" with message: {this.data}" : "";
+    }
+
+    public override string ToString()
+    {
+        return $"{this.data},{this.classifier},{this.name},{this.sourceScene},{this.sourceLevel},{this.source},{this.timestamp}";
+    }
+}
+
+public class Logger : MonoBehaviour  // class is almost entirely static
+{
+    private static bool DO_LOGGING = false;
+    private static bool LOG_CONSOLE = true;
+    private static bool DO_LOIP = false;
+    private static float LOGGING_FREQUENCY = 2f;
+
+    // this is essentially a copy of the above, in case you'd like to set the settings in the Unity Inspector instead of in the code
+    [Tooltip("Enable application logging to a .csv file in the user's Documents folder.")]
+    public bool doLogging = DO_LOGGING;
+    [Tooltip("Log console output.")]
+    public bool logConsole = LOG_CONSOLE;
+    [HideInInspector]
+    [Tooltip("Enable Logging over IP for automatic upload of logging data to a remote server.")]
+    public bool doLoIP = DO_LOIP;
+    [Tooltip("How many seconds should be between file system writes.")]
+    public float loggingFrequency = LOGGING_FREQUENCY;
+
+    private static List<LogableEvent> logQueue = new List<LogableEvent>();
+    private static bool fileSystemOperationInProgress = false;
+    private static string logFileName = $"/LOG_MOVE_ME_{System.DateTime.Now.ToString("HHmmss-ffff")}.csv";
+    private static float pointOfLastWrite = -1f;
+
+    protected void OnEnable()
+    {
+        Logger.DO_LOGGING = doLogging;
+        Logger.LOG_CONSOLE = logConsole;
+        Logger.DO_LOIP = doLoIP;
+
         Application.logMessageReceived  += LogConsoleMessage;
         Application.focusChanged        += LogFocusChanged;
         Application.lowMemory           += LogLowMemory;
         Application.unloading           += LogUnloading;
         Application.quitting            += OnApplicationQuit;
 
-        // ...
+        //Debug.Log("Wrote data to file path " + Logger.GetFilePath() + Logger.logFileName);
+
+        if (DO_LOGGING)
+            Logger.WriteLineToFile("data,classifier,event,scene,level,source,timestamp");
     }
 
-    // ========================================================================
+    // ===== THE DIFFERENT CLASSIFIERS- AND SUB-CLASSIFIERS =====
     public static void Log(Classifier.Metadata category, string data)
     {
         // ...
@@ -112,7 +192,20 @@ public static class Logger
 
     public static void Log(Classifier.Prompt category, Prompt prompt)
     {
-        // ...
+        switch (category)
+        {
+            case Classifier.Prompt.Activated:
+            case Classifier.Prompt.Resolved:
+                Logger.Log(new LogableEvent(
+                    "Prompt",
+                    category.ToString(),
+                    prompt.name,
+                    prompt.GetParentLevel().name,
+                    SceneManager.GetActiveScene().name,
+                    "null"
+                ));
+                break;
+        }
     }
 
     public static void Log(Classifier.Task category, Task task)
@@ -125,16 +218,38 @@ public static class Logger
         // ...
     }
 
-    // ========================================================================
-    private static void Log(string classifier, string data)
+    // ===== THE BOTTLENECK LOG METHOD =====
+    private static void Log(LogableEvent le)
     {
-        // ...
+        if (!DO_LOGGING) return;
+
+        Logger.logQueue.Add(le);
+        if (Logger.pointOfLastWrite != -1 && Time.realtimeSinceStartup - Logger.pointOfLastWrite < LOGGING_FREQUENCY) return;
+
+        if (!Logger.fileSystemOperationInProgress)
+        {
+            List<LogableEvent> logQueueCopy = new List<LogableEvent>(Logger.logQueue);
+            Logger.logQueue.Clear();
+
+            Logger.WriteLogableEventsToFile(new List<LogableEvent>(logQueueCopy));
+            // TODO: add LoIP call here...
+        }
     }
 
-    // ========================================================================
+    // ===== THE SUBSCRIBED LOG EVENTS =====
     private static void LogConsoleMessage(string logString, string stackTrace, LogType type)
     {
-        // ...
+        if (!LOG_CONSOLE) return;
+
+        string messageData = $"\"{logString.Replace(',', ' ')}\" in {stackTrace.Replace(',', ' ')}";
+        Logger.Log(new LogableEvent(
+            "Console",
+            type.ToString(),
+            "null",
+            Level.activeLevel != null ? Level.activeLevel.name : "null",
+            SceneManager.GetActiveScene().name,
+            messageData.Substring(0, messageData.Length - 1)
+        ));
     }
 
     private static void LogFocusChanged(bool isFocused)
@@ -157,6 +272,69 @@ public static class Logger
         // ...
     }
 
-    // ========================================================================
-    // TODO: add methods for file system management (and maybe LoIP)
+    // ===== THE LOWER-LEVEL FILE SYSTEM AND NETWORKING OPERATIONS =====
+    private static bool WriteLogableEventsToFile(List<LogableEvent> eventQueue)
+    {
+        List<string> LogableStrings = new List<string>();
+        foreach (LogableEvent le in eventQueue)
+            LogableStrings.Add(le.ToString());
+
+        return Logger.WriteLinesToFile(LogableStrings);
+    }
+
+    private static string GetFilePath()
+    {
+        return System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+    }
+
+    private static bool LogFileExists()
+    {
+        return File.Exists(Logger.GetFullFilePath());
+    }
+
+    private static string GetFullFilePath()
+    {
+        return Path.Combine(Logger.GetFilePath() + Logger.logFileName);
+    }
+
+    private static bool WriteLinesToFile(List<string> lines)
+    {
+        Logger.fileSystemOperationInProgress = true;
+
+        try
+        {
+            using (StreamWriter file = File.AppendText(Logger.GetFullFilePath()))
+            {
+                foreach (string line in lines)
+                    file.WriteLine(line);
+            }
+
+            Logger.fileSystemOperationInProgress = false;
+            Logger.pointOfLastWrite = Time.realtimeSinceStartup;
+            return true;
+        }
+        catch (InvalidDataException e)
+        {
+            Debug.LogError("Target log path exists but is read-only\n" + e);
+        }
+        catch (PathTooLongException e)
+        {
+            Debug.LogError("Target log path name may be too long\n" + e);
+        }
+        catch (IOException e)
+        {
+            Debug.LogError("The disk may be full\n" + e);
+        }
+
+        // TODO: revert log file if write operations fail...
+
+        Logger.fileSystemOperationInProgress = false;
+        Logger.pointOfLastWrite = Time.realtimeSinceStartup;
+        return false;
+    }
+
+    private static bool WriteLineToFile(string line)
+    {
+        return Logger.WriteLinesToFile(new List<string>() { line });
+    }
 }
