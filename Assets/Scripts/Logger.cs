@@ -124,20 +124,20 @@ public class LogableEvent
 
     public override string ToString()
     {
-        return $"{this.timestamp},{this.classifier},{this.name},{this.sourceScene},{this.sourceLevel},{this.source},{this.data}";
+        return $"{this.data},{this.classifier},{this.name},{this.sourceScene},{this.sourceLevel},{this.source},{this.timestamp}";
     }
 }
 
 public class Logger : MonoBehaviour  // class is almost entirely static
 {
-    private static bool logConsoleMessages = false;
+    private static bool logConsoleMessages = true;
     private static bool doLoggingOverIP = false;
     
     private static List<LogableEvent> logQueue = new List<LogableEvent>();
     private static bool fileSystemOperationInProgress = false;
-    private static string logFileName = $"/LOG_MOVE_ME_{System.DateTime.Now.ToString("HH:mm:ss.ffff")}.csv";
+    private static string logFileName = $"/LOG_MOVE_ME_{System.DateTime.Now.ToString("HHmmss-ffff")}.csv";
 
-    protected void Start()
+    protected void OnEnable()
     {
         Application.logMessageReceived  += LogConsoleMessage;
         Application.focusChanged        += LogFocusChanged;
@@ -147,7 +147,7 @@ public class Logger : MonoBehaviour  // class is almost entirely static
 
         //Debug.Log("Wrote data to file path " + Logger.GetFilePath() + Logger.logFileName);
 
-        //_ = Logger.WriteLineToFile("timestamp,classifier,event,scene,level,source,data\n");
+        _ = Logger.WriteLineToFile("data,classifier,event,scene,level,source,timestamp");
     }
 
     // ===== THE DIFFERENT CLASSIFIERS- AND SUB-CLASSIFIERS =====
@@ -173,7 +173,20 @@ public class Logger : MonoBehaviour  // class is almost entirely static
 
     public static void Log(Classifier.Prompt category, Prompt prompt)
     {
-        // ...
+        switch (category)
+        {
+            case Classifier.Prompt.Activated:
+            case Classifier.Prompt.Resolved:
+                Logger.Log(new LogableEvent(
+                    "Prompt",
+                    category.ToString(),
+                    prompt.name,
+                    prompt.GetParentLevel().name,
+                    SceneManager.GetActiveScene().name,
+                    "null"
+                ));
+                break;
+        }
     }
 
     public static void Log(Classifier.Task category, Task task)
@@ -206,13 +219,14 @@ public class Logger : MonoBehaviour  // class is almost entirely static
     {
         if (!Logger.logConsoleMessages) return;
 
+        string messageData = $"\"{logString.Replace(',', ' ')}\" in {stackTrace.Replace(',', ' ')}";
         Logger.Log(new LogableEvent(
             "Console",
             type.ToString(),
             "null",
             Level.activeLevel.name,
             SceneManager.GetActiveScene().name,
-            $"\"{logString}\" in {stackTrace}"  // <- this will most likely need a .Replace to remove newlines...
+            messageData.Substring(0, messageData.Length - 1)
         ));
     }
 
@@ -267,15 +281,15 @@ public class Logger : MonoBehaviour  // class is almost entirely static
 
         try
         {
-            if (!Logger.LogFileExists()) { }
-                File.Create(Logger.GetFullFilePath());
+            /*if (!Logger.LogFileExists()) { }
+                File.Create(Logger.GetFullFilePath());*/
 
-            /*using (StreamWriter file = File.AppendText(Logger.GetFullFilePath()))
             //using (var file = new StreamWriter(Logger.GetFullFilePath(), true))
+            using (StreamWriter file = File.AppendText(Logger.GetFullFilePath()))
             {
                 foreach (string line in lines)
                     file.WriteLine(line);
-            }*/
+            }
 
             Logger.fileSystemOperationInProgress = false;
             return true;
