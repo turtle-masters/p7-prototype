@@ -31,10 +31,13 @@ public class MinigameManagerScript : MonoBehaviour
     }
 
     private void Start() {
-        LevelSetup(currentLevel);
+        LevelSetup();
     }
 
-    public void LevelSetup(int _level) {
+    public void LevelSetup() {
+        while(goalCounter[currentLevel-1]>=goalMax[currentLevel-1] && currentLevel<maxLevelNumber) {
+            currentLevel++;
+        }
         for(int i=0;i<maxLevelNumber;i++) {
             if(i==currentLevel-1) {
                 levelPrefabArray[i].SetActive(true);
@@ -42,8 +45,16 @@ public class MinigameManagerScript : MonoBehaviour
                 levelPrefabArray[i].SetActive(false);
             }
         }
-        gunObject.GetComponent<ShootingScript>().gunMode=levelGunMode[currentLevel-1];
+        
+        if(gunObject.GetComponent<ShootingScript>()) {
+            gunObject.GetComponent<ShootingScript>().gunMode=levelGunMode[currentLevel-1];
+        } else {
+            GameObject.FindObjectOfType<ShootingScript>().gunMode=levelGunMode[currentLevel-1];
+        }
+            
     }
+
+
 
     public void GoalUpdate(GameObject updateSourceObject) {
         if(currentLevel==1 && updateSourceObject.GetComponent<ChemData>().Name=="ATP") {
@@ -82,7 +93,7 @@ public class MinigameManagerScript : MonoBehaviour
 
     public void SetCurrentLevel(int _currentLevel) {
         currentLevel = _currentLevel;
-        LevelSetup(currentLevel);
+        LevelSetup();
     }
 
     private void completeGame()
@@ -97,5 +108,9 @@ public class MinigameManagerScript : MonoBehaviour
             if (level != null && level.isActive)
                 level.Complete();
         }
+    }
+
+    public GameObject GetCurrentLevelObject() {
+        return levelPrefabArray[currentLevel-1];
     }
 }

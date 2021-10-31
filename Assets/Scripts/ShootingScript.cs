@@ -40,6 +40,7 @@ public class ShootingScript : MonoBehaviour
         projectileEnzyme = Instantiate(projectilePrefab[gunMode-1],bulletSource.transform.position,bulletSource.transform.rotation);
         //projectile.transform.SetParent(bulletSource.transform);
         projectileRb = projectileEnzyme.GetComponent<Rigidbody>();
+        projectileEnzyme.transform.SetParent(MinigameManagerScript.instance.GetCurrentLevelObject().transform);
         if(gunMode==1) 
             projectileEnzyme.SetActive(false);
     }
@@ -52,6 +53,7 @@ public class ShootingScript : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Space) && isLoaded) {
                 GameObject tempProjectile;
                 tempProjectile=Instantiate(projectilePrefab[0],bulletSource.transform.position,bulletSource.transform.rotation);
+                tempProjectile.transform.SetParent(MinigameManagerScript.instance.GetCurrentLevelObject().transform);
                 tempProjectile.GetComponent<Rigidbody>().velocity=bulletSource.transform.up*projectileSpeed;
                 tempProjectile.AddComponent<DecayScript>().SetDecayTime(automaticProjectileDecayTime);
                 projectileGoalPos = transform.position+transform.up*goalDistance;
