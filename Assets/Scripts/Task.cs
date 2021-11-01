@@ -78,12 +78,12 @@ public class Task : Prompt
 
     public void EnterHover(Hand hand)
     {
-        // ...
+        Logger.Log(Classifier.Task.Touching, this);
     }
 
     public void ExitHover(Hand hand)
     {
-        // ...
+        Logger.Log(Classifier.Task.NoLongerTouching, this);
     }
 
     /*
@@ -99,6 +99,8 @@ public class Task : Prompt
             this.target.Activate();
             this.OnGrab.Invoke(this);
         }
+
+        Logger.Log(Classifier.Task.Grabbed, this);
     }
 
     /*
@@ -107,7 +109,7 @@ public class Task : Prompt
     public void Drop(Hand hand, bool debugAutoComplete = false)
     {
         // the player has released this GameObject...
-        //if (this.target) this.target.Resolve();
+        Logger.Log(Classifier.Task.Released, this);
     }
 
     public new void Resolve()

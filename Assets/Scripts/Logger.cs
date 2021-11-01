@@ -74,8 +74,6 @@ public static class Classifier
         Unloaded,
         Started,
         Completed,
-        HasBecomeActive,
-        HasBecomeInactive,
     }
 }
 
@@ -192,30 +190,39 @@ public class Logger : MonoBehaviour  // class is almost entirely static
 
     public static void Log(Classifier.Prompt category, Prompt prompt)
     {
-        switch (category)
-        {
-            case Classifier.Prompt.Activated:
-            case Classifier.Prompt.Resolved:
-                Logger.Log(new LogableEvent(
-                    "Prompt",
-                    category.ToString(),
-                    prompt.name,
-                    prompt.GetParentLevel().name,
-                    SceneManager.GetActiveScene().name,
-                    "null"
-                ));
-                break;
-        }
+        Logger.Log(new LogableEvent(
+            "Prompt",
+            category.ToString(),
+            prompt.name,
+            prompt.GetParentLevel().name,
+            prompt.gameObject.scene != null ? prompt.gameObject.scene.name : "null",
+            prompt.gameObject.GetComponent<Task>() != null ? "Has Task" : "null"
+        ));
     }
 
     public static void Log(Classifier.Task category, Task task)
     {
-        // ...
+        Logger.Log(new LogableEvent(
+            "Task",
+            category.ToString(),
+            task.name,
+            task.GetParentLevel().name,
+            task.gameObject.scene != null ? task.gameObject.scene.name : "null",
+            "null"
+        ));
     }
 
     public static void Log(Classifier.Level category, Level level)
     {
-        // ...
+        bool levelInitialized = level != null;
+        Logger.Log(new LogableEvent(
+            "level",
+            category.ToString(),
+            levelInitialized ? level.name : "null",
+            "null",
+            levelInitialized && level.gameObject.scene != null ? level.gameObject.scene.name : "null",
+            "null"
+        ));
     }
 
     // ===== THE BOTTLENECK LOG METHOD =====
@@ -231,7 +238,7 @@ public class Logger : MonoBehaviour  // class is almost entirely static
             List<LogableEvent> logQueueCopy = new List<LogableEvent>(Logger.logQueue);
             Logger.logQueue.Clear();
 
-            Logger.WriteLogableEventsToFile(new List<LogableEvent>(logQueueCopy));
+            Logger.WriteLogableEventsToFile(logQueueCopy);
             // TODO: add LoIP call here...
         }
     }

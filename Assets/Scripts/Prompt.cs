@@ -181,13 +181,21 @@ public class Prompt : MonoBehaviour
         if (this.GetAudioClip() != null && this.isLooping)
             this.PlaySound();  // keep playing sound effect recursively if there is one to be played
         else this.TurnOff();
+
+        if (this.playbackVolume != 0f)
+            Logger.Log(Classifier.Prompt.SoundStopped, this);
     }
 
     protected void PlaySound()
     {
         if (this.GetAudioClip() != null)
         {
-            this.GetAudioSource().PlayOneShot(this.GetAudioClip(), this.playbackVolume);
+            if (this.playbackVolume != 0f)
+            {
+                this.GetAudioSource().PlayOneShot(this.GetAudioClip(), this.playbackVolume);
+                Logger.Log(Classifier.Prompt.SoundPlaying, this);
+            }
+
             IEnumerator DelayedCallback(float time)
             {
                 yield return new WaitForSeconds(time);

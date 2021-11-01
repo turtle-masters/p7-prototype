@@ -90,6 +90,7 @@ public class Level : MonoBehaviour
 
     private static void OnActiveSceneChanged(Scene oldScene, Scene newScene)
     {
+        Logger.Log(Classifier.Level.Unloaded, Level.activeLevel);
         Level.CullPlayerObjects();
 
         // find all Level components in the Scene
@@ -126,6 +127,7 @@ public class Level : MonoBehaviour
                 Level.activeLevel = levelsInScene[1];
                 break;
         }
+        Logger.Log(Classifier.Level.Loaded, Level.activeLevel);
 
         Debug.Log("Active Level is now " + Level.activeLevel.name + " in Scene " + SceneManager.GetActiveScene().name);
         //Debug.Log(Level.totalSceneChanges);
@@ -138,7 +140,7 @@ public class Level : MonoBehaviour
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //Debug.Log(scene.name + " loaded in mode " + mode);
+        // ...
     }
 
     private static void OnSceneUnloaded(Scene scene)
@@ -242,6 +244,8 @@ public class Level : MonoBehaviour
         this.SetVisibilityOfAllChildren(true);
         if (entryPrompt != null) entryPrompt.Activate();
         else Debug.LogError(this + " was activated but no initial Prompt was given. Did you foget to reference the entry Prompt?");
+
+        Logger.Log(Classifier.Level.Started, this);
     }
 
     /*
@@ -254,6 +258,7 @@ public class Level : MonoBehaviour
             ap.Resolve();
 
         this.SetVisibilityOfAllChildren(false);
+        Logger.Log(Classifier.Level.Completed, this);
 
         // run preloaded scene
         Level.Continue();

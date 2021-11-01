@@ -46,10 +46,21 @@ public class PlayerVisor : MonoBehaviour
             Text textReticle = texts[targetObject];
 
             // hide/show text depending on the state of the associated Prompt
-            if (targetObject.IsActive()) textReticle.enabled = true;
+            if (targetObject.IsActive())
+            {
+                if (textReticle.enabled == false)
+                {
+                    textReticle.enabled = true;
+                    Logger.Log(Classifier.Prompt.TextShowing, targetObject);
+                }
+            }
             else
             {
-                textReticle.enabled = false;
+                if (textReticle.enabled == true)
+                {
+                    textReticle.enabled = false;
+                    Logger.Log(Classifier.Prompt.TextHidden, targetObject);
+                }
                 continue;
             }
 
