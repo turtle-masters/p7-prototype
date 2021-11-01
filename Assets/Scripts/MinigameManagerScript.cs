@@ -99,6 +99,7 @@ public class MinigameManagerScript : MonoBehaviour
 
     private void completeGame()
     {
+        GameObject.Find("Gun").GetComponent<ShootingScript>().detach();
         Debug.Log("Minigame completed!");
 
         Scene activeScene = SceneManager.GetActiveScene();
