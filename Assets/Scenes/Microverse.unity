@@ -211,6 +211,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 739592917}
     m_Modifications:
     - target: {fileID: 7963505201696564048, guid: 698228512363b45479a9c46b58b5529d, type: 3}
+      propertyPath: gunMode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963505201696564048, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: input.actionPath
       value: /actions/default/in/GrabPinch
       objectReference: {fileID: 0}
@@ -269,6 +273,10 @@ PrefabInstance:
     - target: {fileID: 7963505201696564057, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963505201696564057, guid: 698228512363b45479a9c46b58b5529d, type: 3}
+      propertyPath: m_TagString
+      value: Gun
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 698228512363b45479a9c46b58b5529d, type: 3}
@@ -1297,6 +1305,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1386783204}
     m_Modifications:
     - target: {fileID: 7963505201696564048, guid: 698228512363b45479a9c46b58b5529d, type: 3}
+      propertyPath: gunMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963505201696564048, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: input.actionPath
       value: /actions/default/in/GrabPinch
       objectReference: {fileID: 0}
@@ -1355,6 +1367,10 @@ PrefabInstance:
     - target: {fileID: 7963505201696564057, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963505201696564057, guid: 698228512363b45479a9c46b58b5529d, type: 3}
+      propertyPath: m_TagString
+      value: Gun
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 698228512363b45479a9c46b58b5529d, type: 3}
@@ -1756,7 +1772,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1273487316}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -550}
+  m_LocalPosition: {x: 0, y: 0, z: -392}
   m_LocalScale: {x: 1000, y: 1700, z: 1000}
   m_Children:
   - {fileID: 1854938328}
@@ -1773,7 +1789,7 @@ BoxCollider:
   m_GameObject: {fileID: 1273487316}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -2312,7 +2328,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854938327}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.45, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1273487317}

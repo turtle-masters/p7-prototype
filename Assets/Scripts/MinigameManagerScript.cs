@@ -16,7 +16,7 @@ public class MinigameManagerScript : MonoBehaviour
     public GameObject[] levelPrefabArray = new GameObject[maxLevelNumber];
 
     public static int[] goalCounter = new int[maxLevelNumber];
-    public static int[] goalMax = {10,10,10};
+    public static int[] goalMax = {1,1,5};
     public static int[] levelGunMode = {1,2,4};
  
     private void Awake() {
@@ -42,7 +42,7 @@ public class MinigameManagerScript : MonoBehaviour
                 levelPrefabArray[i].SetActive(false);
             }
         }
-        gunObject.GetComponent<ShootingScript>().gunMode=levelGunMode[currentLevel-1];
+        //gunObject.GetComponent<ShootingScript>().gunMode=levelGunMode[currentLevel-1];
     }
 
     public void GoalUpdate(GameObject updateSourceObject) {
