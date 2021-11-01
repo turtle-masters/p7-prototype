@@ -43,10 +43,10 @@ public class ShootingScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        projectileEnzyme = Instantiate(projectilePrefab[gunMode - 1], bulletSource.transform.position, bulletSource.transform.rotation);
+        projectileEnzyme = Instantiate(projectilePrefab[gunMode-1],bulletSource.transform.position,bulletSource.transform.rotation);
         //projectile.transform.SetParent(bulletSource.transform);
         projectileRb = projectileEnzyme.GetComponent<Rigidbody>();
-        if (gunMode == 1)
+        if(gunMode==1) 
             projectileEnzyme.SetActive(false);
     }
 
@@ -114,6 +114,7 @@ public class ShootingScript : MonoBehaviour
                         targetJoint = tempJoint;
                         continue;
                     }
+
                     //target snake if it is in front of you, it is the closest
                 }*/
 
@@ -187,6 +188,7 @@ public class ShootingScript : MonoBehaviour
         {
             gameObject.transform.parent = GetComponent<Interactable>().hoveringHand.transform;
             gameObject.transform.localPosition = new Vector3(0, 0, 0);
+            
             grabbed = true;
         }
     }
@@ -202,19 +204,15 @@ public class ShootingScript : MonoBehaviour
         return isStuck;
     }*/
 
-    IEnumerator ProjectileReturnTimer()
-    {
-        if (returnTimerCoroutineRunning)
-        {
+    IEnumerator ProjectileReturnTimer() {
+        if(returnTimerCoroutineRunning) {
             yield return null;
         }
         returnTimerCoroutineRunning = true;
         returnTimeStart = Time.time;
-        while (true)
-        {
-            if (Time.time - returnTimeStart >= returnTime)
-            {
-                isLoaded = true;
+        while(true) {
+            if(Time.time - returnTimeStart>=returnTime) {
+                isLoaded=true;
                 projectileEnzyme.transform.position = bulletSource.transform.position;
                 projectileRb.velocity = Vector3.zero;
                 returnTimerCoroutineRunning = false;
@@ -226,19 +224,15 @@ public class ShootingScript : MonoBehaviour
         }
     }
 
-    IEnumerator ProjectileDestroyTimer()
-    {
-        if (returnTimerCoroutineRunning)
-        {
+    IEnumerator ProjectileDestroyTimer() {
+        if(returnTimerCoroutineRunning) {
             yield return null;
         }
         returnTimerCoroutineRunning = true;
         returnTimeStart = Time.time;
-        while (true)
-        {
-            if (Time.time - returnTimeStart >= returnTime)
-            {
-                isLoaded = true;
+        while(true) {
+            if(Time.time - returnTimeStart>=returnTime) {
+                isLoaded=true;
                 projectileEnzyme.transform.position = bulletSource.transform.position;
                 projectileRb.velocity = Vector3.zero;
                 returnTimerCoroutineRunning = false;

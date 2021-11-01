@@ -46,13 +46,12 @@ public class SpawnerScript : MonoBehaviour
                     } while(isTooCloseToOthers);
                 }
                 spawnObjectArray[i]=Instantiate(spawnObject,spawnPosition,Quaternion.identity);
-                spawnObjectArray[i].transform.SetParent(MinigameManagerScript.instance.GetCurrentLevelObject().transform);
                 if(extraSpawn) {
                     spawnX = spawnObjectArray[i].transform.position.x + RandomOperator() * Random.Range(extraSpawnMinDistance,extraSpawnMaxDistance);
                     spawnZ = spawnObjectArray[i].transform.position.z + RandomOperator() * Random.Range(extraSpawnMinDistance,extraSpawnMaxDistance);
                     spawnY = spawnObjectArray[i].transform.position.y + Random.Range(extraSpawnMinHeight,extraSpawnMaxHeight);
                     spawnPosition = new Vector3(spawnX,spawnY,spawnZ);
-                    Instantiate(extraSpawnObject,spawnPosition,Quaternion.identity).transform.SetParent(MinigameManagerScript.instance.GetCurrentLevelObject().transform);
+                    Instantiate(extraSpawnObject,spawnPosition,Quaternion.identity);
                 }
             }
         }

@@ -32,7 +32,6 @@ public class SnakeSpawner : MonoBehaviour
         targetVertical = transform.up * Random.Range(-verticalSpread,verticalSpread);
         Vector3 tempTargetPosition = targetObject.transform.position+targetHorizontal+targetVertical;
         GameObject newSnake = Instantiate(snakePrefab);
-        newSnake.transform.SetParent(MinigameManagerScript.instance.GetCurrentLevelObject().transform);
         newSnake.transform.position = transform.position;
         newSnake.transform.LookAt(tempTargetPosition);
         newSnake.GetComponent<SnakeMovement>().SetSpeed(snakeSpeed);
