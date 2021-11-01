@@ -187,7 +187,8 @@ public class ShootingScript : MonoBehaviour
         if (!grabbed && input.GetStateDown(isource))
         {
             gameObject.transform.parent = GetComponent<Interactable>().hoveringHand.transform;
-            gameObject.transform.localPosition = new Vector3(0, 0, 0);
+            gameObject.transform.localPosition = new Vector3(0f, -0.15f, 0.15f);
+            gameObject.transform.localRotation = Quaternion.Euler(135f,0f,0f);
             
             grabbed = true;
         }
