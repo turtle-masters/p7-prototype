@@ -187,7 +187,6 @@ public class ShootingScript : MonoBehaviour
         {
             gameObject.transform.parent = GetComponent<Interactable>().hoveringHand.transform;
             gameObject.transform.localPosition = new Vector3(0, 0, 0);
-
             grabbed = true;
         }
     }
