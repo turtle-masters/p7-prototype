@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entryPrompt: {fileID: 0}
+  entryPrompt: {fileID: 1358969460}
   isActive: 0
 --- !u!4 &739592917
 Transform:
@@ -1077,7 +1077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b46c495dbe749a439d8c076c0faf441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entryPrompt: {fileID: 0}
+  entryPrompt: {fileID: 292543989}
   isActive: 0
 --- !u!4 &1386783204
 Transform:
