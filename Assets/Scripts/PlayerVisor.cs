@@ -115,7 +115,7 @@ public class PlayerVisor : MonoBehaviour
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject po in playerObjects) {
             Debug.Log(po.name);
-            if (po.scene == SceneManager.GetActiveScene() || po.activeSelf) { 
+            if (po.scene == SceneManager.GetActiveScene() && po.activeInHierarchy || po.activeSelf) { 
                 PlayerVisor.playerCamera = po.GetComponentInChildren<Camera>();
                 GameObject.FindGameObjectWithTag("HUD").GetComponent<Canvas>().worldCamera = playerCamera;
             } }

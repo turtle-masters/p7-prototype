@@ -56,6 +56,7 @@ public class Level : MonoBehaviour
         if (!playerInitiated && SceneManager.GetActiveScene().buildIndex == 0)
             return;
 
+        bool hasEncounteredPlayer = false;
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             Scene scene = SceneManager.GetSceneAt(i);
@@ -73,13 +74,19 @@ public class Level : MonoBehaviour
                 GameObject current = (GameObject)rootEnumerator.Current;
                 if (current.tag == "Player")
                 {
-                    Debug.Log("Found Player in Scene " + scene.name);
-                    if (!DebugPlayer.isActive)
+                    if (scene.name == "Microverse" && !hasEncounteredPlayer)
+                        hasEncounteredPlayer = true;
+                    else
                     {
-                        current.SetActive(false);
-                        //culledScenes.Add(scene.buildIndex);
+                        Debug.Log("Found Player in Scene " + scene.name);
+                        if (!DebugPlayer.isActive)
+                        {
+                            current.SetActive(false);
+                            //culledScenes.Add(scene.buildIndex);
+                        }
+
+                        break;
                     }
-                    break;
                 }
             }
             //Debug.Log("Number of culled Scenes: " + Level.culledScenes.Count);
