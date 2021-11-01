@@ -43,68 +43,22 @@ public class ShootingScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        projectileEnzyme = Instantiate(projectilePrefab[gunMode-1],bulletSource.transform.position,bulletSource.transform.rotation);
+        projectileEnzyme = Instantiate(projectilePrefab[gunMode - 1], bulletSource.transform.position, bulletSource.transform.rotation);
         //projectile.transform.SetParent(bulletSource.transform);
         projectileRb = projectileEnzyme.GetComponent<Rigidbody>();
-        projectileEnzyme.transform.SetParent(MinigameManagerScript.instance.GetCurrentLevelObject().transform);
-        if(gunMode==1) 
+        if (gunMode == 1)
             projectileEnzyme.SetActive(false);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(gunMode==1) { //Semi-auto enzyme
-            
-            if(Input.GetKeyDown(KeyCode.Space) && isLoaded) {
-                GameObject tempProjectile;
-                tempProjectile=Instantiate(projectilePrefab[0],bulletSource.transform.position,bulletSource.transform.rotation);
-                tempProjectile.transform.SetParent(MinigameManagerScript.instance.GetCurrentLevelObject().transform);
-                tempProjectile.GetComponent<Rigidbody>().velocity=bulletSource.transform.up*projectileSpeed;
-                tempProjectile.AddComponent<DecayScript>().SetDecayTime(automaticProjectileDecayTime);
-                projectileGoalPos = transform.position+transform.up*goalDistance;
-                /*if(!returnTimerCoroutineRunning) {
-                    StartCoroutine("ProjectileDestroyTimer");
-                }
-            } else if(isLoaded) {
-                projectileEnzyme.transform.SetPositionAndRotation(bulletSource.transform.position,bulletSource.transform.rotation);
-            } else if(!isLoaded) {
-                //Move towards target
-                projectileRb.velocity = (projectileGoalPos-projectileEnzyme.transform.position).normalized*projectileSpeed;
-                //Snap to target and start returning
-                if(Vector3.Distance(projectileEnzyme.transform.position,projectileGoalPos)<returnSnapbackRange) {
-                    isReturning=true;
-                    projectileEnzyme.transform.position = projectileGoalPos;
-                    projectileRb.velocity = Vector3.zero;
-                    previousPos = Vector3.zero;
-                }*/
-            }
-        } else if(gunMode==2) { //Automatic alpha amylase
-            //Shoot bullets when space is held, according to fire rate
-            if(Input.GetKey(KeyCode.Space)&&fireRateCounter>=1/automaticFireRate) {
-                fireRateCounter-=1/automaticFireRate;
-                //Shoot bullet
-                //float spreadRadius = Mathf.Tan(Mathf.Deg2Rad * spreadAngle/2f);
-                Vector3 firingDirection = Quaternion.Euler(Random.Range(-spreadAngle,spreadAngle)*firingTightness,Random.Range(-spreadAngle,spreadAngle)*firingTightness,0f)*transform.up;
-                //firingDirection = (Random.insideUnitSphere * spreadRadius + bulletSource.transform.forward).normalized;
-                Quaternion tempProjectileRotation = Quaternion.LookRotation(firingDirection);
-                GameObject tempProjectile = Instantiate(projectilePrefab[gunMode-1],bulletSource.transform.position,tempProjectileRotation);
-                tempProjectile.AddComponent<DecayScript>().SetDecayTime(automaticProjectileDecayTime);
-                tempProjectile.GetComponent<Rigidbody>().velocity=tempProjectile.transform.forward*projectileSpeed;
-            } else if(fireRateCounter<1/automaticFireRate) {
-                fireRateCounter+=Time.deltaTime;
-            }
-        } else if(gunMode==3) { //Auto aim beta amylase
-            /*GameObject targetJoint = null;
-            foreach(GameObject joint in SnakeSpawner.GetJoints()) {
-                GameObject tempJoint = joint;
-                if(targetJoint==null) {
-                    targetJoint = tempJoint;
-                    continue;
-                }
-                
-                //target snake if it is in front of you, it is the closest
-            }*/
+        if (!gameObject.GetComponent<Prompt>().IsActive()) return;
+        isource = gameObject.GetComponent<Interactable>().hoveringHand.handType;
+        if (grabbed)
+        {
+            if (gunMode == 1)
+            { //Semi-auto enzyme
 
                 if (Input.GetKeyDown(KeyCode.Space) || input.GetStateDown(isource) && isLoaded)
                 {
@@ -160,7 +114,6 @@ public class ShootingScript : MonoBehaviour
                         targetJoint = tempJoint;
                         continue;
                     }
-
                     //target snake if it is in front of you, it is the closest
                 }*/
 
@@ -234,7 +187,7 @@ public class ShootingScript : MonoBehaviour
         {
             gameObject.transform.parent = GetComponent<Interactable>().hoveringHand.transform;
             gameObject.transform.localPosition = new Vector3(0, 0, 0);
-            
+
             grabbed = true;
         }
     }
@@ -250,15 +203,19 @@ public class ShootingScript : MonoBehaviour
         return isStuck;
     }*/
 
-    IEnumerator ProjectileReturnTimer() {
-        if(returnTimerCoroutineRunning) {
+    IEnumerator ProjectileReturnTimer()
+    {
+        if (returnTimerCoroutineRunning)
+        {
             yield return null;
         }
         returnTimerCoroutineRunning = true;
         returnTimeStart = Time.time;
-        while(true) {
-            if(Time.time - returnTimeStart>=returnTime) {
-                isLoaded=true;
+        while (true)
+        {
+            if (Time.time - returnTimeStart >= returnTime)
+            {
+                isLoaded = true;
                 projectileEnzyme.transform.position = bulletSource.transform.position;
                 projectileRb.velocity = Vector3.zero;
                 returnTimerCoroutineRunning = false;
@@ -270,15 +227,19 @@ public class ShootingScript : MonoBehaviour
         }
     }
 
-    IEnumerator ProjectileDestroyTimer() {
-        if(returnTimerCoroutineRunning) {
+    IEnumerator ProjectileDestroyTimer()
+    {
+        if (returnTimerCoroutineRunning)
+        {
             yield return null;
         }
         returnTimerCoroutineRunning = true;
         returnTimeStart = Time.time;
-        while(true) {
-            if(Time.time - returnTimeStart>=returnTime) {
-                isLoaded=true;
+        while (true)
+        {
+            if (Time.time - returnTimeStart >= returnTime)
+            {
+                isLoaded = true;
                 projectileEnzyme.transform.position = bulletSource.transform.position;
                 projectileRb.velocity = Vector3.zero;
                 returnTimerCoroutineRunning = false;
