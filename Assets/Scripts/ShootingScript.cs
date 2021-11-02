@@ -43,11 +43,15 @@ public class ShootingScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        projectileEnzyme = Instantiate(projectilePrefab[gunMode-1],bulletSource.transform.position,bulletSource.transform.rotation);
-        //projectile.transform.SetParent(bulletSource.transform);
-        projectileRb = projectileEnzyme.GetComponent<Rigidbody>();
-        if(gunMode==1) 
+        
+        if(gunMode==4)
+        { 
+            
+            projectileEnzyme = Instantiate(projectilePrefab[gunMode - 1], bulletSource.transform.position, bulletSource.transform.rotation);
+            //projectile.transform.SetParent(bulletSource.transform);
+            projectileRb = projectileEnzyme.GetComponent<Rigidbody>();
             projectileEnzyme.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -88,7 +92,7 @@ public class ShootingScript : MonoBehaviour
             else if (gunMode == 2)
             { //Automatic alpha amylase
               //Shoot bullets when space is held, according to fire rate
-                if (Input.GetKey(KeyCode.Space) || input.GetStateDown(isource) && fireRateCounter >= 1 / automaticFireRate)
+                if (Input.GetKey(KeyCode.Space) || input.GetState(isource) && fireRateCounter >= 1 / automaticFireRate)
                 {
                     fireRateCounter -= 1 / automaticFireRate;
                     //Shoot bullet
