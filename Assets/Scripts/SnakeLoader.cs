@@ -25,17 +25,14 @@ public class SnakeLoader : MonoBehaviour
             segmentArray[i].transform.SetParent(transform);
         }
     }
-
-    private void Update() {
-        if(Input.GetKeyDown(KeyCode.B)) {
-            BreakSnakeAtJoint(0);
-        }
-
-    }
     public void SetupSegmentPositions() {
         for(int i=0;i<segmentArray.Count;i++) {
             segmentArray[i].transform.localPosition=this.transform.forward*-prefabDist*i + this.transform.up*Mathf.Sin(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth+this.transform.right*Mathf.Cos(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth;
+            if(i>0)
+                segmentArray[i].transform.LookAt(segmentArray[i-1].transform);
         }
+        if(segmentArray.Count>1)
+            segmentArray[0].transform.LookAt(this.transform.forward*-prefabDist*-1 + this.transform.up*Mathf.Sin(Mathf.Deg2Rad*rotationDegreePerPrefab*-1)*bodyWidth+this.transform.right*Mathf.Cos(Mathf.Deg2Rad*rotationDegreePerPrefab*-1)*bodyWidth);
      }
 
     public List<GameObject> GetSegmentChildArray() {
