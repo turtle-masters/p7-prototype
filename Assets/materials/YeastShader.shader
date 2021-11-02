@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'UNITY_INSTANCE_ID' with 'UNITY_VERTEX_INPUT_INSTANCE_ID'
+
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 Shader "Custom/YeastShader"
@@ -29,12 +31,14 @@ Shader "Custom/YeastShader"
             {
                 float4 vertex   : POSITION;
                 float2 texcoord : TEXCOORD0;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2f 
             {
                 float4 vertex  : SV_POSITION;
                 half2 texcoord : TEXCOORD0;
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             uniform sampler2D _MainTex;
@@ -45,18 +49,26 @@ Shader "Custom/YeastShader"
             {
                 v2f o;
 
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_OUTPUT(v2f, o);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o); 
+                
                 o.vertex     = UnityObjectToClipPos(v.vertex);
                 v.texcoord.x = 1 - v.texcoord.x;
                 o.texcoord   = TRANSFORM_TEX(v.texcoord, _MainTex);
+                
 
                 return o;
             }
 
             fixed4 frag (v2f_img i) : SV_Target
             {
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i); //Insert
+    
+                fixed4 col = UNITY_SAMPLE_SCREENSPACE_TEXTURE(_MainTex, i.uv) * _Color; //Insert
                 //fixed4 col = tex2D(_MainTex, i.texcoord) * _Color; // multiply by _Color
-                fixed4 myTex = tex2D(_MainTex, UnityStereoScreenSpaceUVAdjust(i.uv, _MainTex_ST)) * _Color;
-                return myTex;
+                //fixed4 myTex = tex2D(_MainTex, UnityStereoScreenSpaceUVAdjust(i.uv, _MainTex_ST)) * _Color;
+                return col;
             }
 
             ENDCG
