@@ -37,8 +37,8 @@ Shader "Custom/YeastShader"
                 half2 texcoord : TEXCOORD0;
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
+            uniform sampler2D _MainTex;
+            half4 _MainTex_ST;
             float4 _Color;
 
             v2f vert (appdata_t v)
@@ -52,10 +52,11 @@ Shader "Custom/YeastShader"
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag (v2f_img i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.texcoord) * _Color; // multiply by _Color
-                return col;
+                //fixed4 col = tex2D(_MainTex, i.texcoord) * _Color; // multiply by _Color
+                fixed4 myTex = tex2D(_MainTex, UnityStereoScreenSpaceUVAdjust(i.uv, _MainTex_ST)) * _Color;
+                return myTex;
             }
 
             ENDCG
