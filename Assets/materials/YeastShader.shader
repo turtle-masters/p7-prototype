@@ -63,10 +63,10 @@ Shader "Custom/YeastShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i); //Insert
+                //UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i); //Insert
     
-                fixed4 col = UNITY_SAMPLE_SCREENSPACE_TEXTURE(_MainTex, i.texcoord) * _Color; //Insert
-                //fixed4 col = tex2D(_MainTex, i.texcoord) * _Color; // multiply by _Color
+                //fixed4 col = UNITY_SAMPLE_SCREENSPACE_TEXTURE(_MainTex, i.texcoord) * _Color; //Insert
+                fixed4 col = tex2D(_MainTex, i.texcoord) * _Color; // multiply by _Color
                 //fixed4 myTex = tex2D(_MainTex, UnityStereoScreenSpaceUVAdjust(i.uv, _MainTex_ST)) * _Color;
                 return col;
             }
@@ -74,5 +74,4 @@ Shader "Custom/YeastShader"
             ENDCG
         }
     }
-    FallBack "Diffuse"
 }
