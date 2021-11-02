@@ -268,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7963505201696564057, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_Name
-      value: Gun (2)
+      value: Gun3
       objectReference: {fileID: 0}
     - target: {fileID: 7963505201696564057, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_IsActive
@@ -1362,7 +1362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7963505201696564057, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_Name
-      value: Gun (1)
+      value: Gun2
       objectReference: {fileID: 0}
     - target: {fileID: 7963505201696564057, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_IsActive
@@ -1903,11 +1903,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7963505201696564057, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_Name
-      value: Gun
+      value: Gun1
       objectReference: {fileID: 0}
     - target: {fileID: 7963505201696564057, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963505201696564057, guid: 698228512363b45479a9c46b58b5529d, type: 3}
+      propertyPath: m_TagString
+      value: Gun
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 698228512363b45479a9c46b58b5529d, type: 3}
