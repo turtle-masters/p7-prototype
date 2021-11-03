@@ -148,6 +148,8 @@ public class Logger : MonoBehaviour  // class is almost entirely static
     private static bool fileSystemOperationInProgress = false;
     private static string logFileName = $"/LOG_MOVE_ME_{System.DateTime.Now.ToString("HHmmss-ffff")}.csv";
     private static float pointOfLastWrite = -1f;
+    private static int frameCounter = 0;
+    private static float frameCountTimestamp = -1f;
 
     protected void OnEnable()
     {
@@ -164,13 +166,72 @@ public class Logger : MonoBehaviour  // class is almost entirely static
         //Debug.Log("Wrote data to file path " + Logger.GetFilePath() + Logger.logFileName);
 
         if (DO_LOGGING)
+        {
             Logger.WriteLineToFile("data,classifier,event,scene,level,source,timestamp");
+
+            Logger.Log(Classifier.Metadata.DataPath);
+            Logger.Log(Classifier.Metadata.InternetReachability);
+            Logger.Log(Classifier.Metadata.Platform);
+            Logger.Log(Classifier.Metadata.SystemLanguage);
+            Logger.Log(Classifier.Metadata.UnityVersion);
+            Logger.Log(Classifier.Metadata.Version);
+        }
+    }
+
+    protected void Update()
+    {
+        if (!DO_LOGGING) return;
+
+        Logger.frameCounter++;
+        Logger.frameCountTimestamp += Time.deltaTime;
+        if (Logger.frameCountTimestamp == -1 || Logger.frameCountTimestamp > 1)
+        {
+            Logger.Log(Classifier.Metadata.FrameCount, Logger.frameCounter.ToString());
+            Logger.frameCounter = 0;
+            Logger.frameCountTimestamp = 0;
+        }
     }
 
     // ===== THE DIFFERENT CLASSIFIERS- AND SUB-CLASSIFIERS =====
-    public static void Log(Classifier.Metadata category, string data)
+    public static void Log(Classifier.Metadata category, string data = "null")
     {
-        // ...
+        string eventData = data;
+        switch(category)
+        {
+            case Classifier.Metadata.DataPath:
+                eventData = Application.dataPath;
+                break;
+            case Classifier.Metadata.FrameCount:
+                eventData = Logger.frameCounter.ToString();
+                break;
+            case Classifier.Metadata.InternetReachability:
+                eventData = Application.internetReachability.ToString();
+                break;
+            case Classifier.Metadata.IsFocused:
+                eventData = Application.isFocused ? "1" : "0";
+                break;
+            case Classifier.Metadata.Platform:
+                eventData = Application.platform.ToString();
+                break;
+            case Classifier.Metadata.SystemLanguage:
+                eventData = Application.systemLanguage.ToString();
+                break;
+            case Classifier.Metadata.UnityVersion:
+                eventData = Application.unityVersion.ToString();
+                break;
+            case Classifier.Metadata.Version:
+                eventData = Application.version.ToString();
+                break;
+        }
+
+        Logger.Log(new LogableEvent(
+            "Metadata",
+            category.ToString(),
+            "null",
+            "null",
+            SceneManager.GetActiveScene() != null ? SceneManager.GetActiveScene().name : "null",
+            eventData
+        ));
     }
 
     public static void Log(Classifier.Console category, string message)
