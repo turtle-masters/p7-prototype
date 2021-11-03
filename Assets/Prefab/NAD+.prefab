@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4422144316428192165}
   - component: {fileID: 4422144316428192161}
   - component: {fileID: -5023363206110171006}
+  - component: {fileID: 3110485407398808105}
   m_Layer: 0
   m_Name: NAD+
   m_TagString: Untagged
@@ -126,6 +127,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chemTextPrefab: {fileID: 882115378835460211, guid: 7d8dbd38e74fca64380ebb7297f65126, type: 3}
-  textYOffset: 1
   Name: NAD+
   Formula: NAD+
+--- !u!114 &3110485407398808105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4422144316428192186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f09e773798f4f74ba6dcead5456320c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chemDataRef: {fileID: -5023363206110171006}
+  meshRendererRef: {fileID: 4422144316428192164}
+  enzymeColoringArray:
+  - name: NAD+
+    color: {r: 0.8509804, g: 0, b: 0.43529412, a: 0}
+  - name: NADH
+    color: {r: 0, g: 0.2, b: 0.67058825, a: 0}
