@@ -16,7 +16,7 @@ public class MinigameManagerScript : MonoBehaviour
     public GameObject[] levelPrefabArray = new GameObject[maxLevelNumber];
 
     public static int[] goalCounter = new int[maxLevelNumber];
-    public static int[] goalMax = {10,10,10};
+    public static int[] goalMax = {1,1,5};
     public static int[] levelGunMode = {1,2,4};
  
     private void Awake() {
@@ -31,13 +31,10 @@ public class MinigameManagerScript : MonoBehaviour
     }
 
     private void Start() {
-        LevelSetup();
+        LevelSetup(currentLevel);
     }
 
-    public void LevelSetup() {
-        while(goalCounter[currentLevel-1]>=goalMax[currentLevel-1] && currentLevel<maxLevelNumber) {
-            currentLevel++;
-        }
+    public void LevelSetup(int _level) {
         for(int i=0;i<maxLevelNumber;i++) {
             if(i==currentLevel-1) {
                 levelPrefabArray[i].SetActive(true);
@@ -45,16 +42,8 @@ public class MinigameManagerScript : MonoBehaviour
                 levelPrefabArray[i].SetActive(false);
             }
         }
-        
-        if(gunObject.GetComponent<ShootingScript>()) {
-            gunObject.GetComponent<ShootingScript>().gunMode=levelGunMode[currentLevel-1];
-        } else {
-            GameObject.FindObjectOfType<ShootingScript>().gunMode=levelGunMode[currentLevel-1];
-        }
-            
+        //gunObject.GetComponent<ShootingScript>().gunMode=levelGunMode[currentLevel-1];
     }
-
-
 
     public void GoalUpdate(GameObject updateSourceObject) {
         if(currentLevel==1 && updateSourceObject.GetComponent<ChemData>().Name=="ATP") {
@@ -94,11 +83,14 @@ public class MinigameManagerScript : MonoBehaviour
     public void SetCurrentLevel(int _currentLevel) {
         Debug.Log("Current Level was set to " + _currentLevel);
         currentLevel = _currentLevel;
-        LevelSetup();
+        LevelSetup(currentLevel);
     }
 
     private void completeGame()
     {
+        GameObject f = GameObject.Find("Gun"+currentLevel);
+        Debug.Log(f.name);
+        f.GetComponent<ShootingScript>().detach();
         Debug.Log("Minigame completed!");
 
         Scene activeScene = SceneManager.GetActiveScene();
@@ -109,9 +101,5 @@ public class MinigameManagerScript : MonoBehaviour
             if (level != null && level.isActive)
                 level.Complete();
         }
-    }
-
-    public GameObject GetCurrentLevelObject() {
-        return levelPrefabArray[currentLevel-1];
     }
 }

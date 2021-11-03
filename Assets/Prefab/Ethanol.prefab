@@ -32,7 +32,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7216133508858752257}
+  - {fileID: 8141049844956510275}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
   chemTextPrefab: {fileID: 882115378835460211, guid: 7d8dbd38e74fca64380ebb7297f65126, type: 3}
   Name: Ethanol
   Formula: C2H5OH
---- !u!1001 &7182786538318383850
+--- !u!1001 &8606494122244366248
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -154,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 42df9f520bfe1234d92d12422334256e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.41
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 42df9f520bfe1234d92d12422334256e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -198,8 +198,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42df9f520bfe1234d92d12422334256e, type: 3}
---- !u!4 &7216133508858752257 stripped
+--- !u!4 &8141049844956510275 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 42df9f520bfe1234d92d12422334256e, type: 3}
-  m_PrefabInstance: {fileID: 7182786538318383850}
+  m_PrefabInstance: {fileID: 8606494122244366248}
   m_PrefabAsset: {fileID: 0}

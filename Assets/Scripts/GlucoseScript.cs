@@ -19,7 +19,7 @@ public class GlucoseScript : MonoBehaviour
         foreach(GameObject deathObject in deathSpawnObjects)
         {
             Vector3 randomOffset= new Vector3(Random.Range(0,0.1f),Random.Range(0,0.1f),Random.Range(0,0.1f));
-            Instantiate(deathObject,transform.position+randomOffset,Quaternion.identity).transform.SetParent(MinigameManagerScript.instance.GetCurrentLevelObject().transform);
+            Instantiate(deathObject,transform.position+randomOffset,Quaternion.identity);
         }
         Destroy(this.gameObject);
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class SpawnerScript : MonoBehaviour
 {
     public GameObject spawnObject=null;
@@ -15,14 +16,15 @@ public class SpawnerScript : MonoBehaviour
     public float extraSpawnMinHeight = 0f, extraSpawnMaxHeight = 0f;
     private GameObject[] spawnObjectArray;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        if(MinigameManagerScript.instance.GetCurrentLevel()==1) {
+        /*if(MinigameManagerScript.instance.GetCurrentLevel()==1) {
             extraSpawn = true;
         } else if(MinigameManagerScript.instance.GetCurrentLevel()==3) {
             extraSpawn = false;
-        }
+        }*/
         spawnObjectArray = new GameObject[objectAmount];
         if(spawnObject!=null && spawnMinRadius<spawnMaxRadius) {
             for(int i=0;i<objectAmount;i++) {
@@ -46,13 +48,12 @@ public class SpawnerScript : MonoBehaviour
                     } while(isTooCloseToOthers);
                 }
                 spawnObjectArray[i]=Instantiate(spawnObject,spawnPosition,Quaternion.identity);
-                spawnObjectArray[i].transform.SetParent(MinigameManagerScript.instance.GetCurrentLevelObject().transform);
                 if(extraSpawn) {
                     spawnX = spawnObjectArray[i].transform.position.x + RandomOperator() * Random.Range(extraSpawnMinDistance,extraSpawnMaxDistance);
                     spawnZ = spawnObjectArray[i].transform.position.z + RandomOperator() * Random.Range(extraSpawnMinDistance,extraSpawnMaxDistance);
                     spawnY = spawnObjectArray[i].transform.position.y + Random.Range(extraSpawnMinHeight,extraSpawnMaxHeight);
                     spawnPosition = new Vector3(spawnX,spawnY,spawnZ);
-                    Instantiate(extraSpawnObject,spawnPosition,Quaternion.identity).transform.SetParent(MinigameManagerScript.instance.GetCurrentLevelObject().transform);
+                    Instantiate(extraSpawnObject,spawnPosition,Quaternion.identity);
                 }
             }
         }
