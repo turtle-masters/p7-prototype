@@ -8,6 +8,8 @@ TagManager:
   - FxTemporaire
   - HUD
   - Gun
+  - Acetaldehyde
+  - Glucose
   layers:
   - Default
   - TransparentFX
