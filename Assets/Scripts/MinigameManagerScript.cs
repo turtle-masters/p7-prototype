@@ -92,7 +92,7 @@ public class MinigameManagerScript : MonoBehaviour
         Debug.Log(f.name);
         f.GetComponent<ShootingScript>().detach();
         Debug.Log("Minigame completed!");
-
+        GameObject.Find("TransitionManager").GetComponent<IntroOutro>().fadeOut();
         Scene activeScene = SceneManager.GetActiveScene();
         GameObject[] objectsInScene = activeScene.GetRootGameObjects();
         foreach (GameObject go in objectsInScene)
