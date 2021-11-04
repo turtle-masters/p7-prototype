@@ -104,6 +104,7 @@ public class SnakeLoader : MonoBehaviour
             segmentRb.isKinematic=false;
             segmentRb.AddForce(Random.onUnitSphere*jointBreakForce);
             MinigameManagerScript.instance.GoalUpdate(segmentArray[jointIndex]);
+            gameObject.GetComponent<AudioSource>().Play();
             segmentArray.RemoveAt(jointIndex);
             
         //}

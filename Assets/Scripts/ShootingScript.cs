@@ -68,11 +68,12 @@ public class ShootingScript : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Space) || input.GetStateDown(isource) && isLoaded)
                 {
-                    Debug.Log("shoot");
+                    
                     GameObject tempProjectile;
                     tempProjectile = Instantiate(projectilePrefab[0], bulletSource.transform.position, bulletSource.transform.rotation);
                     tempProjectile.GetComponent<Rigidbody>().velocity = bulletSource.transform.up * projectileSpeed;
                     tempProjectile.AddComponent<DecayScript>().SetDecayTime(automaticProjectileDecayTime);
+                    gameObject.GetComponent<AudioSource>().Play();
                     projectileGoalPos = transform.position + transform.up * goalDistance;
                     /*if(!returnTimerCoroutineRunning) {
                         StartCoroutine("ProjectileDestroyTimer");
@@ -102,6 +103,7 @@ public class ShootingScript : MonoBehaviour
                     Vector3 firingDirection = Quaternion.Euler(Random.Range(-spreadAngle, spreadAngle) * firingTightness, Random.Range(-spreadAngle, spreadAngle) * firingTightness, 0f) * transform.up;
                     //firingDirection = (Random.insideUnitSphere * spreadRadius + bulletSource.transform.forward).normalized;
                     Quaternion tempProjectileRotation = Quaternion.LookRotation(firingDirection);
+                    gameObject.GetComponent<AudioSource>().Play();
                     GameObject tempProjectile = Instantiate(projectilePrefab[gunMode - 1], bulletSource.transform.position, tempProjectileRotation);
                     tempProjectile.AddComponent<DecayScript>().SetDecayTime(automaticProjectileDecayTime);
                     tempProjectile.GetComponent<Rigidbody>().velocity = tempProjectile.transform.forward * projectileSpeed;
@@ -136,6 +138,7 @@ public class ShootingScript : MonoBehaviour
             { //Returning enzyme projectile
                 if (Input.GetKeyDown(KeyCode.Space) || input.GetStateDown(isource) && isLoaded)
                 {
+                    gameObject.GetComponent<AudioSource>().Play();
                     projectileEnzyme.SetActive(true);
                     //projectile.transform.SetParent(null);
                     projectileRb.velocity = Vector3.zero;
