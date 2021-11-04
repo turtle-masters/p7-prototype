@@ -5,13 +5,14 @@ using UnityEngine;
 public class GlucoseScript : MonoBehaviour
 {
     public GameObject[] deathSpawnObjects;
+    
     private List<GameObject> nearbyADPs = new List<GameObject>();
 
     void Die() {
         //On Death
         //Energize ADP
         //Instantiate death objects
-        //Die
+        //Destroy
         if(nearbyADPs.Count>0) {
             nearbyADPs[0].SendMessage("Energize");
         }

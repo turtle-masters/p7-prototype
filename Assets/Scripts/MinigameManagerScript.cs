@@ -8,16 +8,11 @@ public class MinigameManagerScript : MonoBehaviour
     public static MinigameManagerScript instance;
     public static int maxLevelNumber = 3;
     public int currentLevel = 1;
-    public GameObject gunObject = null;
-
     public static GameObject playerGameObject = null;
     public static float chemTextDisableDistance = 20f;
-
     public GameObject[] levelPrefabArray = new GameObject[maxLevelNumber];
-
     public static int[] goalCounter = new int[maxLevelNumber];
     public static int[] goalMax = {1,1,5};
-    public static int[] levelGunMode = {1,2,4};
  
     private void Awake() {
         if (instance != null) {
@@ -42,7 +37,6 @@ public class MinigameManagerScript : MonoBehaviour
                 levelPrefabArray[i].SetActive(false);
             }
         }
-        //gunObject.GetComponent<ShootingScript>().gunMode=levelGunMode[currentLevel-1];
     }
 
     public void GoalUpdate(GameObject updateSourceObject) {
@@ -74,10 +68,6 @@ public class MinigameManagerScript : MonoBehaviour
             return "Ethanol created: " + goalCounter[2] + " /" + goalMax[2];
         }
         return "Error";
-    }
-
-    public int GetCurrentLevel() {
-        return currentLevel;
     }
 
     public void SetCurrentLevel(int _currentLevel) {

@@ -20,15 +20,7 @@ public class ShootingScript : MonoBehaviour
     private float goalDistance = 10f;
     [SerializeField]
     private float returnTime = 2f;
-    private GameObject projectileEnzyme;
-    private Rigidbody projectileRb;
-    private bool isLoaded = true;
-    private bool isReturning = true;
-    private Vector3 projectileGoalPos;
-    //Variable for StuckCheck function
-    private Vector3 previousPos = Vector3.zero;
-    private bool returnTimerCoroutineRunning = false;
-    private float returnTimeStart;
+
     public int gunMode = 1;
     public float spreadAngle = 0f;
     public float automaticProjectileDecayTime = 2f;
@@ -36,12 +28,22 @@ public class ShootingScript : MonoBehaviour
     private float fireRateCounter = 0;
     public float firingTightness = 1f;
 
+    private GameObject projectileEnzyme;
+    private Rigidbody projectileRb;
+    private bool isLoaded = true;
+    private bool isReturning = true;
+    private Vector3 projectileGoalPos;
+
+    private Vector3 previousPos = Vector3.zero;
+    private bool returnTimerCoroutineRunning = false;
+    private float returnTimeStart;
+    
+
     public SteamVR_Action_Boolean input;
     SteamVR_Input_Sources isource;
     private bool grabbed = false;
     private bool previouslyNADplus = true;
 
-    // Start is called before the first frame update
     void Awake()
     {
         
@@ -49,14 +51,12 @@ public class ShootingScript : MonoBehaviour
         { 
             
             projectileEnzyme = Instantiate(projectilePrefab[gunMode - 1], bulletSource.transform.position, bulletSource.transform.rotation);
-            //projectile.transform.SetParent(bulletSource.transform);
             projectileRb = projectileEnzyme.GetComponent<Rigidbody>();
             projectileEnzyme.SetActive(false);
             previouslyNADplus = projectileEnzyme.GetComponent<ChemData>().name=="NAD+";
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (!gameObject.GetComponent<Prompt>().IsActive()) return;
@@ -74,21 +74,6 @@ public class ShootingScript : MonoBehaviour
                     tempProjectile.GetComponent<Rigidbody>().velocity = bulletSource.transform.up * projectileSpeed;
                     tempProjectile.AddComponent<DecayScript>().SetDecayTime(automaticProjectileDecayTime);
                     projectileGoalPos = transform.position + transform.up * goalDistance;
-                    /*if(!returnTimerCoroutineRunning) {
-                        StartCoroutine("ProjectileDestroyTimer");
-                    }
-                } else if(isLoaded) {
-                    projectileEnzyme.transform.SetPositionAndRotation(bulletSource.transform.position,bulletSource.transform.rotation);
-                } else if(!isLoaded) {
-                    //Move towards target
-                    projectileRb.velocity = (projectileGoalPos-projectileEnzyme.transform.position).normalized*projectileSpeed;
-                    //Snap to target and start returning
-                    if(Vector3.Distance(projectileEnzyme.transform.position,projectileGoalPos)<returnSnapbackRange) {
-                        isReturning=true;
-                        projectileEnzyme.transform.position = projectileGoalPos;
-                        projectileRb.velocity = Vector3.zero;
-                        previousPos = Vector3.zero;
-                    }*/
                 }
             }
             else if (gunMode == 2)
@@ -98,9 +83,7 @@ public class ShootingScript : MonoBehaviour
                 {
                     fireRateCounter -= 1 / automaticFireRate;
                     //Shoot bullet
-                    //float spreadRadius = Mathf.Tan(Mathf.Deg2Rad * spreadAngle/2f);
                     Vector3 firingDirection = Quaternion.Euler(Random.Range(-spreadAngle, spreadAngle) * firingTightness, Random.Range(-spreadAngle, spreadAngle) * firingTightness, 0f) * transform.up;
-                    //firingDirection = (Random.insideUnitSphere * spreadRadius + bulletSource.transform.forward).normalized;
                     Quaternion tempProjectileRotation = Quaternion.LookRotation(firingDirection);
                     GameObject tempProjectile = Instantiate(projectilePrefab[gunMode - 1], bulletSource.transform.position, tempProjectileRotation);
                     tempProjectile.AddComponent<DecayScript>().SetDecayTime(automaticProjectileDecayTime);
@@ -111,7 +94,7 @@ public class ShootingScript : MonoBehaviour
                     fireRateCounter += Time.deltaTime;
                 }
             }
-            else if (gunMode == 3)
+            else if (gunMode == 3) //Wasn't implemented in the final product
             { //Auto aim beta amylase
                 /*GameObject targetJoint = null;
                 foreach(GameObject joint in SnakeSpawner.GetJoints()) {
@@ -137,9 +120,7 @@ public class ShootingScript : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space) || input.GetStateDown(isource) && isLoaded)
                 {
                     projectileEnzyme.SetActive(true);
-                    //projectile.transform.SetParent(null);
                     projectileRb.velocity = Vector3.zero;
-                    //projectileRb.AddForce(transform.up*projectileSpeed);
                     isLoaded = false;
                     isReturning = false;
                     projectileGoalPos = transform.position + transform.up * goalDistance;
@@ -182,7 +163,6 @@ public class ShootingScript : MonoBehaviour
                             StopCoroutine("ProjectileReturnTimer");
                             returnTimerCoroutineRunning = false;
                             projectileEnzyme.SetActive(false);
-                            //projectile.transform.SetParent(bulletSource.transform);
                         }
                     }
                 }
@@ -229,17 +209,6 @@ public class ShootingScript : MonoBehaviour
             grabbed = true;
         }
     }
-    /*private bool StuckCheck(Vector3 currentPos, Vector3 goalPos) {
-        //If currentposition is not closer to the goal than previous position, return true
-        bool isStuck;
-        if(previousPos==Vector3.zero) { //Initialize previous position if unset
-            previousPos = currentPos;
-            return false;
-        } else { //it is stuck if it is further away from its goal than it was before
-            isStuck = Vector3.Distance(currentPos,goalPos)>=Vector3.Distance(previousPos,goalPos);
-        }
-        return isStuck;
-    }*/
 
     IEnumerator ProjectileReturnTimer() {
         if(returnTimerCoroutineRunning) {

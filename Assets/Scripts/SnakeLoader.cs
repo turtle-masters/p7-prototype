@@ -25,6 +25,7 @@ public class SnakeLoader : MonoBehaviour
             segmentArray[i].transform.SetParent(transform);
         }
     }
+    
     public void SetupSegmentPositions() {
         for(int i=0;i<segmentArray.Count;i++) {
             segmentArray[i].transform.localPosition=this.transform.forward*-prefabDist*i + this.transform.up*Mathf.Sin(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth+this.transform.right*Mathf.Cos(Mathf.Deg2Rad*rotationDegreePerPrefab*i)*bodyWidth;
@@ -73,41 +74,13 @@ public class SnakeLoader : MonoBehaviour
     }
 
     public void BreakSnakeAtJoint(int jointIndex) {
-        
-        /*if(!(jointIndex==GetJointLength() || jointIndex==0)) {
-            GameObject newParent1, newParent2;
-
-            newParent1 = Instantiate(emptySnakePrefab,transform.position,transform.rotation);
-            //newParent1.transform.position = transform.position;
-            //newParent1.transform.rotation = transform.rotation;
-            //newParent2 = Instantiate(emptySnakePrefab,GetJointPosition(jointIndex),transform.rotation);
-
-            SnakeLoader parent1SnakeLoader = newParent1.GetComponent<SnakeLoader>();
-            //SnakeLoader parent2SnakeLoader = newParent2.GetComponent<SnakeLoader>();
-            parent1SnakeLoader.SetSegmentChildArray(this.segmentArray.GetRange(0,jointIndex+1));
-            segmentArray.RemoveRange(0,jointIndex+1);
-            //parent2SnakeLoader.SetSegmentChildArray(this.segmentArray.GetRange(jointIndex,this.segmentArray.Count-(jointIndex+1)));
-            segmentArray.RemoveRange(jointIndex,this.segmentArray.Count-(jointIndex+1));
-
-            Rigidbody rb1 = newParent1.GetComponent<Rigidbody>();
-            //Rigidbody rb2 = newParent2.GetComponent<Rigidbody>();
-            newParent1.GetComponent<Rigidbody>().AddForce((newParent1.transform.position-GetJointPosition(jointIndex))*jointBreakForce);
-            //newParent2.GetComponent<Rigidbody>().AddForce((GetJointPosition(jointIndex)-newParent1.transform.position)*jointBreakForce);
-            
-            newParent1.GetComponent<SnakeMovement>().SetSpeed(gameObject.GetComponent<SnakeMovement>().moveSpeed);
-            //newParent2.GetComponent<SnakeMovement>().SetSpeed(gameObject.GetComponent<SnakeMovement>().moveSpeed);
-            Destroy(this.gameObject);
-        } else {*/
-            //When an endpiece is hit, unparent, unarray, and give force
-            segmentArray[jointIndex].transform.SetParent(null);
-            Rigidbody segmentRb=segmentArray[jointIndex].GetComponent<Rigidbody>();
-            segmentRb.isKinematic=false;
-            segmentRb.AddForce(Random.onUnitSphere*jointBreakForce);
-            MinigameManagerScript.instance.GoalUpdate(segmentArray[jointIndex]);
-            segmentArray.RemoveAt(jointIndex);
-            
-        //}
-        
+        //When an endpiece is hit, unparent, unarray, and give force
+        segmentArray[jointIndex].transform.SetParent(null);
+        Rigidbody segmentRb=segmentArray[jointIndex].GetComponent<Rigidbody>();
+        segmentRb.isKinematic=false;
+        segmentRb.AddForce(Random.onUnitSphere*jointBreakForce);
+        MinigameManagerScript.instance.GoalUpdate(segmentArray[jointIndex]);
+        segmentArray.RemoveAt(jointIndex);
     }
 
     public void BreakAtSegmentPosition(Vector3 hitSegmentPosition,Vector3 projectilePosition) {

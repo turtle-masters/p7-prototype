@@ -9,13 +9,11 @@ public class ChemData : MonoBehaviour
     public string Name = "";
     public string Formula = "";
     private GameObject chemText;
-    //private TextMesh textMesh;
 
     private void Start() {
         if(chemTextPrefab!=null) { //Add text object and set it as child
             chemText = Instantiate(chemTextPrefab,transform.position,Quaternion.identity);
             chemText.transform.SetParent(this.transform);
-            //chemText.transform.localPosition.Set(chemText.transform.localPosition.x,chemText.transform.localPosition.y+textYOffset,chemText.transform.localPosition.z);
             SetName(Name);
         }
     }

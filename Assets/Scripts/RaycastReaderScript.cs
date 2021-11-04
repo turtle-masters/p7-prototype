@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[ExecuteInEditMode]
 public class RaycastReaderScript : MonoBehaviour
 {
     public Text displayText;
     public bool displayGoals = false;
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if(!displayGoals) {
@@ -33,6 +31,5 @@ public class RaycastReaderScript : MonoBehaviour
         } else {
             displayText.text = MinigameManagerScript.instance.GetGoalString();
         }
-        //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * 10000f, Color.yellow);
     }
 }

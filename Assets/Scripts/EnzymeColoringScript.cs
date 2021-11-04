@@ -13,7 +13,7 @@ public class EnzymeColoringScript : MonoBehaviour
     public ChemData chemDataRef;
     public MeshRenderer meshRendererRef;
     public EnzymeColoring[] enzymeColoringArray;
-    // Start is called before the first frame update
+    
     void Start()
     {
         chemDataRef=gameObject.GetComponent<ChemData>();
@@ -21,7 +21,6 @@ public class EnzymeColoringScript : MonoBehaviour
             meshRendererRef=gameObject.GetComponent<MeshRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         foreach(EnzymeColoring tempEnzymeColoring in enzymeColoringArray) {
