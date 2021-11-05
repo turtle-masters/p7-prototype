@@ -49,12 +49,13 @@ public class Task : Prompt
             for (int i = 0; i < 3; i++)
                 if (Mathf.Abs(positionDifference[i]) > this.targetPrecision) validPosition = false;
 
-            bool validRotation = true;
             // check rotation if set
-            if (this.matchRotation && !CompareRotation(selfTransform.rotation,targetTransform.rotation,0.15f))
-            {
+            Quaternion simplifiedRotation = Quaternion.Euler(selfTransform.rotation.x, targetTransform.rotation.y, selfTransform.rotation.z);
+
+            bool validRotation = true;
+            if (this.matchRotation && !CompareRotation(simplifiedRotation, targetTransform.rotation, 0.15f))
                 validRotation = false;
-            }
+
             // report the product of both checks
             if (validPosition && validRotation) this.Resolve();
         }
@@ -62,7 +63,6 @@ public class Task : Prompt
     private bool CompareRotation(Quaternion r1, Quaternion r2, float precision)
     {
         return Mathf.Abs(Quaternion.Dot(r1, r2)) >= 1 - precision;
-
     }
     protected override void OnPlaybackEnd()
     {
