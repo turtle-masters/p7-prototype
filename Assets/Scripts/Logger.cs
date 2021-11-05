@@ -18,6 +18,9 @@ public static class Classifier
         UnityVersion,
         Version,
         FrameCount,
+        LowMemory,
+        Unloading,
+        Quitting,
     }
 
     public enum Console     // everything that is logged to the console...
@@ -309,7 +312,7 @@ public class Logger : MonoBehaviour  // class is almost entirely static
     {
         if (!LOG_CONSOLE) return;
 
-        string messageData = $"\"{logString.Replace(',', ' ')}\" in {stackTrace.Replace(',', ' ')}";
+        string messageData = $"\"{logString.Replace(',', ' ')}\" in {stackTrace.Replace(',', ' ').Replace("\n", " // ")}";
         Logger.Log(new LogableEvent(
             "Console",
             type.ToString(),
@@ -322,22 +325,50 @@ public class Logger : MonoBehaviour  // class is almost entirely static
 
     private static void LogFocusChanged(bool isFocused)
     {
-        // ...
+        Logger.Log(new LogableEvent(
+            "Metadata",
+            Classifier.Metadata.IsFocused.ToString(),
+            "null",
+            Level.activeLevel != null ? Level.activeLevel.name : "null",
+            SceneManager.GetActiveScene().name,
+            isFocused ? "1" : "0"
+        ));
     }
 
     private static void LogLowMemory()
     {
-        // ...
+        Logger.Log(new LogableEvent(
+            "Metadata",
+            Classifier.Metadata.LowMemory.ToString(),
+            "null",
+            Level.activeLevel != null ? Level.activeLevel.name : "null",
+            SceneManager.GetActiveScene().name,
+            "null"
+        ));
     }
 
     private static void LogUnloading()
     {
-        // ...
+        Logger.Log(new LogableEvent(
+            "Metadata",
+            Classifier.Metadata.Unloading.ToString(),
+            "null",
+            Level.activeLevel != null ? Level.activeLevel.name : "null",
+            SceneManager.GetActiveScene() != null ? SceneManager.GetActiveScene().name : "null",
+            "null"
+        ));
     }
 
     private static void OnApplicationQuit()
     {
-        // ...
+        Logger.Log(new LogableEvent(
+            "Metadata",
+            Classifier.Metadata.Quitting.ToString(),
+            "null",
+            Level.activeLevel != null ? Level.activeLevel.name : "null",
+            SceneManager.GetActiveScene() != null ? SceneManager.GetActiveScene().name : "null",
+            "null"
+        ));
     }
 
     // ===== THE LOWER-LEVEL FILE SYSTEM AND NETWORKING OPERATIONS =====
