@@ -46,6 +46,8 @@ public class MinigameManagerScript : MonoBehaviour
     }
 
     public void GoalUpdate(GameObject updateSourceObject) {
+        Debug.LogWarning("GOAL UPDATED: " + currentLevel + ", " + updateSourceObject.GetComponent<ChemData>().Name);
+
         if(currentLevel==1 && updateSourceObject.GetComponent<ChemData>().Name=="ATP") {
             ChemData[] chemDataArray = FindObjectsOfType<ChemData>();
             goalCounter[currentLevel-1] = 0;
