@@ -912,7 +912,7 @@ Transform:
   - {fileID: 1152760852}
   - {fileID: 972508708}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &423114520
 GameObject:
@@ -1016,7 +1016,7 @@ Transform:
   - {fileID: 64778555}
   - {fileID: 116987063}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &744206060
 GameObject:
@@ -1041,13 +1041,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744206060}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5645007, y: -0.020569801, z: -0.5462843}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5645008, y: -0.020569801, z: -0.5462842}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1801506013}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &755057861
 PrefabInstance:
@@ -1198,7 +1198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &915284510
 Transform:
   m_ObjectHideFlags: 0
@@ -1911,6 +1911,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 395083492}
     m_Modifications:
     - target: {fileID: 7963505201696564048, guid: 698228512363b45479a9c46b58b5529d, type: 3}
+      propertyPath: gunMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963505201696564048, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: input.actionPath
       value: /actions/default/in/GrabPinch
       objectReference: {fileID: 0}
@@ -2022,7 +2026,7 @@ Transform:
   - {fileID: 1076812141}
   - {fileID: 1853493634}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1622084961
 GameObject:

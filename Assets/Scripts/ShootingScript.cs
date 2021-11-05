@@ -191,8 +191,9 @@ public class ShootingScript : MonoBehaviour
                 }
 
                 //Highlight Glucose if enzyme is NAD+, highlight Acetaldehyde if enzyme is NADH
-                if(projectileEnzyme.GetComponent<ChemData>().name=="NADH" && previouslyNADplus) { //Switched to nadh, acetaldehyde target
+                if(projectileEnzyme.GetComponent<ChemData>().Name =="NADH" && previouslyNADplus) { //Switched to nadh, acetaldehyde target
                     //Highlight acetaldehyde
+                    Debug.LogError("Highlight acetaldehyde");
                     GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
                     GameObject[] acetArray = GameObject.FindGameObjectsWithTag("Acetaldehyde");
                     previouslyNADplus=false;
@@ -204,11 +205,12 @@ public class ShootingScript : MonoBehaviour
                     {
                         acetArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(true);
                     }
-                } else if(projectileEnzyme.GetComponent<ChemData>().name=="NAD+" && !previouslyNADplus) { //Switched to nad+
+                } else if(projectileEnzyme.GetComponent<ChemData>().Name == "NAD+" && !previouslyNADplus) { //Switched to nad+
                     //Highlight glucose
+                    Debug.LogError("Highlight glucose");
                     GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
                     GameObject[] acetArray = GameObject.FindGameObjectsWithTag("Acetaldehyde");
-                    previouslyNADplus=false;
+                    previouslyNADplus=true;
                     for(int i=0;i<glucoseArray.Length;i++)
                     {
                         glucoseArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(true);

@@ -16,7 +16,7 @@ public class MinigameManagerScript : MonoBehaviour
     public GameObject[] levelPrefabArray = new GameObject[maxLevelNumber];
 
     public static int[] goalCounter = new int[maxLevelNumber];
-    public static int[] goalMax = {1,1,5};
+    public static int[] goalMax = {5,5,5};
     public static int[] levelGunMode = {1,2,4};
  
     private void Awake() {
@@ -63,7 +63,8 @@ public class MinigameManagerScript : MonoBehaviour
         }
 
         if(goalCounter[currentLevel-1]>=goalMax[currentLevel-1]) {
-            this.completeGame();
+            GameObject.Find("TransitionManager").GetComponent<IntroOutro>().fadeOut();
+            Invoke("completeGame", 2f);
         }
     }
 
@@ -94,7 +95,6 @@ public class MinigameManagerScript : MonoBehaviour
         Debug.Log(f.name);
         f.GetComponent<ShootingScript>().detach();
         Debug.Log("Minigame completed!");
-        GameObject.Find("TransitionManager").GetComponent<IntroOutro>().fadeOut();
         Scene activeScene = SceneManager.GetActiveScene();
         GameObject[] objectsInScene = activeScene.GetRootGameObjects();
         foreach (GameObject go in objectsInScene)
