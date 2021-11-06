@@ -107,7 +107,7 @@ public class Prompt : MonoBehaviour
      */
     public void Activate(Prompt parentPrompt)
     {
-        this.SetActive(true);
+        this.Activate();
     }
 
     /*
@@ -117,6 +117,11 @@ public class Prompt : MonoBehaviour
     public void Resolve()
     {
         this.SetActive(false);
+    }
+
+    public void Resolve(Prompt parentPrompt)
+    {
+        this.Resolve();
     }
 
     /*
