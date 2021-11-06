@@ -743,7 +743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: 
-  audioClip: {fileID: 8300000, guid: fb2132b031bc4ff468e55b3f0289e0d0, type: 3}
+  audioClip: {fileID: 8300000, guid: b9705e1232b057743a849aeb28f0c59d, type: 3}
   playbackVolume: 0.2
   isOmnidirectional: 0
   isLooping: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: 
-  audioClip: {fileID: 8300000, guid: fb2132b031bc4ff468e55b3f0289e0d0, type: 3}
+  audioClip: {fileID: 8300000, guid: 9dd08d9dd7b87bd41a170ed32cc8aa5b, type: 3}
   playbackVolume: 0.2
   isOmnidirectional: 0
   isLooping: 0
@@ -1139,7 +1139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: 
-  audioClip: {fileID: 8300000, guid: fb2132b031bc4ff468e55b3f0289e0d0, type: 3}
+  audioClip: {fileID: 8300000, guid: 3bad068b8f531834f91a3e687304e0ad, type: 3}
   playbackVolume: 0.2
   isOmnidirectional: 0
   isLooping: 0
@@ -1968,7 +1968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: 
-  audioClip: {fileID: 8300000, guid: fb2132b031bc4ff468e55b3f0289e0d0, type: 3}
+  audioClip: {fileID: 8300000, guid: fad33b9fd91648f4d88404098cf334e9, type: 3}
   playbackVolume: 0.2
   isOmnidirectional: 0
   isLooping: 0
@@ -2327,7 +2327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: 
-  audioClip: {fileID: 8300000, guid: fb2132b031bc4ff468e55b3f0289e0d0, type: 3}
+  audioClip: {fileID: 8300000, guid: 2abd9d19e501450479029fa23db5dd4d, type: 3}
   playbackVolume: 0.2
   isOmnidirectional: 0
   isLooping: 0
@@ -2586,7 +2586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: 
-  audioClip: {fileID: 8300000, guid: fb2132b031bc4ff468e55b3f0289e0d0, type: 3}
+  audioClip: {fileID: 8300000, guid: cab0cb4b5b0a7304aac59b8eda282258, type: 3}
   playbackVolume: 0.2
   isOmnidirectional: 0
   isLooping: 0
@@ -2656,7 +2656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: 
-  audioClip: {fileID: 8300000, guid: fb2132b031bc4ff468e55b3f0289e0d0, type: 3}
+  audioClip: {fileID: 8300000, guid: ae7442df5c22a3b46958a7582adb6e40, type: 3}
   playbackVolume: 0.2
   isOmnidirectional: 0
   isLooping: 0

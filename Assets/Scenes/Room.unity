@@ -1618,7 +1618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: 
-  audioClip: {fileID: 8300000, guid: 75f8dafb65ddf7044a8ea7f1ef98c421, type: 3}
+  audioClip: {fileID: 8300000, guid: 5adbd20e21fd9ae40a9e5eec3f63b71d, type: 3}
   playbackVolume: 0.2
   isOmnidirectional: 0
   isLooping: 0
