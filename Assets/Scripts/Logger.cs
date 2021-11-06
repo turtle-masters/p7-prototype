@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Valve.VR.InteractionSystem;
 
 public static class Classifier
 {
@@ -154,6 +155,10 @@ public class Logger : MonoBehaviour  // class is almost entirely static
     private static int frameCounter = 0;
     private static float frameCountTimestamp = -1f;
 
+    private GameObject playerHead;
+    private GameObject leftHand;
+    private GameObject rightHand;
+
     protected void OnEnable()
     {
         Logger.DO_LOGGING = doLogging;
@@ -165,6 +170,14 @@ public class Logger : MonoBehaviour  // class is almost entirely static
         Application.lowMemory           += LogLowMemory;
         Application.unloading           += LogUnloading;
         Application.quitting            += OnApplicationQuit;
+
+        // get player hands and head
+        this.playerHead = this.GetComponentInChildren<AudioListener>().gameObject;
+        IEnumerator hands = this.GetComponentsInChildren<Hand>().GetEnumerator();
+        hands.MoveNext();
+        this.leftHand = ((Hand) hands.Current).gameObject; 
+        hands.MoveNext();
+        this.rightHand = ((Hand)hands.Current).gameObject;
 
         //Debug.Log("Wrote data to file path " + Logger.GetFilePath() + Logger.logFileName);
 
@@ -189,7 +202,18 @@ public class Logger : MonoBehaviour  // class is almost entirely static
         Logger.frameCountTimestamp += Time.deltaTime;
         if (Logger.frameCountTimestamp == -1 || Logger.frameCountTimestamp > 1)
         {
+            // log frame count
             Logger.Log(Classifier.Metadata.FrameCount, Logger.frameCounter.ToString());
+
+            // log player data
+            this.Log(Classifier.Player.PlayerHeadForwardVector);
+            this.Log(Classifier.Player.PlayerHeadPosition);
+            this.Log(Classifier.Player.PlayerLeftHandPosition);
+            this.Log(Classifier.Player.PlayerLeftHandRotation);
+            this.Log(Classifier.Player.PlayerRightHandPosition);
+            this.Log(Classifier.Player.PlayerRightHandRotation);
+
+            // reset clock
             Logger.frameCounter = 0;
             Logger.frameCountTimestamp = 0;
         }
@@ -247,9 +271,44 @@ public class Logger : MonoBehaviour  // class is almost entirely static
         // ...
     }
 
-    public static void Log(Classifier.Player category, GameObject data)
+    public void Log(Classifier.Player category, GameObject data)
     {
         // ...
+    }
+
+    public void Log(Classifier.Player category)
+    {
+        string dataString = "null";
+        switch (category)
+        {
+            case Classifier.Player.PlayerHeadForwardVector:
+                // ...
+                break;
+            case Classifier.Player.PlayerHeadPosition:
+                dataString = this.playerHead.transform.position.ToString();
+                break;
+            case Classifier.Player.PlayerLeftHandPosition:
+                dataString = this.leftHand.transform.position.ToString();
+                break;
+            case Classifier.Player.PlayerLeftHandRotation:
+                dataString = this.leftHand.transform.rotation.ToString();
+                break;
+            case Classifier.Player.PlayerRightHandPosition:
+                dataString = this.rightHand.transform.position.ToString();
+                break;
+            case Classifier.Player.PlayerRightHandRotation:
+                dataString = this.rightHand.transform.rotation.ToString();
+                break;
+        }
+
+        Logger.Log(new LogableEvent(
+            "Player",
+            category.ToString(),
+            "null",
+            Level.activeLevel != null ? Level.activeLevel.name : "null",
+            SceneManager.GetActiveScene() != null ? SceneManager.GetActiveScene().name : "null",
+            dataString.Replace(',', ';')
+        ));
     }
 
     public static void Log(Classifier.Prompt category, Prompt prompt)
