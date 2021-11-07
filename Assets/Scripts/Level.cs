@@ -101,14 +101,29 @@ public class Level : MonoBehaviour
         Level.CullPlayerObjects();
 
         // find all Level components in the Scene
-        List<Level> levelsInScene = new List<Level>();
+        Level[] levelsInScene = new Level[4];
         IEnumerator ie = newScene.GetRootGameObjects().GetEnumerator();
         ie.Reset();
         while (ie.MoveNext())
         {
             GameObject currentObject = (GameObject) ie.Current;
             if (currentObject != null && currentObject.GetComponent<Level>())
-                levelsInScene.Add(currentObject.GetComponent<Level>());
+                //levelsInScene.Add(currentObject.GetComponent<Level>());
+                switch(currentObject.name)
+                {
+                    case "Level1":
+                        levelsInScene[0] = currentObject.GetComponent<Level>();
+                        break;
+                    case "Level2":
+                        levelsInScene[1] = currentObject.GetComponent<Level>();
+                        break;
+                    case "Level3":
+                        levelsInScene[2] = currentObject.GetComponent<Level>();
+                        break;
+                    case "Level4":
+                        levelsInScene[3] = currentObject.GetComponent<Level>();
+                        break;
+                }
         }
         
         // use totalSceneLoads to figure out what level to load
