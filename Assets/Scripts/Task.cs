@@ -53,8 +53,8 @@ public class Task : Prompt
             Quaternion simplifiedRotation = Quaternion.Euler(selfTransform.rotation.x, targetTransform.rotation.y, selfTransform.rotation.z);
 
             bool validRotation = true;
-            if (this.matchRotation && !CompareRotation(simplifiedRotation, targetTransform.rotation, 0.15f))
-                validRotation = false;
+            /*if (this.matchRotation && !CompareRotation(simplifiedRotation, targetTransform.rotation, 0.15f))
+                validRotation = false;*/
 
             // report the product of both checks
             if (validPosition && validRotation) this.Resolve();

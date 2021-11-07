@@ -139,7 +139,7 @@ public class Level : MonoBehaviour
         Debug.Log("Active Level is now " + Level.activeLevel.name + " in Scene " + SceneManager.GetActiveScene().name);
         //Debug.Log(Level.totalSceneChanges);
 
-        Level.LoadNextLevel(Level.GetNextSceneName());
+        //Level.LoadNextLevel(Level.GetNextSceneName());
         Level.activeLevel.Activate();
         //if (SceneManager.GetActiveScene().buildIndex == 0 || Level.totalSceneChanges > 0) 
             Level.totalSceneChanges++;
