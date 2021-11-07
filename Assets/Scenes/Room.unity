@@ -2280,7 +2280,7 @@ MonoBehaviour:
   playbackVolume: 0.2
   isOmnidirectional: 0
   isLooping: 0
-  secondsWaitAfterPlay: 0
+  secondsWaitAfterPlay: 1
   OnActive:
     m_PersistentCalls:
       m_Calls: []
@@ -6278,8 +6278,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Prompt, GameAssembly
+      - m_Target: {fileID: 1883586499}
+        m_TargetAssemblyTypeName: SilencePhoneRinger, GameAssembly
         m_MethodName: Activate
         m_Mode: 0
         m_Arguments:
@@ -6290,6 +6290,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1883586499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883586491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4502b5d2926354f841ed7c78d7574d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1888682300 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1130194304169869718, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
