@@ -216,7 +216,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 22dda57e95304444ba89273cf78fd66e, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 0.4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 0
@@ -20351,7 +20351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1145823716800046969, guid: 898d9bae7a0733e45aed44d1e1d4119b, type: 3}
       propertyPath: OnResolve.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1145823716800046969, guid: 898d9bae7a0733e45aed44d1e1d4119b, type: 3}
       propertyPath: OnResolve.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -20431,13 +20431,25 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 648ecb48291420d43974012850ae7ec8, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 0.4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 0
   OnActive:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2096601754}
+        m_TargetAssemblyTypeName: IntroOutro, GameAssembly
+        m_MethodName: fadeOut
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnResolve:
     m_PersistentCalls:
       m_Calls:
@@ -27268,7 +27280,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 26c4cc37c906a874badec01388ff6dd6, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 0.4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 0
@@ -27277,19 +27289,7 @@ MonoBehaviour:
       m_Calls: []
   OnResolve:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 238845872}
-        m_TargetAssemblyTypeName: Prompt, GameAssembly
-        m_MethodName: Activate
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!4 &1057821448
 Transform:
   m_ObjectHideFlags: 0
@@ -27404,7 +27404,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: d4965b5b4ab29fb4494bbfc2658b72c1, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 0.4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 0
@@ -28250,7 +28250,19 @@ MonoBehaviour:
   secondsWaitAfterPlay: 1.5
   OnActive:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1853119257}
+        m_TargetAssemblyTypeName: Prompt, GameAssembly
+        m_MethodName: Activate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnResolve:
     m_PersistentCalls:
       m_Calls:
@@ -28279,18 +28291,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1154970605}
-        m_TargetAssemblyTypeName: Prompt, GameAssembly
-        m_MethodName: Activate
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1853119257}
         m_TargetAssemblyTypeName: Prompt, GameAssembly
         m_MethodName: Activate
         m_Mode: 0
@@ -29011,7 +29011,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 147fc72e064057447b9f506fe8515439, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 0.4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 0
@@ -29079,7 +29079,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 324eb7bc5beda2e42a7258c2e161545b, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 0.4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 0
@@ -29088,19 +29088,7 @@ MonoBehaviour:
       m_Calls: []
   OnResolve:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1661069772}
-        m_TargetAssemblyTypeName: Prompt, GameAssembly
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!4 &1232196836
 Transform:
   m_ObjectHideFlags: 0
@@ -29571,19 +29559,31 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: ab9ee947a38d5bb4fb862b44b2f2f327, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 0.4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 0
   OnActive:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2096601754}
+        m_TargetAssemblyTypeName: IntroOutro, GameAssembly
+        m_MethodName: fadeOut
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnResolve:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1661069772}
+      - m_Target: {fileID: 1661069774}
         m_TargetAssemblyTypeName: Prompt, GameAssembly
-        m_MethodName: 
+        m_MethodName: Activate
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -31456,7 +31456,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 8940611d9c02d8346ac1505c6cbc14c5, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 0.4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 0
@@ -31465,19 +31465,7 @@ MonoBehaviour:
       m_Calls: []
   OnResolve:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1661069772}
-        m_TargetAssemblyTypeName: Prompt, GameAssembly
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1521953373
 GameObject:
   m_ObjectHideFlags: 0
@@ -32974,13 +32962,25 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: dd59bb9c748d53d408cba83c66bcec86, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 0.4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 0
   OnActive:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2096601754}
+        m_TargetAssemblyTypeName: IntroOutro, GameAssembly
+        m_MethodName: fadeOut
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnResolve:
     m_PersistentCalls:
       m_Calls:
@@ -40393,7 +40393,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 05b30dced1f7bc847a0461b9f99870b5, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 0.4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 0
@@ -40402,19 +40402,7 @@ MonoBehaviour:
       m_Calls: []
   OnResolve:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1661069772}
-        m_TargetAssemblyTypeName: Prompt, GameAssembly
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1001 &1857145248
 PrefabInstance:
   m_ObjectHideFlags: 0
