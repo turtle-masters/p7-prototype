@@ -20,13 +20,21 @@ public class FriendlyThrowable : Throwable
         localRigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
 
+    protected override void OnHandHoverBegin(Hand hand)
+    {
+        //Debug.Log("attached hand: " + this.attachedHand != null ? this.attachedHand.gameObject.name : null);
+        //if (!this.GetComponent<FriendlyInteractable>().isHovering)
+        if (this.attachedHand == null)
+            base.OnHandHoverBegin(hand);
+    }
+
     protected override void HandHoverUpdate(Hand hand)
     {
         Debug.Log(this.gameObject.name + "->HandHoverUpdate->" + hand.name);
 
         GrabTypes gt = hand.GetGrabStarting();
 
-        if (gt != GrabTypes.None && this.parentTask.IsActive())
+        if (gt != GrabTypes.None && this.parentTask.IsActive() && this.attachedHand == null)
         {
             this.attachedHand = hand;
             this.parentTask.Grab(hand);
