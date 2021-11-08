@@ -417,15 +417,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d1c68fee73eadf43a96241d5218cd41, type: 3}
       propertyPath: m_LocalScale.x
-      value: 60
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d1c68fee73eadf43a96241d5218cd41, type: 3}
       propertyPath: m_LocalScale.y
-      value: 60
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d1c68fee73eadf43a96241d5218cd41, type: 3}
       propertyPath: m_LocalScale.z
-      value: 60
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d1c68fee73eadf43a96241d5218cd41, type: 3}
       propertyPath: m_LocalPosition.x
@@ -437,7 +437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d1c68fee73eadf43a96241d5218cd41, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.1418
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7d1c68fee73eadf43a96241d5218cd41, type: 3}
       propertyPath: m_LocalRotation.w
@@ -744,7 +744,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: b9705e1232b057743a849aeb28f0c59d, type: 3}
-  playbackVolume: 6
+  playbackVolume: 10
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -876,7 +876,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 9dd08d9dd7b87bd41a170ed32cc8aa5b, type: 3}
-  playbackVolume: 6
+  playbackVolume: 10
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -1183,7 +1183,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 3bad068b8f531834f91a3e687304e0ad, type: 3}
-  playbackVolume: 6
+  playbackVolume: 10
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -2012,7 +2012,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: fad33b9fd91648f4d88404098cf334e9, type: 3}
-  playbackVolume: 6
+  playbackVolume: 10
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -2371,7 +2371,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 2abd9d19e501450479029fa23db5dd4d, type: 3}
-  playbackVolume: 6
+  playbackVolume: 10
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -2630,7 +2630,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: cab0cb4b5b0a7304aac59b8eda282258, type: 3}
-  playbackVolume: 6
+  playbackVolume: 10
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -2700,7 +2700,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: ae7442df5c22a3b46958a7582adb6e40, type: 3}
-  playbackVolume: 6
+  playbackVolume: 10
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -2888,7 +2888,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854938327}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.15}
+  m_LocalPosition: {x: 0, y: 0, z: -0.2734}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1273487317}
@@ -2911,7 +2911,7 @@ MonoBehaviour:
   verticalSpread: 5
   horizontalSpread: 30
   spawnTime: 10
-  snakeSpeed: 5
+  snakeSpeed: 10
   snakeDuration: 60
 --- !u!1 &1959555420 stripped
 GameObject:
