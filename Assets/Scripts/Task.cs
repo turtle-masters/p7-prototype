@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Valve.VR;
 using Valve.VR.InteractionSystem;
 
 [Serializable]
@@ -100,6 +101,9 @@ public class Task : Prompt
             this.OnGrab.Invoke(this);
         }
 
+        if (hand.handType == SteamVR_Input_Sources.RightHand)
+            Logger.Log(Classifier.Player.PlayerRightHandInputEngaged);
+        else Logger.Log(Classifier.Player.PlayerLeftHandInputEngaged);
         Logger.Log(Classifier.Task.Grabbed, this);
     }
 
@@ -109,6 +113,9 @@ public class Task : Prompt
     public void Drop(Hand hand, bool debugAutoComplete = false)
     {
         // the player has released this GameObject...
+        if (hand.handType == SteamVR_Input_Sources.RightHand)
+            Logger.Log(Classifier.Player.PlayerRightHandInputReleased);
+        else Logger.Log(Classifier.Player.PlayerLeftHandInputReleased);
         Logger.Log(Classifier.Task.Released, this);
     }
 
