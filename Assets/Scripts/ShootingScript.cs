@@ -41,6 +41,10 @@ public class ShootingScript : MonoBehaviour
     private bool grabbed = false;
     private bool previouslyNADplus = true;
 
+    public AudioClip signifiersound;
+
+    public GameObject dummyGun;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -59,7 +63,7 @@ public class ShootingScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!gameObject.GetComponent<Prompt>().IsActive()) return;
+        //StartCoroutine(DelayedCallback(6f));
         isource = gameObject.GetComponent<Interactable>().hoveringHand.handType;
         if (grabbed)
         {
@@ -225,12 +229,16 @@ public class ShootingScript : MonoBehaviour
             }
 
         }
+        
+        
+
         if (!grabbed && input.GetStateDown(isource))
         {
+            gameObject.GetComponentInChildren<Prompt>().Resolve();
+            dummyGun.SetActive(false);
             gameObject.transform.parent = GetComponent<Interactable>().hoveringHand.transform;
             gameObject.transform.localPosition = new Vector3(0f, -0.15f, 0.15f);
-            gameObject.transform.localRotation = Quaternion.Euler(135f,0f,0f);
-            
+            gameObject.transform.localRotation = Quaternion.Euler(135f,0f,0f);            
             grabbed = true;
         }
     }
@@ -245,6 +253,21 @@ public class ShootingScript : MonoBehaviour
         }
         return isStuck;
     }*/
+
+    IEnumerator DelayedCallback(float time)
+    {
+        Debug.Log("playsound");
+        yield return new WaitForSeconds(time);
+        
+        if (!grabbed) playSignifier();
+    }
+    
+
+    void playSignifier()
+    {
+        
+        gameObject.GetComponent<AudioSource>().PlayOneShot(signifiersound, 1f);
+    }
 
     IEnumerator ProjectileReturnTimer() {
         if(returnTimerCoroutineRunning) {
