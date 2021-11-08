@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
-  promptText: Hello, Player!
+  promptText: 
   audioClip: {fileID: 8300000, guid: bd2f9362c80499246ad4b63c4870d51f, type: 3}
   playbackVolume: 0.25
   isOmnidirectional: 1
@@ -232,7 +232,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7963505201696564050, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7963505201696564050, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -569,7 +569,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 739592917}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &124960814
 PrefabInstance:
@@ -723,7 +723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237946133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.007, z: 0}
+  m_LocalPosition: {x: 0, y: 36.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 395083492}
@@ -744,7 +744,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: b9705e1232b057743a849aeb28f0c59d, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -855,11 +855,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 326117044}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.879349, y: 1.6421838, z: 3.0325902}
+  m_LocalPosition: {x: 5.879349, y: 37.6, z: 3.0325902}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 739592917}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &326117046
 MonoBehaviour:
@@ -876,7 +876,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 9dd08d9dd7b87bd41a170ed32cc8aa5b, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -1183,7 +1183,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 3bad068b8f531834f91a3e687304e0ad, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -1201,7 +1201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574246682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.007, z: 0}
+  m_LocalPosition: {x: 0, y: 36.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 395083492}
@@ -1249,12 +1249,12 @@ Transform:
   m_LocalPosition: {x: -5.879349, y: 0.3648162, z: -3.0325902}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1631172856}
   - {fileID: 938518093}
   - {fileID: 64778555}
   - {fileID: 116987063}
-  - {fileID: 326117045}
+  - {fileID: 1631172856}
   - {fileID: 1216959098}
+  - {fileID: 326117045}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1487,7 +1487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
-  promptText: Hello, Player!
+  promptText: 
   audioClip: {fileID: 8300000, guid: bd2f9362c80499246ad4b63c4870d51f, type: 3}
   playbackVolume: 0.25
   isOmnidirectional: 1
@@ -1547,7 +1547,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 739592917}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &967610687 stripped
 Transform:
@@ -1628,7 +1628,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7963505201696564050, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7963505201696564050, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1991,11 +1991,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1216959097}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.879349, y: 1.6421838, z: 3.0325902}
+  m_LocalPosition: {x: 5.879349, y: 37.6, z: 3.0325902}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 739592917}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1216959099
 MonoBehaviour:
@@ -2012,7 +2012,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: fad33b9fd91648f4d88404098cf334e9, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -2331,10 +2331,10 @@ Transform:
   m_LocalPosition: {x: -5.9173827, y: 0.36481616, z: -2.9734974}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1600072718}
   - {fileID: 1625044038}
   - {fileID: 1076812141}
   - {fileID: 1853493634}
+  - {fileID: 1600072718}
   - {fileID: 1681805842}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -2371,7 +2371,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: 2abd9d19e501450479029fa23db5dd4d, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -2389,11 +2389,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600072716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.9173827, y: 1.6421838, z: 2.9734974}
+  m_LocalPosition: {x: 5.9173827, y: 37.4, z: 2.9734974}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386783204}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1622084961
 GameObject:
@@ -2536,7 +2536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
-  promptText: Hello, Player!
+  promptText: 
   audioClip: {fileID: 8300000, guid: bd2f9362c80499246ad4b63c4870d51f, type: 3}
   playbackVolume: 0.25
   isOmnidirectional: 1
@@ -2596,7 +2596,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386783204}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1631172854
 GameObject:
@@ -2630,7 +2630,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: cab0cb4b5b0a7304aac59b8eda282258, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -2648,11 +2648,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631172854}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.879349, y: 1.6421838, z: 3.0325902}
+  m_LocalPosition: {x: 5.879349, y: 37.6, z: 3.0325902}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 739592917}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1681805841
 GameObject:
@@ -2679,7 +2679,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681805841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.9173827, y: 1.6421838, z: 2.9734974}
+  m_LocalPosition: {x: 5.9173827, y: 37.4, z: 2.9734974}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386783204}
@@ -2700,7 +2700,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: ae7442df5c22a3b46958a7582adb6e40, type: 3}
-  playbackVolume: 0.2
+  playbackVolume: 4
   isOmnidirectional: 0
   isLooping: 0
   secondsWaitAfterPlay: 1.5
@@ -2861,7 +2861,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1386783204}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1854938327
 GameObject:
