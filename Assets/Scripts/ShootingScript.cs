@@ -45,6 +45,8 @@ public class ShootingScript : MonoBehaviour
 
     public GameObject dummyGun;
 
+    private GameObject prevAimObject;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -79,21 +81,8 @@ public class ShootingScript : MonoBehaviour
                     tempProjectile.AddComponent<DecayScript>().SetDecayTime(automaticProjectileDecayTime);
                     gameObject.GetComponent<AudioSource>().Play();
                     projectileGoalPos = transform.position + transform.up * goalDistance;
-                    /*if(!returnTimerCoroutineRunning) {
-                        StartCoroutine("ProjectileDestroyTimer");
-                    }
-                } else if(isLoaded) {
-                    projectileEnzyme.transform.SetPositionAndRotation(bulletSource.transform.position,bulletSource.transform.rotation);
-                } else if(!isLoaded) {
-                    //Move towards target
-                    projectileRb.velocity = (projectileGoalPos-projectileEnzyme.transform.position).normalized*projectileSpeed;
-                    //Snap to target and start returning
-                    if(Vector3.Distance(projectileEnzyme.transform.position,projectileGoalPos)<returnSnapbackRange) {
-                        isReturning=true;
-                        projectileEnzyme.transform.position = projectileGoalPos;
-                        projectileRb.velocity = Vector3.zero;
-                        previousPos = Vector3.zero;
-                    }*/
+                    Logger.Log(Classifier.Microverse.MicroverseGunFired,tempProjectile);
+                    
                 }
             }
             else if (gunMode == 2)
@@ -112,42 +101,21 @@ public class ShootingScript : MonoBehaviour
                     GameObject tempProjectile = Instantiate(projectilePrefab[gunMode - 1], bulletSource.transform.position, tempProjectileRotation);
                     tempProjectile.AddComponent<DecayScript>().SetDecayTime(automaticProjectileDecayTime);
                     tempProjectile.GetComponent<Rigidbody>().velocity = tempProjectile.transform.forward * projectileSpeed;
+                    Logger.Log(Classifier.Microverse.MicroverseGunFired,tempProjectile);
                 }
                 else if (fireRateCounter < 1 / automaticFireRate)
                 {
                     fireRateCounter += Time.deltaTime;
                 }
             }
-            else if (gunMode == 3)
-            { //Auto aim beta amylase
-                /*GameObject targetJoint = null;
-                foreach(GameObject joint in SnakeSpawner.GetJoints()) {
-                    GameObject tempJoint = joint;
-                    if(targetJoint==null) {
-                        targetJoint = tempJoint;
-                        continue;
-                    }
-
-                    //target snake if it is in front of you, it is the closest
-                }*/
-
-                //You have a target if you are x angle away from looking at target snake
-
-                //When space is pressed and you have a target
-                //shoot it towards your target
-                //
-                //determine where it's going
-                //
-            }
             else if (gunMode == 4)
             { //Returning enzyme projectile
                 if (Input.GetKeyDown(KeyCode.Space) || input.GetStateDown(isource) && isLoaded)
                 {
+                    Logger.Log(Classifier.Microverse.MicroverseGunFired,projectileEnzyme);
                     gameObject.GetComponent<AudioSource>().Play();
                     projectileEnzyme.SetActive(true);
-                    //projectile.transform.SetParent(null);
                     projectileRb.velocity = Vector3.zero;
-                    //projectileRb.AddForce(transform.up*projectileSpeed);
                     isLoaded = false;
                     isReturning = false;
                     projectileGoalPos = transform.position + transform.up * goalDistance;
@@ -190,49 +158,15 @@ public class ShootingScript : MonoBehaviour
                             StopCoroutine("ProjectileReturnTimer");
                             returnTimerCoroutineRunning = false;
                             projectileEnzyme.SetActive(false);
-                            //projectile.transform.SetParent(bulletSource.transform);
                         }
                     }
                 }
 
-                //Highlight Glucose if enzyme is NAD+, highlight Acetaldehyde if enzyme is NADH
-                if(projectileEnzyme.GetComponent<ChemData>().Name =="NADH" && previouslyNADplus) { //Switched to nadh, acetaldehyde target
-                    //Highlight acetaldehyde
-                    GameObject.Find("ExtraSoundPlayer").GetComponent<MicroverseExtraSounds>().playClip(3);
-                    Debug.LogError("Highlight acetaldehyde");
-                    GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
-                    GameObject[] acetArray = GameObject.FindGameObjectsWithTag("Acetaldehyde");
-                    previouslyNADplus=false;
-                    for(int i=0;i<glucoseArray.Length;i++)
-                    {
-                        glucoseArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(false);
-                    }
-                    for(int i=0;i<acetArray.Length;i++)
-                    {
-                        acetArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(true);
-                    }
-                } else if(projectileEnzyme.GetComponent<ChemData>().Name == "NAD+" && !previouslyNADplus) { //Switched to nad+
-                    //Highlight glucose
-                    Debug.LogError("Highlight glucose");
-                    GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
-                    GameObject[] acetArray = GameObject.FindGameObjectsWithTag("Acetaldehyde");
-                    previouslyNADplus=true;
-                    for(int i=0;i<glucoseArray.Length;i++)
-                    {
-                        glucoseArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(true);
-                    }
-                    for(int i=0;i<acetArray.Length;i++)
-                    {
-                        acetArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(false);
-                    }
-                    
-                }
+                Highlighting();
 
             }
-
+            SwitchAimLog();
         }
-        
-        
 
         if (!grabbed && input.GetStateDown(isource))
         {
@@ -242,19 +176,61 @@ public class ShootingScript : MonoBehaviour
             gameObject.transform.localPosition = new Vector3(0f, -0.15f, 0.15f);
             gameObject.transform.localRotation = Quaternion.Euler(135f,0f,0f);            
             grabbed = true;
+            Logger.Log(Classifier.Microverse.MicroverseGunPickup,this.gameObject);
         }
     }
-    /*private bool StuckCheck(Vector3 currentPos, Vector3 goalPos) {
-        //If currentposition is not closer to the goal than previous position, return true
-        bool isStuck;
-        if(previousPos==Vector3.zero) { //Initialize previous position if unset
-            previousPos = currentPos;
-            return false;
-        } else { //it is stuck if it is further away from its goal than it was before
-            isStuck = Vector3.Distance(currentPos,goalPos)>=Vector3.Distance(previousPos,goalPos);
+
+    GameObject AimingAt() {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit))
+        {
+            return hit.collider.gameObject;
+        } else {
+            return null;
         }
-        return isStuck;
-    }*/
+    }
+
+    void SwitchAimLog() {
+        GameObject currentAimObject = AimingAt();
+        if(prevAimObject!=currentAimObject && currentAimObject!=null) {
+            Logger.Log(Classifier.Microverse.MicroverseAimingAt,currentAimObject);
+        }
+    }
+
+    void Highlighting() {
+        //Highlight Glucose if enzyme is NAD+, highlight Acetaldehyde if enzyme is NADH
+        if(projectileEnzyme.GetComponent<ChemData>().Name =="NADH" && previouslyNADplus) { //Switched to nadh, acetaldehyde target
+            //Highlight acetaldehyde
+            GameObject.Find("ExtraSoundPlayer").GetComponent<MicroverseExtraSounds>().playClip(3);
+            Debug.LogError("Highlight acetaldehyde");
+            GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
+            GameObject[] acetArray = GameObject.FindGameObjectsWithTag("Acetaldehyde");
+            previouslyNADplus=false;
+            for(int i=0;i<glucoseArray.Length;i++)
+            {
+                glucoseArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(false);
+            }
+            for(int i=0;i<acetArray.Length;i++)
+            {
+                acetArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(true);
+            }
+        } else if(projectileEnzyme.GetComponent<ChemData>().Name == "NAD+" && !previouslyNADplus) { //Switched to nad+
+            //Highlight glucose
+            Debug.LogError("Highlight glucose");
+            GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
+            GameObject[] acetArray = GameObject.FindGameObjectsWithTag("Acetaldehyde");
+            previouslyNADplus=true;
+            for(int i=0;i<glucoseArray.Length;i++)
+            {
+                glucoseArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(true);
+            }
+            for(int i=0;i<acetArray.Length;i++)
+            {
+                acetArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(false);
+            }
+            
+        }
+    }
 
     IEnumerator DelayedCallback(float time)
     {

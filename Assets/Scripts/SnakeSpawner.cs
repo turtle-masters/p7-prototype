@@ -37,48 +37,6 @@ public class SnakeSpawner : MonoBehaviour
         newSnake.GetComponent<SnakeMovement>().SetSpeed(snakeSpeed);
         newSnake.AddComponent<DecayScript>().decayTime=snakeDuration;
         newSnake.GetComponent<SnakeLoader>().SetupSegmentPositions();
+        Logger.Log(Classifier.Microverse.MicroverseSnakeSpawn,newSnake);
     }
-
-    /*GameObject[] GetJointsWithinCone(Transform coneSource, float coneSpreadAngle) {
-        GameObject[] joints = GetAllSnakesJoints();
-        GameObject[] targetedJoints;
-        int returnArrLen = 0;
-        for(int i=0;i<joints.Length;i++) {
-            if(Vector3.Angle(joints[i].transform.position-coneSource.position,coneSource.transform.forward)>coneSpreadAngle) {
-                joints[i]=null;
-            } else {
-                returnArrLen++;
-            }
-        }
-        targetedJoints = new GameObject[returnArrLen];
-        int indexCounter=0;
-        foreach (GameObject joint in joints)
-        {
-            if(joint!=null) {
-                targetedJoints[indexCounter] = joint;
-                indexCounter++;
-            }
-        }
-        return targetedJoints;
-    }
-
-    public GameObject[] GetAllSnakesJoints() {
-        GameObject[] tempJointArray;
-        int tempJointArrLen = 0;
-        int[] tempPerSnakeJointArrLen = new int[snakeAmount];
-        //Count number of joints for instatiating the return array
-        for(int i=0;i<snakeAmount;i++) {
-            tempPerSnakeJointArrLen[i]=snakeArray[i].GetComponent<SnakeLoader>().GetJointLength();
-            tempJointArrLen+=tempPerSnakeJointArrLen[i];
-        }
-        tempJointArray = new GameObject[tempJointArrLen];
-        int indexCounter = 0;
-        for(int i=0;i<snakeAmount;i++) {
-            for(int j=0;j<snakeArray[i].GetComponent<SnakeLoader>().GetJointLength();j++) {
-                tempJointArray[indexCounter] = snakeArray[i].GetComponent<SnakeLoader>().GetJoint(j);
-                indexCounter++;
-            }
-        }
-        return tempJointArray;
-    }*/
 }
