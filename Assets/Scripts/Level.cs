@@ -242,6 +242,9 @@ public class Level : MonoBehaviour
 
         if (node.GetComponent<Renderer>() != null && keepDisabled) 
             node.GetComponent<Renderer>().enabled = false;
+
+        if (node.GetComponent<Canvas>() != null)
+            node.GetComponent<Canvas>().enabled = isVisible;
     }
 
     /*

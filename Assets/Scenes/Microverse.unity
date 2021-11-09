@@ -155,7 +155,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: bd2f9362c80499246ad4b63c4870d51f, type: 3}
-  playbackVolume: 0.25
+  playbackVolume: 0.45
   isOmnidirectional: 1
   isLooping: 1
   secondsWaitAfterPlay: 0
@@ -1581,7 +1581,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: bd2f9362c80499246ad4b63c4870d51f, type: 3}
-  playbackVolume: 0.25
+  playbackVolume: 0.45
   isOmnidirectional: 1
   isLooping: 1
   secondsWaitAfterPlay: 0
@@ -2155,6 +2155,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1613925383938874142, guid: 698228512363b45479a9c46b58b5529d, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7963505200687702368, guid: 698228512363b45479a9c46b58b5529d, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7963505201696564048, guid: 698228512363b45479a9c46b58b5529d, type: 3}
@@ -2790,7 +2794,7 @@ MonoBehaviour:
   promptName: An Awesome Prompt
   promptText: 
   audioClip: {fileID: 8300000, guid: bd2f9362c80499246ad4b63c4870d51f, type: 3}
-  playbackVolume: 0.25
+  playbackVolume: 0.45
   isOmnidirectional: 1
   isLooping: 1
   secondsWaitAfterPlay: 0
