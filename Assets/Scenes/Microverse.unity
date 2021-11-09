@@ -356,7 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: 
-  audioClip: {fileID: 8300000, guid: d273ca7b51d436f4eb77cb9155cfd6c8, type: 3}
+  audioClip: {fileID: 8300000, guid: 1f3d7b5083b4af14695f41a94cb04b5c, type: 3}
   playbackVolume: 0.6
   isOmnidirectional: 1
   isLooping: 0
@@ -765,6 +765,7 @@ MonoBehaviour:
   chemTextPrefab: {fileID: 0}
   Name: 
   Formula: 
+  nameTimer: 0
 --- !u!1 &326117044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,7 +1020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: 
-  audioClip: {fileID: 8300000, guid: d273ca7b51d436f4eb77cb9155cfd6c8, type: 3}
+  audioClip: {fileID: 8300000, guid: 1f3d7b5083b4af14695f41a94cb04b5c, type: 3}
   playbackVolume: 0.6
   isOmnidirectional: 1
   isLooping: 0
@@ -2628,7 +2629,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptName: An Awesome Prompt
   promptText: 
-  audioClip: {fileID: 8300000, guid: d273ca7b51d436f4eb77cb9155cfd6c8, type: 3}
+  audioClip: {fileID: 8300000, guid: 1f3d7b5083b4af14695f41a94cb04b5c, type: 3}
   playbackVolume: 0.6
   isOmnidirectional: 1
   isLooping: 0

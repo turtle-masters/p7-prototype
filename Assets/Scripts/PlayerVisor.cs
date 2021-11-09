@@ -18,7 +18,7 @@ public class PlayerVisor : MonoBehaviour
     public Canvas canvas;
     static PlayerVisor()
     {
-        SceneManager.activeSceneChanged += OnActiveSceneChanged;
+        //SceneManager.activeSceneChanged += OnActiveSceneChanged;
     }
 
     private static void OnActiveSceneChanged(Scene oldScene, Scene newScene)
