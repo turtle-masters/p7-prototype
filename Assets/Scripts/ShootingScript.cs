@@ -192,7 +192,7 @@ public class ShootingScript : MonoBehaviour
 
     void SwitchAimLog() {
         GameObject currentAimObject = AimingAt();
-        if(prevAimObject!=currentAimObject) {
+        if(prevAimObject!=currentAimObject && currentAimObject!=null) {
             Logger.Log(Classifier.Microverse.MicroverseAimingAt,currentAimObject);
         }
     }
