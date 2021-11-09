@@ -41,6 +41,10 @@ public class ShootingScript : MonoBehaviour
     private bool grabbed = false;
     private bool previouslyNADplus = true;
 
+    public AudioClip signifiersound;
+
+    public GameObject dummyGun;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -59,7 +63,7 @@ public class ShootingScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!gameObject.GetComponent<Prompt>().IsActive()) return;
+        //StartCoroutine(DelayedCallback(6f));
         isource = gameObject.GetComponent<Interactable>().hoveringHand.handType;
         if (grabbed)
         {
@@ -68,7 +72,7 @@ public class ShootingScript : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.Space) || input.GetStateDown(isource) && isLoaded)
                 {
-                    
+                    GameObject.Find("ExtraSoundPlayer").GetComponent<MicroverseExtraSounds>().playClip(1);
                     GameObject tempProjectile;
                     tempProjectile = Instantiate(projectilePrefab[0], bulletSource.transform.position, bulletSource.transform.rotation);
                     tempProjectile.GetComponent<Rigidbody>().velocity = bulletSource.transform.up * projectileSpeed;
@@ -97,6 +101,7 @@ public class ShootingScript : MonoBehaviour
               //Shoot bullets when space is held, according to fire rate
                 if (Input.GetKey(KeyCode.Space) || input.GetState(isource) && fireRateCounter >= 1 / automaticFireRate)
                 {
+                    GameObject.Find("ExtraSoundPlayer").GetComponent<MicroverseExtraSounds>().playClip(2);
                     fireRateCounter -= 1 / automaticFireRate;
                     //Shoot bullet
                     //float spreadRadius = Mathf.Tan(Mathf.Deg2Rad * spreadAngle/2f);
@@ -193,6 +198,7 @@ public class ShootingScript : MonoBehaviour
                 //Highlight Glucose if enzyme is NAD+, highlight Acetaldehyde if enzyme is NADH
                 if(projectileEnzyme.GetComponent<ChemData>().Name =="NADH" && previouslyNADplus) { //Switched to nadh, acetaldehyde target
                     //Highlight acetaldehyde
+                    GameObject.Find("ExtraSoundPlayer").GetComponent<MicroverseExtraSounds>().playClip(3);
                     Debug.LogError("Highlight acetaldehyde");
                     GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
                     GameObject[] acetArray = GameObject.FindGameObjectsWithTag("Acetaldehyde");
@@ -225,12 +231,16 @@ public class ShootingScript : MonoBehaviour
             }
 
         }
+        
+        
+
         if (!grabbed && input.GetStateDown(isource))
         {
+            gameObject.GetComponentInChildren<Prompt>().Resolve();
+            dummyGun.SetActive(false);
             gameObject.transform.parent = GetComponent<Interactable>().hoveringHand.transform;
             gameObject.transform.localPosition = new Vector3(0f, -0.15f, 0.15f);
-            gameObject.transform.localRotation = Quaternion.Euler(135f,0f,0f);
-            
+            gameObject.transform.localRotation = Quaternion.Euler(135f,0f,0f);            
             grabbed = true;
         }
     }
@@ -245,6 +255,21 @@ public class ShootingScript : MonoBehaviour
         }
         return isStuck;
     }*/
+
+    IEnumerator DelayedCallback(float time)
+    {
+        Debug.Log("playsound");
+        yield return new WaitForSeconds(time);
+        
+        if (!grabbed) playSignifier();
+    }
+    
+
+    void playSignifier()
+    {
+        
+        gameObject.GetComponent<AudioSource>().PlayOneShot(signifiersound, 1f);
+    }
 
     IEnumerator ProjectileReturnTimer() {
         if(returnTimerCoroutineRunning) {

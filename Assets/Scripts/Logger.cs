@@ -282,9 +282,16 @@ public class Logger : MonoBehaviour  // class is almost entirely static
         // ...
     }
 
-    public void Log(Classifier.Player category, GameObject data)
+    public static void Log(Classifier.Player category, string data = "null")
     {
-        // ...
+        Logger.Log(new LogableEvent(
+            "Player",
+            category.ToString(),
+            "null",
+            Level.activeLevel != null ? Level.activeLevel.name : "null",
+            SceneManager.GetActiveScene() != null ? SceneManager.GetActiveScene().name : "null",
+            data.Replace(',', ';')
+        ));
     }
 
     public void Log(Classifier.Player category)
