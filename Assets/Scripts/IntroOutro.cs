@@ -31,7 +31,11 @@ public class IntroOutro : MonoBehaviour
         text.text = "Loading";
         anim = "FOut";
         animator.SetTrigger(anim);
-        if (gamefinish) text.text = "Game Over";
+        if (gamefinish)
+        {
+            text.text = "Game Over";
+            Application.Quit();
+        }
     }
 
     public void fadeOut()
@@ -42,10 +46,13 @@ public class IntroOutro : MonoBehaviour
 
     }
 
-    void finishGame()
+    public void finishGame()
     {
         gamefinish = true;
     }
 
-
+    public void finishGame(Prompt p)
+    {
+        this.finishGame();
+    }
 }

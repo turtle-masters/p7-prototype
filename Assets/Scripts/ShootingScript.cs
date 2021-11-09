@@ -59,6 +59,7 @@ public class ShootingScript : MonoBehaviour
             projectileRb = projectileEnzyme.GetComponent<Rigidbody>();
             projectileEnzyme.SetActive(false);
             previouslyNADplus = projectileEnzyme.GetComponent<ChemData>().Name=="NAD+";
+            Highlighting();
         }
     }
 
@@ -66,6 +67,9 @@ public class ShootingScript : MonoBehaviour
     void FixedUpdate()
     {
         //StartCoroutine(DelayedCallback(6f));
+        Hand localHand = gameObject.GetComponent<Interactable>().hoveringHand;
+        if (localHand == null) return;
+
         isource = gameObject.GetComponent<Interactable>().hoveringHand.handType;
         if (grabbed)
         {

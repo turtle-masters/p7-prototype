@@ -482,6 +482,9 @@ public class Logger : MonoBehaviour  // class is almost entirely static
             SceneManager.GetActiveScene() != null ? SceneManager.GetActiveScene().name : "null",
             "null"
         ));
+
+        List<LogableEvent> logQueueCopy = new List<LogableEvent>(Logger.logQueue);
+        Logger.WriteLogableEventsToFile(logQueueCopy);
     }
 
     // ===== THE LOWER-LEVEL FILE SYSTEM AND NETWORKING OPERATIONS =====

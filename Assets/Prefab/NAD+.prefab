@@ -129,7 +129,7 @@ MonoBehaviour:
   chemTextPrefab: {fileID: 882115378835460211, guid: 7d8dbd38e74fca64380ebb7297f65126, type: 3}
   Name: NAD+
   Formula: NAD+
-  nameTimer: 1.5
+  nameTimer: 0
 --- !u!114 &3110485407398808105
 MonoBehaviour:
   m_ObjectHideFlags: 0
