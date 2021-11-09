@@ -6686,7 +6686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb41d711eada0044db2925dc23b8cbe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doLogging: 0
+  doLogging: 1
   logConsole: 1
   doLoIP: 0
   loggingFrequency: 2
@@ -7366,6 +7366,10 @@ PrefabInstance:
     - target: {fileID: 2075293006585716190, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
       propertyPath: m_Name
       value: HUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 2075293006585716190, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2075293006585716191, guid: 4ee9b412d0b74ac469df687a4d90fb23, type: 3}
       propertyPath: m_Pivot.x
