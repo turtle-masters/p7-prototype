@@ -12,6 +12,7 @@ public class GlucoseScript : MonoBehaviour
         //Energize ADP
         //Instantiate death objects
         //Die
+        Logger.Log(Classifier.Microverse.MicroverseGlucoseHit,gameObject);
         gameObject.GetComponent<AudioSource>().Play();
         if(nearbyADPs.Count>0) {
             nearbyADPs[0].SendMessage("Energize");

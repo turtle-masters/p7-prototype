@@ -22,6 +22,7 @@ public class ReactionScript : MonoBehaviour
         if(data!=null) {
             if(data.Name==triggerName) {
                 if(this.GetComponent<ChemData>().Name=="Acetaldehyde") {
+                    Logger.Log(Classifier.Microverse.MicroverseAcetHit,this.gameObject);
                     MinigameManagerScript.instance.GoalUpdate(this.gameObject);
                 }
                 React();
