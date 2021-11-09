@@ -18,7 +18,6 @@ public class MoleculeHighlightScript : MonoBehaviour
     }*/
 
     public void ToggleHighlight(bool toggleBool) {
-        Debug.LogError("called toggle");
         highlightObject.SetActive(toggleBool);
     }
 }

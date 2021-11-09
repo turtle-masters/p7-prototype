@@ -26,8 +26,6 @@ public class MinigameManagerScript : MonoBehaviour
             instance = this;
         }
         playerGameObject=GameObject.FindGameObjectWithTag("Player");
-        if(playerGameObject==null)
-            Debug.Log("No Player Found");
     }
 
     private void Start() {
@@ -46,7 +44,6 @@ public class MinigameManagerScript : MonoBehaviour
     }
 
     public void GoalUpdate(GameObject updateSourceObject) {
-        Debug.LogWarning("GOAL UPDATED: " + currentLevel + ", " + updateSourceObject.GetComponent<ChemData>().Name);
 
         if(currentLevel==1 && updateSourceObject.GetComponent<ChemData>().Name=="ATP") {
             ChemData[] chemDataArray = FindObjectsOfType<ChemData>();
@@ -84,7 +81,6 @@ public class MinigameManagerScript : MonoBehaviour
     }
 
     public void SetCurrentLevel(int _currentLevel) {
-        Debug.Log("Current Level was set to " + _currentLevel);
         currentLevel = _currentLevel;
         LevelSetup(currentLevel);
     }

@@ -39,7 +39,7 @@ public class ShootingScript : MonoBehaviour
     public SteamVR_Action_Boolean input;
     SteamVR_Input_Sources isource;
     private bool grabbed = false;
-    private bool previouslyNADplus = true;
+    private bool previouslyNADplus = false;
 
     public AudioClip signifiersound;
 
@@ -87,6 +87,11 @@ public class ShootingScript : MonoBehaviour
                     projectileGoalPos = transform.position + transform.up * goalDistance;
                     Logger.Log(Classifier.Microverse.MicroverseGunFired,tempProjectile);
                     
+                }
+                GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
+                for (int i = 0; i < glucoseArray.Length; i++)
+                {
+                    glucoseArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(true);
                 }
             }
             else if (gunMode == 2)
@@ -206,7 +211,6 @@ public class ShootingScript : MonoBehaviour
         if(projectileEnzyme.GetComponent<ChemData>().Name =="NADH" && previouslyNADplus) { //Switched to nadh, acetaldehyde target
             //Highlight acetaldehyde
             GameObject.Find("ExtraSoundPlayer").GetComponent<MicroverseExtraSounds>().playClip(3);
-            Debug.LogError("Highlight acetaldehyde");
             GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
             GameObject[] acetArray = GameObject.FindGameObjectsWithTag("Acetaldehyde");
             previouslyNADplus=false;
@@ -220,7 +224,6 @@ public class ShootingScript : MonoBehaviour
             }
         } else if(projectileEnzyme.GetComponent<ChemData>().Name == "NAD+" && !previouslyNADplus) { //Switched to nad+
             //Highlight glucose
-            Debug.LogError("Highlight glucose");
             GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
             GameObject[] acetArray = GameObject.FindGameObjectsWithTag("Acetaldehyde");
             previouslyNADplus=true;
@@ -238,7 +241,6 @@ public class ShootingScript : MonoBehaviour
 
     IEnumerator DelayedCallback(float time)
     {
-        Debug.Log("playsound");
         yield return new WaitForSeconds(time);
         
         if (!grabbed) playSignifier();
