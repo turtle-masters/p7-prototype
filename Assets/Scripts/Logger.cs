@@ -79,6 +79,17 @@ public static class Classifier
         Started,
         Completed,
     }
+
+    public enum Microverse  // the things that happen in the Microverse specifically...
+    {
+        MicroverseGunPickup,
+        MicroverseGunFired,
+        MicroverseGlucoseHit,
+        MicroverseSnakeSpawn,
+        MicroverseSnakeHit,
+        MicroverseAcetHit,
+        MicroverseAimingAt,
+    }
 }
 
 public class LogableEvent
@@ -345,6 +356,42 @@ public class Logger : MonoBehaviour  // class is almost entirely static
             "null",
             levelInitialized && level.gameObject.scene != null ? level.gameObject.scene.name : "null",
             "null"
+        ));
+    }
+
+    public static void Log(Classifier.Microverse category, GameObject source)
+    {
+        string dataString = "null";
+        switch (category)
+        {
+            case Classifier.Microverse.MicroverseAcetHit:
+            case Classifier.Microverse.MicroverseGlucoseHit:
+            case Classifier.Microverse.MicroverseSnakeHit:
+            case Classifier.Microverse.MicroverseSnakeSpawn:
+            case Classifier.Microverse.MicroverseAimingAt:
+                dataString = source.transform.position.ToString();
+                break;
+        }
+
+        Logger.Log(new LogableEvent(
+            "Microverse",
+            category.ToString(),
+            "null",
+            Level.activeLevel != null ? Level.activeLevel.name : "null",
+            SceneManager.GetActiveScene() != null ? SceneManager.GetActiveScene().name : "null",
+            dataString.Replace(',', ';')
+        ));
+    }
+
+    public static void Log(Classifier.Microverse category, Vector3 source)
+    {
+        Logger.Log(new LogableEvent(
+            "Microverse",
+            category.ToString(),
+            "null",
+            Level.activeLevel != null ? Level.activeLevel.name : "null",
+            SceneManager.GetActiveScene() != null ? SceneManager.GetActiveScene().name : "null",
+            source.ToString().Replace(',', ';')
         ));
     }
 
