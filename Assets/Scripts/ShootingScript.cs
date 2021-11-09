@@ -58,7 +58,7 @@ public class ShootingScript : MonoBehaviour
             //projectile.transform.SetParent(bulletSource.transform);
             projectileRb = projectileEnzyme.GetComponent<Rigidbody>();
             projectileEnzyme.SetActive(false);
-            previouslyNADplus = projectileEnzyme.GetComponent<ChemData>().name=="NAD+";
+            previouslyNADplus = projectileEnzyme.GetComponent<ChemData>().Name=="NAD+";
         }
     }
 
