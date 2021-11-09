@@ -16,7 +16,7 @@ public class MinigameManagerScript : MonoBehaviour
     public GameObject[] levelPrefabArray = new GameObject[maxLevelNumber];
 
     public static int[] goalCounter = new int[maxLevelNumber];
-    public static int[] goalMax = {5,5,5};
+    public static int[] goalMax = {8,40,8};
     public static int[] levelGunMode = {1,2,4};
  
     private void Awake() {
