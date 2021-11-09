@@ -65,7 +65,7 @@ public class Prompt : MonoBehaviour
 
         /*if (this.promptText == "")
             this.promptText = this.promptName;*/
-        PlayerVisor.AddMyText(this);
+        //PlayerVisor.AddMyText(this);
     }
 
     public override string ToString()
