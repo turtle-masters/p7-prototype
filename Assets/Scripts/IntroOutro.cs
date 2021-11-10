@@ -36,7 +36,7 @@ public class IntroOutro : MonoBehaviour
             text.text = "You take a sip of the beer and you are satisfied with the results";
             IEnumerator DelayedCallback()
             {
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(5);
                 Application.Quit();
             }
             StartCoroutine(DelayedCallback());
