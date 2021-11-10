@@ -45,26 +45,26 @@ public class FriendlyInteractable : Interactable
 
     public void DebugEnterHover()
     {
-        Debug.Log("DebugEnterHover");
+        //Debug.Log("DebugEnterHover");
         this.OnHandHoverBegin(new Hand());
     }
 
     public void DebugExitHover()
     {
-        Debug.Log("DebugExitHover");
+        //Debug.Log("DebugExitHover");
         this.OnHandHoverEnd(new Hand());
     }
 
     public void DebugGrab()
     {
-        Debug.Log("DebugGrab");
+        //Debug.Log("DebugGrab");
         if (this.parentTask.IsActive()) 
             this.parentTask.Grab(new Hand(), true);
     }
 
     public void DebugDrop()
     {
-        Debug.Log("DebugDrop");
+        //Debug.Log("DebugDrop");
         this.parentTask.Drop(new Hand(), true);
     }
 
@@ -79,7 +79,7 @@ public class FriendlyInteractable : Interactable
         if (!this.parentTask.IsActive()) return;
         if (hand != null) hand.ShowGrabHint();
 
-        Debug.Log(this.gameObject.name + "->OnHandHoverBegin");
+        //Debug.Log(this.gameObject.name + "->OnHandHoverBegin");
 
         this.isActuallyHovering = true;
         this.parentTask.EnterHover(hand);
@@ -94,7 +94,7 @@ public class FriendlyInteractable : Interactable
     {
         if (!this.parentTask.IsActive()) return;
 
-        Debug.Log(this.gameObject.name + "->OnHandHoverEnd");
+        //Debug.Log(this.gameObject.name + "->OnHandHoverEnd");
 
         this.isActuallyHovering = false;
         this.parentTask.ExitHover(hand);
@@ -109,7 +109,7 @@ public class FriendlyInteractable : Interactable
     {
         if (!this.parentTask.IsActive()) return;
 
-        Debug.Log(this.gameObject.name + "->OnAttachedToHand");
+        //Debug.Log(this.gameObject.name + "->OnAttachedToHand");
 
         this.parentTask.Grab(hand);
         this.ChangeMaterial(this.grabMaterial);
@@ -122,7 +122,7 @@ public class FriendlyInteractable : Interactable
     {
         if (!this.parentTask.IsActive()) return;
 
-        Debug.Log(this.gameObject.name + "->OnDetachedFromHand");
+        //Debug.Log(this.gameObject.name + "->OnDetachedFromHand");
 
         this.parentTask.Drop(hand);
         this.ChangeMaterial(this.highlightMaterial);

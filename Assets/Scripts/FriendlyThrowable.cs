@@ -30,7 +30,7 @@ public class FriendlyThrowable : Throwable
 
     protected override void HandHoverUpdate(Hand hand)
     {
-        Debug.Log(this.gameObject.name + "->HandHoverUpdate->" + hand.name);
+        //Debug.Log(this.gameObject.name + "->HandHoverUpdate->" + hand.name);
 
         GrabTypes gt = hand.GetGrabStarting();
 
@@ -51,7 +51,7 @@ public class FriendlyThrowable : Throwable
 
     protected void OnDetachedFromHand()
     {
-        Debug.Log(this.gameObject.name + "->OnDetachedFromHand");
+        //Debug.Log(this.gameObject.name + "->OnDetachedFromHand");
 
         if (this.parentTask != null && this.parentTask.target != null)
         {
@@ -63,7 +63,7 @@ public class FriendlyThrowable : Throwable
 
     protected override void HandAttachedUpdate(Hand hand)
     {
-        Debug.Log(this.gameObject.name + "->HandAttachedUpdate" + hand.name);
+        //Debug.Log(this.gameObject.name + "->HandAttachedUpdate" + hand.name);
         //base.HandAttachedUpdate(hand);
 
         if (this.onHeldUpdate != null)
