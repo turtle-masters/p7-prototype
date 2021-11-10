@@ -33,8 +33,13 @@ public class IntroOutro : MonoBehaviour
         animator.SetTrigger(anim);
         if (gamefinish)
         {
-            text.text = "Game Over";
-            Application.Quit();
+            text.text = "You take a sip of the beer and you are satisfied with the results";
+            IEnumerator DelayedCallback()
+            {
+                yield return new WaitForSeconds(3);
+                Application.Quit();
+            }
+            StartCoroutine(DelayedCallback());
         }
     }
 

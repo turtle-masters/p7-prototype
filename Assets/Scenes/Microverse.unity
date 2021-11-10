@@ -2635,8 +2635,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: b9705e1232b057743a849aeb28f0c59d, type: 3}
   - {fileID: 8300000, guid: ae7442df5c22a3b46958a7582adb6e40, type: 3}
-  - {fileID: 8300000, guid: 9dd08d9dd7b87bd41a170ed32cc8aa5b, type: 3}
-  - {fileID: 8300000, guid: fad33b9fd91648f4d88404098cf334e9, type: 3}
+  - {fileID: 8300000, guid: 4ef3ff9f7c228f64bb7b53dcf3b07468, type: 3}
   bools: 000000
 --- !u!4 &1620998134
 Transform:
