@@ -37,8 +37,11 @@ public class ShootingScript : MonoBehaviour
     public float firingTightness = 1f;
 
     public SteamVR_Action_Boolean input;
+    public SteamVR_Action_Boolean input2;
     SteamVR_Input_Sources isource;
     private bool grabbed = false;
+    public bool grabbable = false;
+
     private bool previouslyNADplus = false;
 
     public AudioClip signifiersound;
@@ -50,6 +53,8 @@ public class ShootingScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        dummyGun.SetActive(false);
+
         if(gunMode==1) {
             GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
             for(int i=0;i<glucoseArray.Length;i++)
@@ -216,7 +221,7 @@ public class ShootingScript : MonoBehaviour
             SwitchAimLog();
         }
 
-        if (!grabbed && input.GetStateDown(isource))
+        if (!grabbed && grabbable && input.GetStateDown(isource) || !grabbed && grabbable && input2.GetStateDown(isource))
         {
             gameObject.GetComponentInChildren<Prompt>().Resolve();
             dummyGun.SetActive(false);
@@ -226,6 +231,7 @@ public class ShootingScript : MonoBehaviour
             grabbed = true;
             Logger.Log(Classifier.Microverse.MicroverseGunPickup,this.gameObject);
         }
+        
     }
 
     GameObject AimingAt() {
@@ -285,6 +291,11 @@ public class ShootingScript : MonoBehaviour
         if (!grabbed) playSignifier();
     }
     
+    public void makeGrabbable(Prompt prompt)
+    {
+        grabbable = true;
+        dummyGun.SetActive(true);
+    }
 
     void playSignifier()
     {
@@ -337,6 +348,7 @@ public class ShootingScript : MonoBehaviour
         transform.parent = null;
         transform.position = new Vector3(0, 1, 0);
         grabbed = false;
+        grabbable = false;
         Destroy(gameObject);
     }
 }

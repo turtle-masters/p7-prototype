@@ -174,18 +174,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 163088323}
-        m_TargetAssemblyTypeName: Prompt, GameAssembly
-        m_MethodName: Activate
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 574246683}
         m_TargetAssemblyTypeName: Prompt, GameAssembly
         m_MethodName: Activate
@@ -1116,7 +1104,31 @@ MonoBehaviour:
       m_Calls: []
   OnResolve:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1329981509}
+        m_TargetAssemblyTypeName: ShootingScript, GameAssembly
+        m_MethodName: makeGrabbable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 163088323}
+        m_TargetAssemblyTypeName: Prompt, GameAssembly
+        m_MethodName: Activate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &574246684
 Transform:
   m_ObjectHideFlags: 0
@@ -1299,6 +1311,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayText: {fileID: 666407427}
   displayGoals: 1
+--- !u!114 &666407431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7963505201696564048, guid: 698228512363b45479a9c46b58b5529d, type: 3}
+  m_PrefabInstance: {fileID: 666407425}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666407428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a6508da98e3964d80ef62bba7a4ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &739592915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,18 +1612,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 116987062}
-        m_TargetAssemblyTypeName: Prompt, GameAssembly
-        m_MethodName: Activate
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Prompt, GameAssembly
         m_MethodName: Activate
         m_Mode: 0
@@ -2231,6 +2242,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 698228512363b45479a9c46b58b5529d, type: 3}
+--- !u!114 &1329981509 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7963505201696564048, guid: 698228512363b45479a9c46b58b5529d, type: 3}
+  m_PrefabInstance: {fileID: 1329981508}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152760845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a6508da98e3964d80ef62bba7a4ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1386783202
 GameObject:
   m_ObjectHideFlags: 0
@@ -2449,6 +2471,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayText: {fileID: 1410109387}
   displayGoals: 1
+--- !u!114 &1410109391 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7963505201696564048, guid: 698228512363b45479a9c46b58b5529d, type: 3}
+  m_PrefabInstance: {fileID: 1410109385}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410109388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a6508da98e3964d80ef62bba7a4ca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1600072716
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,7 +2523,31 @@ MonoBehaviour:
       m_Calls: []
   OnResolve:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1410109391}
+        m_TargetAssemblyTypeName: ShootingScript, GameAssembly
+        m_MethodName: makeGrabbable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 497571303}
+        m_TargetAssemblyTypeName: Prompt, GameAssembly
+        m_MethodName: Activate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1600072718
 Transform:
   m_ObjectHideFlags: 0
@@ -2813,18 +2870,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Prompt, GameAssembly
-        m_MethodName: Activate
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1600072717}
         m_TargetAssemblyTypeName: Prompt, GameAssembly
         m_MethodName: Activate
@@ -2895,7 +2940,31 @@ MonoBehaviour:
       m_Calls: []
   OnResolve:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 666407431}
+        m_TargetAssemblyTypeName: ShootingScript, GameAssembly
+        m_MethodName: makeGrabbable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1130849213}
+        m_TargetAssemblyTypeName: Prompt, GameAssembly
+        m_MethodName: Activate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1631172856
 Transform:
   m_ObjectHideFlags: 0

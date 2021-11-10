@@ -384,7 +384,10 @@ MonoBehaviour:
   automaticFireRate: 10
   firingTightness: 0.5
   input:
-    actionPath: 
+    actionPath: /actions/default/in/GrabPinch
+    needsReinit: 0
+  input2:
+    actionPath: /actions/default/in/GrabGrip
     needsReinit: 0
   signifiersound: {fileID: 8300000, guid: ede8592093849e94d9162e7c12bfe83f, type: 3}
   dummyGun: {fileID: 1613925383938874142}
