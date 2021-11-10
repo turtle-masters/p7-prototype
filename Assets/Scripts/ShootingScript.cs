@@ -50,6 +50,13 @@ public class ShootingScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        if(gunMode==1) {
+            GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
+            for(int i=0;i<glucoseArray.Length;i++)
+            {
+                glucoseArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(true);
+            }
+        }
         
         if(gunMode==4)
         { 
@@ -58,8 +65,9 @@ public class ShootingScript : MonoBehaviour
             //projectile.transform.SetParent(bulletSource.transform);
             projectileRb = projectileEnzyme.GetComponent<Rigidbody>();
             projectileEnzyme.SetActive(false);
-            previouslyNADplus = projectileEnzyme.GetComponent<ChemData>().Name=="NAD+";
-            Highlighting();
+            previouslyNADplus=false;
+            //previouslyNADplus = projectileEnzyme.GetComponent<ChemData>().Name=="NAD+";
+            //Highlighting();
         }
     }
 
@@ -171,7 +179,38 @@ public class ShootingScript : MonoBehaviour
                     }
                 }
 
-                Highlighting();
+                //Highlight Glucose if enzyme is NAD+, highlight Acetaldehyde if enzyme is NADH
+                if(projectileEnzyme.GetComponent<ChemData>().Name =="NADH" && previouslyNADplus) { //Switched to nadh, acetaldehyde target
+                    //Highlight acetaldehyde
+                    GameObject.Find("ExtraSoundPlayer").GetComponent<MicroverseExtraSounds>().playClip(3);
+                    GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
+                    GameObject[] acetArray = GameObject.FindGameObjectsWithTag("Acetaldehyde");
+                    previouslyNADplus=false;
+                    for(int i=0;i<glucoseArray.Length;i++)
+                    {
+                        glucoseArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(false);
+                    }
+                    for(int i=0;i<acetArray.Length;i++)
+                    {
+                        acetArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(true);
+                    }
+                } else if(projectileEnzyme.GetComponent<ChemData>().Name == "NAD+" && !previouslyNADplus) { //Switched to nad+
+                    //Highlight glucose
+                    GameObject[] glucoseArray = GameObject.FindGameObjectsWithTag("Glucose");
+                    GameObject[] acetArray = GameObject.FindGameObjectsWithTag("Acetaldehyde");
+                    previouslyNADplus=true;
+                    for(int i=0;i<glucoseArray.Length;i++)
+                    {
+                        glucoseArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(true);
+                    }
+                    for(int i=0;i<acetArray.Length;i++)
+                    {
+                        acetArray[i].GetComponent<MoleculeHighlightScript>().ToggleHighlight(false);
+                    }
+                    
+                }
+
+                //Highlighting();
 
             }
             SwitchAimLog();
