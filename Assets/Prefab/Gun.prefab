@@ -351,10 +351,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 0.48
+  m_Height: 2.3378034
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.000000059604645, y: -0.16890168, z: 0.22}
 --- !u!114 &7963505201696564048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +389,7 @@ MonoBehaviour:
   input2:
     actionPath: /actions/default/in/GrabGrip
     needsReinit: 0
+  grabbable: 0
   signifiersound: {fileID: 8300000, guid: ede8592093849e94d9162e7c12bfe83f, type: 3}
   dummyGun: {fileID: 1613925383938874142}
 --- !u!33 &4718441376752617286
