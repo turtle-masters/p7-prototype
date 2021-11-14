@@ -60,8 +60,9 @@ public class MinigameManagerScript : MonoBehaviour
         }
 
         if(goalCounter[currentLevel-1] == goalMax[currentLevel-1]) {
-            GameObject.Find("TransitionManager").GetComponent<IntroOutro>().fadeOut();
-            Invoke("completeGame", 2f);
+            gameObject.GetComponent<AudioSource>().Play();
+            GameObject.Find("TransitionManager").GetComponent<IntroOutro>().fadeOut(1.5f);
+            Invoke("completeGame", 3.5f);
         }
     }
 

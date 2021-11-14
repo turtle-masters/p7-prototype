@@ -43,12 +43,17 @@ public class IntroOutro : MonoBehaviour
         }
     }
 
-    public void fadeOut()
+    public void fadeOut(float delay)
     {
         text.text = "Day " + (GameObject.Find("MinigameManager").GetComponent<MinigameManagerScript>().currentLevel + 1);
         anim = "FOut";
-        animator.SetTrigger(anim);
+        Invoke("playFadoOut",delay);
 
+    }
+
+    void playFadoOut()
+    {
+        animator.SetTrigger(anim);
     }
 
     public void finishGame()
