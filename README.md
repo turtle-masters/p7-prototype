@@ -1,5 +1,5 @@
-# p7-prototype
-*The following is a guide on how to set up our prototype. If you have any questions regarding anything in this document, please reach out to us as soon as possible!*
+# Umqombothi
+*The following is a guide on how to set up our prototype game "Umqombothi". If you have any questions regarding anything in this document, please reach out to us as soon as possible!*
 
 ## Prerequisites
 
