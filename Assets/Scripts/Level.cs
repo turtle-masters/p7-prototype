@@ -23,9 +23,11 @@ public class Level : MonoBehaviour
     private static bool playerInitiated = false;
     private static List<int> culledScenes = new List<int>();
 
+    private Level[] levelsInScene;
+
     static Level()
     {
-        SceneManager.activeSceneChanged += OnActiveSceneChanged;
+        //SceneManager.activeSceneChanged += OnActiveSceneChanged;
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneUnloaded += OnSceneUnloaded;
 
@@ -46,7 +48,41 @@ public class Level : MonoBehaviour
 
     private void Start()
     {
-        // ...
+        // find all Level components in the Scene
+        levelsInScene = new Level[4];
+        IEnumerator ie = SceneManager.GetActiveScene().GetRootGameObjects().GetEnumerator();
+        ie.Reset();
+        while (ie.MoveNext())
+        {
+            GameObject currentObject = (GameObject)ie.Current;
+            if (currentObject != null && currentObject.GetComponent<Level>())
+                //levelsInScene.Add(currentObject.GetComponent<Level>());
+                switch (currentObject.name)
+                {
+                    case "Level1":
+                        levelsInScene[0] = currentObject.GetComponent<Level>();
+                        if (currentObject.activeSelf) Level.activeLevel = levelsInScene[0];
+                        break;
+                    case "Level2":
+                        levelsInScene[1] = currentObject.GetComponent<Level>();
+                        if (currentObject.activeSelf) Level.activeLevel = levelsInScene[1];
+                        break;
+                    case "Level3":
+                        levelsInScene[2] = currentObject.GetComponent<Level>();
+                        if (currentObject.activeSelf) Level.activeLevel = levelsInScene[2];
+                        break;
+                    case "Level4":
+                        levelsInScene[3] = currentObject.GetComponent<Level>();
+                        if (currentObject.activeSelf) Level.activeLevel = levelsInScene[3];
+                        break;
+                }
+        }
+        Debug.Log(Level.activeLevel.gameObject.name);
+    }
+
+    private void Update()
+    {
+        UpdateActiveScene();
     }
 
     private static void CullPlayerObjects()
@@ -95,69 +131,29 @@ public class Level : MonoBehaviour
         playerInitiated = true;
     }
 
-    private static void OnActiveSceneChanged(Scene oldScene, Scene newScene)
-    {
-        Logger.Log(Classifier.Level.Unloaded, Level.activeLevel);
-        Level.CullPlayerObjects();
-
-        // find all Level components in the Scene
-        Level[] levelsInScene = new Level[4];
-        IEnumerator ie = newScene.GetRootGameObjects().GetEnumerator();
-        ie.Reset();
-        while (ie.MoveNext())
-        {
-            GameObject currentObject = (GameObject) ie.Current;
-            if (currentObject != null && currentObject.GetComponent<Level>())
-                //levelsInScene.Add(currentObject.GetComponent<Level>());
-                switch(currentObject.name)
-                {
-                    case "Level1":
-                        levelsInScene[0] = currentObject.GetComponent<Level>();
-                        break;
-                    case "Level2":
-                        levelsInScene[1] = currentObject.GetComponent<Level>();
-                        break;
-                    case "Level3":
-                        levelsInScene[2] = currentObject.GetComponent<Level>();
-                        break;
-                    case "Level4":
-                        levelsInScene[3] = currentObject.GetComponent<Level>();
-                        break;
-                }
+    private void UpdateActiveScene()
+    {   
+        if (Input.GetKeyDown("1") && !Level.activeLevel.Equals(this.levelsInScene[0])) {
+            this.SetVisibilityOfAllChildren(false);
+            Level.activeLevel = this.levelsInScene[0];
+            Level.activeLevel.SetVisibilityOfAllChildren(true);
         }
-        
-        // use totalSceneLoads to figure out what level to load
-        switch (Level.totalSceneChanges)
-        {
-            case 0:
-            case 1:
-            case 2:
-                Level.activeLevel = levelsInScene[0];
-                break;
-            case 3:
-            case 4:
-                Level.activeLevel = levelsInScene[1];
-                break;
-            case 5:
-            case 6:
-                Level.activeLevel = levelsInScene[2];
-                break;
-            case 7:
-                Level.activeLevel = levelsInScene[3];
-                break;
-            default:  // case 8
-                Level.activeLevel = levelsInScene[1];
-                break;
+        else if (Input.GetKeyDown("2") && !Level.activeLevel.Equals(this.levelsInScene[1])) {
+            this.SetVisibilityOfAllChildren(false);
+            Level.activeLevel = this.levelsInScene[1];
+            Level.activeLevel.SetVisibilityOfAllChildren(true);
         }
-        Logger.Log(Classifier.Level.Loaded, Level.activeLevel);
-
-        Debug.Log("Active Level is now " + Level.activeLevel.name + " in Scene " + SceneManager.GetActiveScene().name);
-        //Debug.Log(Level.totalSceneChanges);
-
-        //Level.LoadNextLevel(Level.GetNextSceneName());
-        Level.activeLevel.Activate();
-        //if (SceneManager.GetActiveScene().buildIndex == 0 || Level.totalSceneChanges > 0) 
-            Level.totalSceneChanges++;
+        else if (Input.GetKeyDown("3") && !Level.activeLevel.Equals(this.levelsInScene[2])) {
+            this.SetVisibilityOfAllChildren(false);
+            Level.activeLevel = this.levelsInScene[2];
+            Level.activeLevel.SetVisibilityOfAllChildren(true);
+        }
+        else if (Input.GetKeyDown("4") && !Level.activeLevel.Equals(this.levelsInScene[3]))
+        {
+            this.SetVisibilityOfAllChildren(false);
+            Level.activeLevel = this.levelsInScene[3];
+            Level.activeLevel.SetVisibilityOfAllChildren(true);
+        }
     }
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
