@@ -248,11 +248,11 @@ public class Level : MonoBehaviour
      */
     public void SetVisibilityOfAllChildren(bool isVisible)
     {
-        //Debug.Log(this.name + "->SetVisibilityOfAllChildren->" + isVisible);
+        /*//Debug.Log(this.name + "->SetVisibilityOfAllChildren->" + isVisible);
 
         this.isActive = isVisible;
 
-        this.SetVisibilityRecursively(this.gameObject, isVisible);
+        this.SetVisibilityRecursively(this.gameObject, isVisible);*/
     }
 
     /*
