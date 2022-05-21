@@ -4,25 +4,25 @@
 
 Watch the [video](https://youtu.be/aGKtCIhe5OU)!
 
-In this paper, we describe an interactive embodied learning-
-based simulation in Virtual Reality that was designed to dis-
-seminate the Intangible Cultural Heritage behind “Umqom-
-bothi”, a traditional South African beer, through teaching the
+In this paper, we describe an interactive embodied learningbased
+simulation in Virtual Reality that was designed to disseminate
+the Intangible Cultural Heritage behind “Umqombothi”,
+a traditional South African beer, through teaching the
 beer-making and chemistry behind it. The simulation was
 designed in collaboration with South African researchers
-from the University of Johannesburg. The simulation in-
-cludes an authentic beer-making environment based on a
-South African township and an abstract chemistry environ-
-ment called the “microverse”. The simulation had a built in
+from the University of Johannesburg. The simulation includes
+an authentic beer-making environment based on a
+South African township and an abstract chemistry environment
+called the “microverse”. The simulation had a built in
 logging system for triangulation of data, and was evaluated
 in an explorative manner using grounded theory methods
-for analysing the participant data. The paper serves to pro-
-pose a model for a VR simulation for safeguarding ICH. The
+for analysing the participant data. The paper serves to propose
+a model for a VR simulation for safeguarding ICH. The
 simulation proved insufficient for teaching the processes in
 detail. Because of this, we present suggestions to improve
 the simulation which are based on the data: improving the
-balance between visual and audio aids, explaining the chem-
-istry more thoroughly and using more animated elements,
+balance between visual and audio aids, explaining the chemistry
+more thoroughly and using more animated elements,
 all of which are grounded in our data.
 
 # Guide
